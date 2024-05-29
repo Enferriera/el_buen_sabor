@@ -10,6 +10,7 @@ import com.example.buensaborback.domain.entities.Categoria;
 import com.example.buensaborback.domain.entities.Domicilio;
 import com.example.buensaborback.domain.entities.Sucursal;
 import com.example.buensaborback.repositories.CategoriaRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,6 +42,7 @@ public class CategoriaServiceImp extends BaseServiceImp<Categoria,Long> implemen
 
 
     @Override
+    @Transactional
     public Categoria create(Categoria categoria) {
         Set<Sucursal> sucursales = new HashSet<>();
 
@@ -94,6 +96,7 @@ public class CategoriaServiceImp extends BaseServiceImp<Categoria,Long> implemen
     }
 
     @Override
+    @Transactional
     public Categoria update(Categoria newCategoria, Long id) {
         Categoria categoriaExistente = categoriaRepository.getById(id);
 

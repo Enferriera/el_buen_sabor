@@ -18,7 +18,7 @@ public class Empresa extends Base{
     private String nombre;
     private String razonSocial;
     @Column(unique = true)
-    private Long cuil;
+    private Long cuit;
     private String logo;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "empresa")
