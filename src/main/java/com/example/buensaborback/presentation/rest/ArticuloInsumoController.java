@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/articulosInsumos")
 @CrossOrigin("*")
@@ -21,15 +23,15 @@ public class ArticuloInsumoController extends BaseControllerImp<ArticuloInsumo, 
         super(facade);
     }
 
-    @GetMapping("/paged/insumosParaElaborar")
-    public ResponseEntity<Page<ArticuloInsumoDto>> findByEsParaElaborarTrue(Pageable pageable) {
+    @GetMapping("/buscar/elaborados")
+    public ResponseEntity<List<ArticuloInsumoDto>> findByEsParaElaborarTrue() {
         //logger.info("INICIO GET ALL insumos PARA ELABORAR");
-        return ResponseEntity.ok(facade.findByEsParaElaborarTrue(pageable));
+        return ResponseEntity.ok(facade.findByEsParaElaborarTrue());
     }
 
-    @GetMapping("/paged/insumosDirectos")
-    public ResponseEntity<Page<ArticuloInsumoDto>> findByEsParaElaborarFalse(Pageable pageable) {
+    @GetMapping("/buscar/noElaborados")
+    public ResponseEntity<List<ArticuloInsumoDto>> findByEsParaElaborarFalse() {
         //logger.info("INICIO GET ALL insumos (gaseosas)");
-        return ResponseEntity.ok(facade.findByEsParaElaborarFalse(pageable));
+        return ResponseEntity.ok(facade.findByEsParaElaborarFalse());
     }
 }

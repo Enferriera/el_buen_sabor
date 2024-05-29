@@ -30,26 +30,26 @@ public class ArticuloInsumoFacadeImp extends BaseFacadeImp<ArticuloInsumo, Artic
         super(baseService, baseMapper);
     }
 
-    public Page<ArticuloInsumoDto> findByEsParaElaborarTrue(Pageable pageable) {
+    public List<ArticuloInsumoDto> findByEsParaElaborarTrue() {
         // Trae una página de entidades
-        Page<ArticuloInsumo> entities = articuloInsumoService.findByEsParaElaborarTrue(pageable);
+        List<ArticuloInsumo> entities = articuloInsumoService.findByEsParaElaborarTrue();
         // Mapea las entidades a DTOs
-        List<ArticuloInsumoDto> dtos = entities.getContent().stream()
+        List<ArticuloInsumoDto> dtos = entities.stream()
                 .map(articuloInsumoMapper::toDTO)
                 .collect(Collectors.toList());
         // Devuelve una página de DTOs
-        return new PageImpl<>(dtos, pageable, entities.getTotalElements());
+        return dtos;
     }
 
-    public Page<ArticuloInsumoDto> findByEsParaElaborarFalse(Pageable pageable) {
+    public List<ArticuloInsumoDto> findByEsParaElaborarFalse() {
         // Trae una página de entidades
-        Page<ArticuloInsumo> entities = articuloInsumoService.findByEsParaElaborarFalse(pageable);
+        List<ArticuloInsumo> entities = articuloInsumoService.findByEsParaElaborarFalse();
         // Mapea las entidades a DTOs
-        List<ArticuloInsumoDto> dtos = entities.getContent().stream()
+        List<ArticuloInsumoDto> dtos = entities.stream()
                 .map(articuloInsumoMapper::toDTO)
                 .collect(Collectors.toList());
         // Devuelve una página de DTOs
-        return new PageImpl<>(dtos, pageable, entities.getTotalElements());
+        return dtos;
     }
 
 }

@@ -182,7 +182,7 @@ public class BuenSaborBackApplication {
 			Categoria categoriaPizzas = Categoria.builder().denominacion("Pizzas").
 					build();
 
-			Categoria categoriaInsumos = Categoria.builder().denominacion("Insumos").
+			Categoria categoriaInsumos = Categoria.builder().denominacion("Insumos").esInsumo(true).
 					build();
 
 			// Grabo la categoría de insumos y de Manufacturados

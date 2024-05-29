@@ -129,12 +129,12 @@ public class ArticuloImsumoServiceImp extends BaseServiceImp<ArticuloInsumo,Long
     }
 
     @Override
-    public Page<ArticuloInsumo> findByEsParaElaborarTrue(Pageable pageable) {
-        return articuloInsumoRepository.findByEsParaElaborarTrue(pageable);
+    public List<ArticuloInsumo> findByEsParaElaborarTrue() {
+        return articuloInsumoRepository.findByEsParaElaborarTrue();
     }
 
     @Override
-    public Page<ArticuloInsumo> findByEsParaElaborarFalse(Pageable pageable) {
-        return articuloInsumoRepository.findByEsParaElaborarFalse(pageable);
+    public List<ArticuloInsumo> findByEsParaElaborarFalse() {
+        return articuloInsumoRepository.findByEsParaElaborarFalse();
     }
 }

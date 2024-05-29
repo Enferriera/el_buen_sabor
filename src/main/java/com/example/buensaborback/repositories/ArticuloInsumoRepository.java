@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface ArticuloInsumoRepository extends BaseRepository<ArticuloInsumo,Long> {
-    Page<ArticuloInsumo> findByEsParaElaborarTrue(Pageable pageable);
-    Page<ArticuloInsumo> findByEsParaElaborarFalse(Pageable pageable);
+    List<ArticuloInsumo> findByEsParaElaborarTrue();
+    List<ArticuloInsumo> findByEsParaElaborarFalse();
 }

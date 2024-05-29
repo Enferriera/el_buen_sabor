@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface ArticuloInsumoService extends BaseService<ArticuloInsumo,Long> {
-    Page<ArticuloInsumo> findByEsParaElaborarTrue(Pageable pageable);
+    List<ArticuloInsumo> findByEsParaElaborarTrue();
 
-    Page<ArticuloInsumo> findByEsParaElaborarFalse(Pageable pageable);
+    List<ArticuloInsumo> findByEsParaElaborarFalse();
 }
