@@ -37,9 +37,13 @@ public class SucursalController extends BaseControllerImp<Sucursal, SucursalDto,
         return ResponseEntity.ok().body(facade.updateSucursal(id, dto));
     }
 
-    @GetMapping("/{id}/categorias")
+    @GetMapping("/categorias/{id}")
     public List<CategoriaGetDto> getCategoriasBySucursalId(@PathVariable Long id) {
         return facade.findCategoriasBySucursalId(id);
     }
 
+    @GetMapping("/esCasaMatriz/{id}")
+    public ResponseEntity<Boolean> esCasaMatriz(@PathVariable Long id) {
+        return ResponseEntity.ok().body(facade.existsSucursalByEsCasaMatriz(id));
+    }
 }

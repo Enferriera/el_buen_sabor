@@ -26,12 +26,12 @@ public class ArticuloInsumoController extends BaseControllerImp<ArticuloInsumo, 
     @GetMapping("/buscar/elaborados")
     public ResponseEntity<List<ArticuloInsumoDto>> findByEsParaElaborarTrue() {
         //logger.info("INICIO GET ALL insumos PARA ELABORAR");
-        return ResponseEntity.ok(facade.findByEsParaElaborarTrue());
+        return ResponseEntity.ok().body(facade.findByEsParaElaborarTrue());
     }
 
     @GetMapping("/buscar/noElaborados")
     public ResponseEntity<List<ArticuloInsumoDto>> findByEsParaElaborarFalse() {
         //logger.info("INICIO GET ALL insumos (gaseosas)");
-        return ResponseEntity.ok(facade.findByEsParaElaborarFalse());
+        return ResponseEntity.ok().body(facade.findByEsParaElaborarFalse());
     }
 }

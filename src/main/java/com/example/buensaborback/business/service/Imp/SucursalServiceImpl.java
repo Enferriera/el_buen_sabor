@@ -49,6 +49,7 @@ public class SucursalServiceImpl extends BaseServiceImp<Sucursal,Long> implement
     }
 
     @Override
+    @Transactional
     public Sucursal actualizarSucursal(Long id,Sucursal sucursal) {
         var sucursalActualizar = sucursalRepository.findById(sucursal.getId());
         if(sucursalActualizar.isEmpty()){
@@ -103,4 +104,8 @@ public class SucursalServiceImpl extends BaseServiceImp<Sucursal,Long> implement
         }
     }
 
+    @Override
+    public boolean existsSucursalByEsCasaMatriz(Long id) {
+        return sucursalRepository.existsSucursalByEsCasaMatriz(id);
+    }
 }

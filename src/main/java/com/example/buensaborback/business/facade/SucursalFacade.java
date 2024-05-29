@@ -6,4 +6,5 @@ import com.example.buensaborback.domain.dto.SucursalDtos.SucursalDto;
 public interface SucursalFacade extends BaseFacade<SucursalDto, SucursalDto, Long> {
     SucursalDto createSucursal(SucursalDto dto);
     SucursalDto updateSucursal(Long id,SucursalDto dto);
+    boolean existsSucursalByEsCasaMatriz(Long id);
 }

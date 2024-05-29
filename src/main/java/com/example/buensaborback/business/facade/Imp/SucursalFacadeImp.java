@@ -59,5 +59,9 @@ public class SucursalFacadeImp extends BaseFacadeImp<Sucursal, SucursalDto, Sucu
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public boolean existsSucursalByEsCasaMatriz(Long id){
+        return sucursalService.existsSucursalByEsCasaMatriz(id);
+    }
 
 }
