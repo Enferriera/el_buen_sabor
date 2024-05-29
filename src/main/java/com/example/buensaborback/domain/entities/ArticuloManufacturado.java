@@ -6,6 +6,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.envers.Audited;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,7 +17,7 @@ import java.util.Set;
 @Setter
 @Getter
 @ToString
-//@Audited
+@Audited
 @SuperBuilder
 public class ArticuloManufacturado  extends Articulo{
 

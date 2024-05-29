@@ -3,6 +3,7 @@ package com.example.buensaborback.domain.entities;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 
 import java.util.HashSet;
@@ -14,7 +15,7 @@ import java.util.Set;
 @Setter
 @Getter
 @ToString
-//@Audited
+@Audited
 @SuperBuilder
 public class Cliente extends Persona {
 

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.envers.Audited;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,7 +15,7 @@ import java.util.Set;
 @Setter
 @Getter
 @ToString
-//@Audited
+@Audited
 @SuperBuilder
 public class Categoria extends Base{
     private String denominacion;

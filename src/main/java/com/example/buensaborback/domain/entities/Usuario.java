@@ -4,6 +4,7 @@ import com.example.buensaborback.domain.enums.Rol;
 import jakarta.persistence.Entity;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.envers.Audited;
 
 @Entity
 @AllArgsConstructor
@@ -12,7 +13,7 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @ToString
 @SuperBuilder
-//@Audited
+@Audited
 public class Usuario extends Base{
     private String auth0Id;
     private String username;

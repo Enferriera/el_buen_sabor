@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.envers.Audited;
 
 @Entity
 @AllArgsConstructor
@@ -13,7 +14,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @Getter
 @SuperBuilder
-//@Audited
+@Audited
 public class UnidadMedida extends Base{
 
     private String denominacion;
