@@ -20,4 +20,9 @@ public class EmpresaController extends BaseControllerImp<Empresa, EmpresaDto,Emp
     public ResponseEntity<EmpresaLargeDto> addSucursal(@RequestParam Long idEmpresa, @RequestParam Long idSucursal){
         return ResponseEntity.ok(facade.addSucursal(idEmpresa,idSucursal));
     }
+
+    @GetMapping("/full/{idEmpresa}")
+    public ResponseEntity<EmpresaLargeDto> getEmpresaSucursales(@PathVariable Long idEmpresa) {
+        return ResponseEntity.ok(facade.findWithSucursalesById(idEmpresa));
+    }
 }

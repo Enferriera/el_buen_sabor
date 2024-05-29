@@ -7,4 +7,5 @@ import com.example.buensaborback.domain.dto.EmpresaLargeDto;
 
 public interface EmpresaFacade extends BaseFacade<EmpresaDto,EmpresaDto, Long> {
     EmpresaLargeDto addSucursal(Long idEmpresa, Long idSucursal);
+    EmpresaLargeDto findWithSucursalesById(Long id);
 }

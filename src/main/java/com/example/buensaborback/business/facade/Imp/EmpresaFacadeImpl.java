@@ -9,6 +9,7 @@ import com.example.buensaborback.business.service.EmpresaService;
 import com.example.buensaborback.domain.dto.EmpresaDto;
 import com.example.buensaborback.domain.dto.EmpresaLargeDto;
 import com.example.buensaborback.domain.entities.Empresa;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,5 +29,12 @@ public class EmpresaFacadeImpl extends BaseFacadeImp<Empresa, EmpresaDto,Empresa
     @Override
     public EmpresaLargeDto addSucursal(Long idEmpresa, Long idSucursal) {
         return empresaMapper.toLargeDto(empresaService.addSucursal(idEmpresa, idSucursal));
+    }
+
+
+    @Override
+    @Transactional
+    public EmpresaLargeDto findWithSucursalesById(Long id) {
+        return empresaMapper.toLargeDto(empresaService.findWithSucursalesById(id));
     }
 }
