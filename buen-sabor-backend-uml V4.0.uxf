@@ -1,0 +1,225 @@
+<diagram program="umletino" version="15.1"><zoom_level>11</zoom_level><help_text>DetalleFactura</help_text><element><id>UMLClass</id><coordinates><x>517</x><y>0</y><w>209</w><h>110</h></coordinates><panel_attributes>Sucursal
+--
+- nombre : String
+- horarioApertura : LocalTime 
+- horarioCIerre : LocalTime
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>253</x><y>0</y><w>165</w><h>110</h></coordinates><panel_attributes>Empresa
+--
+- nombre : String
+- razonSocial : String
+- cuil : Integer
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>407</x><y>33</y><w>132</w><h>66</h></coordinates><panel_attributes>lt=-&gt;
+m1=1
+
+m2=n
+
+</panel_attributes><additional_attributes>10;20;100;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>506</x><y>165</y><w>231</w><h>99</h></coordinates><panel_attributes>ArticuloManufacturado
+--
+- descripción : String
+- tiempoEstimadoMinutos : Integer
+-preparacion:String
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>737</x><y>583</y><w>165</w><h>55</h></coordinates><panel_attributes>UnidadMedida
+--
+- denominacion : String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>561</y><w>231</w><h>55</h></coordinates><panel_attributes>Imagen
+--
+- demoninacion : String
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>847</x><y>0</y><w>110</w><h>88</h></coordinates><panel_attributes>Domicilio
+--
+- calle : String
+-numero : Integer
+- cp : Integer</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1265</x><y>0</y><w>121</w><h>66</h></coordinates><panel_attributes>Provincia
+--
+ - nombre : String
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1463</x><y>0</y><w>121</w><h>55</h></coordinates><panel_attributes>Pais
+--
+- nombre : String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>220</x><y>132</y><w>209</w><h>165</h></coordinates><panel_attributes>Promoción
+--
+- denominacion : String
+- FechaDesde : LocalDate
+- FechaHasta: LocalDate
+- HoraDesde : LocalTime
+- HoraHasta : LocalTime
+- descripcionDescuento : String
+- precioPromocional : Double
+- tipoPromocion: TipoPromocion&lt;Enum&gt;
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1474</x><y>297</y><w>176</w><h>121</h></coordinates><panel_attributes>Cliente
+--
+- nombre; String
+- apellido; String
+- telefono; String
+-  email; String
+- fechaNacimiento: LocalDate</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>220</x><y>704</y><w>198</w><h>88</h></coordinates><panel_attributes>Estado&lt;Enum&gt;
+-----
+preparacion, pendiente,
+cancelado, rechazado, entregado
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1056</x><y>0</y><w>121</w><h>55</h></coordinates><panel_attributes>Localidad
+--
+ - nombre : String
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>605</x><y>704</y><w>165</w><h>66</h></coordinates><panel_attributes>Rol&lt;Enum&gt;
+-----
+admin, empleado,cliente
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1474</x><y>110</y><w>110</w><h>88</h></coordinates><panel_attributes>Usuario
+--
+- auth0Id; String
+- username: String
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>429</x><y>704</y><w>165</w><h>88</h></coordinates><panel_attributes>FormaPago&lt;Enum&gt;
+-----
+efectivo, MercadoPago
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>781</x><y>704</y><w>165</w><h>88</h></coordinates><panel_attributes>TipoEnvio&lt;Enum&gt;
+-----
+delivery, TakeAway
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>715</x><y>22</y><w>154</w><h>66</h></coordinates><panel_attributes>lt=-&gt;
+m1=1
+
+m2=1
+
+</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>946</x><y>11</y><w>132</w><h>66</h></coordinates><panel_attributes>lt=-&gt;
+m1=n
+
+m2=1
+
+</panel_attributes><additional_attributes>10;20;100;20</additional_attributes></element><element><id>Relation</id><coordinates><x>1166</x><y>11</y><w>121</w><h>66</h></coordinates><panel_attributes>lt=-&gt;
+m1=n
+
+m2=1
+
+</panel_attributes><additional_attributes>10;20;90;20</additional_attributes></element><element><id>Relation</id><coordinates><x>1375</x><y>11</y><w>110</w><h>66</h></coordinates><panel_attributes>lt=-&gt;
+m1=n
+
+m2=1
+
+</panel_attributes><additional_attributes>10;20;80;20</additional_attributes></element><element><id>Relation</id><coordinates><x>1518</x><y>187</y><w>44</w><h>132</h></coordinates><panel_attributes>lt=-&gt;
+m2=.1
+m1=.1
+</panel_attributes><additional_attributes>10;100;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1166</x><y>253</y><w>242</w><h>154</h></coordinates><panel_attributes>Pedido
+--
+- horaEstimadaFinalizacion LocalTime
+- total : Double
+- totalCosto : Double
+- estado : Estado Enum
+- tipoEnvpio : TipoEnvio Enum
+-formaPago : FormaPagoenum
+- FechaPedido : LocalDate
+
+
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>913</x><y>319</y><w>165</w><h>66</h></coordinates><panel_attributes>DetallePedido
+--
+.cantidad : Integer
+- subTotal : Double
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1397</x><y>330</y><w>99</w><h>55</h></coordinates><panel_attributes>lt=&lt;-
+m2=.1
+m1=n
+</panel_attributes><additional_attributes>10;20;70;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1188</x><y>517</y><w>220</w><h>154</h></coordinates><panel_attributes>Factura
+--
+- fechaFacturacion : LocalDate
+-  mpPaymentId : Integer
+- mpMerchantOrderId : Integer
+- mpPreferenceId : String
+-  mpPaymentType : String
+ - formaPago : Enum FormaPago
+ - totalVenta : Double</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1287</x><y>396</y><w>44</w><h>143</h></coordinates><panel_attributes>lt=-&gt;
+m2=.1
+m1=.1
+
+</panel_attributes><additional_attributes>10;10;10;110</additional_attributes></element><element><id>Relation</id><coordinates><x>264</x><y>286</y><w>231</w><h>297</h></coordinates><panel_attributes>lt=-&gt;
+m1=n
+m2=n
+</panel_attributes><additional_attributes>10;10;10;240;190;240</additional_attributes></element><element><id>Relation</id><coordinates><x>1067</x><y>341</y><w>121</w><h>44</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=n</panel_attributes><additional_attributes>90;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>660</x><y>253</y><w>242</w><h>319</h></coordinates><panel_attributes>lt=&lt;-
+m1=n
+
+m2=1
+
+</panel_attributes><additional_attributes>10;260;190;260;190;10</additional_attributes></element><element><id>Relation</id><coordinates><x>517</x><y>627</y><w>297</w><h>88</h></coordinates><panel_attributes>lt=-&gt;
+m1=n
+
+m2=1
+
+</panel_attributes><additional_attributes>10;20;10;40;240;40;240;10</additional_attributes></element><element><id>Relation</id><coordinates><x>924</x><y>77</y><w>396</w><h>198</h></coordinates><panel_attributes>lt=-&gt;
+m1=n
+m2=1
+
+</panel_attributes><additional_attributes>330;160;330;30;10;30;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>418</x><y>99</y><w>121</w><h>88</h></coordinates><panel_attributes>lt=-&gt;
+m1=n
+
+
+m2=n
+
+</panel_attributes><additional_attributes>90;10;10;30</additional_attributes></element><element><id>Relation</id><coordinates><x>693</x><y>99</y><w>209</w><h>132</h></coordinates><panel_attributes>lt=-&gt;
+m1=n
+
+m2=n
+
+</panel_attributes><additional_attributes>10;10;170;100</additional_attributes></element><element><id>Relation</id><coordinates><x>935</x><y>132</y><w>154</w><h>121</h></coordinates><panel_attributes>lt=-&gt;
+m1=1
+
+m2=n
+
+</panel_attributes><additional_attributes>10;60;10;20;120;20;120;80;50;80</additional_attributes></element><element><id>UMLClass</id><coordinates><x>957</x><y>704</y><w>165</w><h>88</h></coordinates><panel_attributes>TipoPromocion&lt;Enum&gt;
+-----
+happyHour, promocion 1
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>66</x><y>264</y><w>176</w><h>319</h></coordinates><panel_attributes>lt=-&gt;
+m1=1
+m2=n
+
+</panel_attributes><additional_attributes>140;10;10;10;10;270</additional_attributes></element><element><id>Relation</id><coordinates><x>220</x><y>572</y><w>275</w><h>55</h></coordinates><panel_attributes>lt=-&gt;
+m1=1
+m2=n
+
+</panel_attributes><additional_attributes>230;20;10;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>473</x><y>506</y><w>198</w><h>143</h></coordinates><panel_attributes>/Articulo/
+--
+# denominacion : String
+# precioVenta : Double
+
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>583</x><y>253</y><w>33</w><h>275</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;230;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>385</x><y>462</y><w>110</w><h>132</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>80;100;10;100;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>660</x><y>374</y><w>363</w><h>242</h></coordinates><panel_attributes>lt=-&gt;
+m1=n
+
+m2=1
+
+</panel_attributes><additional_attributes>300;10;300;180;10;180</additional_attributes></element><element><id>UMLClass</id><coordinates><x>308</x><y>330</y><w>198</w><h>143</h></coordinates><panel_attributes>ArticuloInsumo
+--
+
+- precioCompra : Double
+- stockActual : Integer
+- stockMaximo : Integer
+- esParaElaborar  : Boolean
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>946</x><y>55</y><w>594</w><h>264</h></coordinates><panel_attributes>lt=&lt;-
+m1=n
+
+m2=n
+
+</panel_attributes><additional_attributes>10;20;410;20;410;160;510;160;510;220</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1452</x><y>528</y><w>231</w><h>55</h></coordinates><panel_attributes>Imagen
+--
+- demoninacion : String
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1562</x><y>407</y><w>44</w><h>143</h></coordinates><panel_attributes>lt=-&gt;
+m2=.1
+m1=.1
+</panel_attributes><additional_attributes>10;10;10;110</additional_attributes></element><element><id>Relation</id><coordinates><x>715</x><y>77</y><w>550</w><h>198</h></coordinates><panel_attributes>lt=-&gt;
+m1=n
+m2=1
+
+</panel_attributes><additional_attributes>470;160;470;50;90;50;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>814</x><y>209</y><w>176</w><h>55</h></coordinates><panel_attributes>Categoria
+--
+- denominación: String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>627</x><y>341</y><w>198</w><h>55</h></coordinates><panel_attributes>ArticuloManufacturadoDetalle
+--
+- cantidad:integer</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>693</x><y>253</y><w>44</w><h>110</h></coordinates><panel_attributes>lt=-&gt;
+m1=1
+
+m2=n
+
+</panel_attributes><additional_attributes>10;10;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>495</x><y>363</y><w>154</w><h>66</h></coordinates><panel_attributes>lt=-&gt;
+m1=n
+
+m2=1
+
+</panel_attributes><additional_attributes>120;20;10;20</additional_attributes></element></diagram>

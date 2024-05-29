@@ -1,0 +1,207 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><help_text>DetalleFactura</help_text><element><id>UMLClass</id><coordinates><x>270</x><y>10</y><w>190</w><h>100</h></coordinates><panel_attributes>Sucursal
+--
+- nombre : String
+- horarioApertura : LocalTime 
+- horarioCIerre : LocalTime
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>30</x><y>10</y><w>150</w><h>100</h></coordinates><panel_attributes>Empresa
+--
+- nombre : String
+- razonSocial : String
+- cuil : Integer
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>170</x><y>40</y><w>120</w><h>60</h></coordinates><panel_attributes>lt=-&gt;
+m1=1
+
+m2=n
+
+</panel_attributes><additional_attributes>10;20;100;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>30</x><y>340</y><w>180</w><h>130</h></coordinates><panel_attributes>ArticuloInsumo
+--
+- denominacion : String
+- precioCompra : Double
+- precioVenta : Double
+- stockActual : Integer
+- stockMaximo : Integer
+- esParaElaborar  : Boolean
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>560</x><y>140</y><w>160</w><h>50</h></coordinates><panel_attributes>Categoria
+--
+- denominación: String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>260</x><y>160</y><w>210</w><h>90</h></coordinates><panel_attributes>ArticuloManufacturado
+--
+- denominacion : String
+- descripción : String
+- precioVenta : Double
+- tiempoEstimadoMinutos : Integer
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>470</x><y>540</y><w>150</w><h>50</h></coordinates><panel_attributes>UnidadMedida
+--
+- denominacion : String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>240</x><y>540</y><w>210</w><h>50</h></coordinates><panel_attributes>Imagen
+--
+- demoninacion : String
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>570</x><y>10</y><w>100</w><h>80</h></coordinates><panel_attributes>Domicilio
+--
+- calle : String
+-numero : Integer
+- cp : Integer</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>950</x><y>10</y><w>110</w><h>60</h></coordinates><panel_attributes>Provincia
+--
+ - nombre : String
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1130</x><y>10</y><w>110</w><h>50</h></coordinates><panel_attributes>Pais
+--
+- nombre : String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>20</x><y>160</y><w>170</w><h>120</h></coordinates><panel_attributes>Promoción
+--
+- denominacion : String
+- FechaDesde : LocalDate
+- FechaHasta: LocalDate
+- HoraDesde : LocalTime
+- HoraHasta : LocalTime
+- descuento : Integer
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1140</x><y>280</y><w>100</w><h>110</h></coordinates><panel_attributes>Cliente
+--
+- nombre; String
+- apellido; String
+- telefono; String
+-  email; String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>650</y><w>180</w><h>80</h></coordinates><panel_attributes>Estado&lt;Enum&gt;
+-----
+preparacion, pendiente,
+cancelado, rechazado, entregado
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>180</x><y>200</y><w>100</w><h>50</h></coordinates><panel_attributes>lt=-
+m1=n
+m2=n
+</panel_attributes><additional_attributes>10;20;80;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>760</x><y>10</y><w>110</w><h>50</h></coordinates><panel_attributes>Localidad
+--
+ - nombre : String
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>350</x><y>650</y><w>150</w><h>60</h></coordinates><panel_attributes>Rol&lt;Enum&gt;
+-----
+admin, empleado,cliente
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1140</x><y>110</y><w>100</w><h>80</h></coordinates><panel_attributes>Usuario
+--
+- auth0Id; String
+- username: String
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>190</x><y>650</y><w>150</w><h>80</h></coordinates><panel_attributes>FormaPago&lt;Enum&gt;
+-----
+efectivo, MercadoPago
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>510</x><y>650</y><w>150</w><h>80</h></coordinates><panel_attributes>TipoEnvio&lt;Enum&gt;
+-----
+delivery, TakeAway
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>450</x><y>30</y><w>140</w><h>60</h></coordinates><panel_attributes>lt=-&gt;
+m1=1
+
+m2=1
+
+</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>660</x><y>20</y><w>120</w><h>60</h></coordinates><panel_attributes>lt=-&gt;
+m1=n
+
+m2=1
+
+</panel_attributes><additional_attributes>10;20;100;20</additional_attributes></element><element><id>Relation</id><coordinates><x>860</x><y>20</y><w>110</w><h>60</h></coordinates><panel_attributes>lt=-&gt;
+m1=n
+
+m2=1
+
+</panel_attributes><additional_attributes>10;20;90;20</additional_attributes></element><element><id>Relation</id><coordinates><x>1050</x><y>20</y><w>100</w><h>60</h></coordinates><panel_attributes>lt=-&gt;
+m1=n
+
+m2=1
+
+</panel_attributes><additional_attributes>10;20;80;20</additional_attributes></element><element><id>Relation</id><coordinates><x>1180</x><y>180</y><w>40</w><h>120</h></coordinates><panel_attributes>lt=-&gt;
+m2=.1
+m1=.1
+</panel_attributes><additional_attributes>10;100;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>860</x><y>240</y><w>220</w><h>140</h></coordinates><panel_attributes>Pedido
+--
+- horaEstimadaFinalizacion LocalTime
+- total : Double
+- totalCosto : Double
+- estado : Estado Enum
+- tipoEnvpio : TipoEnvio Enum
+-formaPago : FormaPagoenum
+- FechaPedido : LocalDate
+
+
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>630</x><y>300</y><w>150</w><h>60</h></coordinates><panel_attributes>DetallePedido
+--
+.cantidad : Integer
+- subTotal : Double
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1070</x><y>310</y><w>90</w><h>50</h></coordinates><panel_attributes>lt=&lt;-
+m2=.1
+m1=n
+</panel_attributes><additional_attributes>10;20;70;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>880</x><y>480</y><w>200</w><h>140</h></coordinates><panel_attributes>Factura
+--
+- fechaFacturacion : LocalDate
+-  mpPaymentId : Integer
+- mpMerchantOrderId : Integer
+- mpPreferenceId : String
+-  mpPaymentType : String
+ - formaPago : Enum FormaPago
+ - totalVenta : Double</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>970</x><y>370</y><w>40</w><h>130</h></coordinates><panel_attributes>lt=-&gt;
+m2=.1
+m1=.1
+
+</panel_attributes><additional_attributes>10;10;10;110</additional_attributes></element><element><id>Relation</id><coordinates><x>90</x><y>270</y><w>40</w><h>90</h></coordinates><panel_attributes>lt=-
+m1=n
+m2=n
+</panel_attributes><additional_attributes>10;10;10;70</additional_attributes></element><element><id>Relation</id><coordinates><x>770</x><y>320</y><w>110</w><h>40</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=1
+m2=n</panel_attributes><additional_attributes>90;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>200</x><y>180</y><w>420</w><h>300</h></coordinates><panel_attributes>lt=&lt;-
+m1=n
+
+m2=1
+
+</panel_attributes><additional_attributes>10;260;390;260;390;10</additional_attributes></element><element><id>Relation</id><coordinates><x>160</x><y>460</y><w>100</w><h>130</h></coordinates><panel_attributes>lt=-&gt;
+m1=1
+m2=1
+
+</panel_attributes><additional_attributes>10;10;10;100;80;100</additional_attributes></element><element><id>Relation</id><coordinates><x>120</x><y>460</y><w>420</w><h>200</h></coordinates><panel_attributes>lt=-&gt;
+m1=n
+
+m2=1
+
+</panel_attributes><additional_attributes>10;10;10;160;390;160;390;130</additional_attributes></element><element><id>Relation</id><coordinates><x>330</x><y>240</y><w>40</w><h>320</h></coordinates><panel_attributes>lt=-&gt;
+m1=1
+m2=1
+
+</panel_attributes><additional_attributes>10;10;10;300</additional_attributes></element><element><id>Relation</id><coordinates><x>460</x><y>160</y><w>120</w><h>60</h></coordinates><panel_attributes>lt=&lt;-
+m1=n
+
+m2=1
+
+</panel_attributes><additional_attributes>10;20;100;20</additional_attributes></element><element><id>Relation</id><coordinates><x>410</x><y>240</y><w>130</w><h>320</h></coordinates><panel_attributes>lt=-&gt;
+m1=n
+
+m2=1
+
+</panel_attributes><additional_attributes>10;10;10;250;100;250;100;300</additional_attributes></element><element><id>Relation</id><coordinates><x>460</x><y>210</y><w>190</w><h>140</h></coordinates><panel_attributes>lt=-&gt;
+m1=1
+m2=1
+
+</panel_attributes><additional_attributes>170;120;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>200</x><y>330</y><w>450</w><h>50</h></coordinates><panel_attributes>lt=-&gt;
+m1=1
+m2=1
+
+</panel_attributes><additional_attributes>430;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>660</x><y>60</y><w>340</w><h>200</h></coordinates><panel_attributes>lt=-&gt;
+m1=n
+m2=1
+
+</panel_attributes><additional_attributes>310;180;310;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>180</x><y>100</y><w>110</w><h>80</h></coordinates><panel_attributes>lt=-&gt;
+m1=1
+
+m2=n
+
+</panel_attributes><additional_attributes>90;10;10;60</additional_attributes></element><element><id>Relation</id><coordinates><x>450</x><y>90</y><w>190</w><h>70</h></coordinates><panel_attributes>lt=-
+m1=n
+
+m2=n
+
+</panel_attributes><additional_attributes>10;10;170;50</additional_attributes></element><element><id>Relation</id><coordinates><x>680</x><y>100</y><w>120</w><h>90</h></coordinates><panel_attributes>lt=-&gt;
+m1=1
+
+m2=n
+
+</panel_attributes><additional_attributes>10;40;10;20;100;20;100;60;40;60</additional_attributes></element><element><id>Relation</id><coordinates><x>200</x><y>240</y><w>210</w><h>190</h></coordinates><panel_attributes>lt=-
+m1=n
+
+m2=n
+
+</panel_attributes><additional_attributes>180;10;180;150;10;150</additional_attributes></element></diagram>
