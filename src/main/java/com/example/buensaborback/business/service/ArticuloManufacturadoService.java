@@ -5,5 +5,5 @@ import com.example.buensaborback.domain.entities.ArticuloManufacturado;
 
 public interface ArticuloManufacturadoService extends BaseService<ArticuloManufacturado,Long> {
 
-
+    public void changeHabilitado(Long id);
 }

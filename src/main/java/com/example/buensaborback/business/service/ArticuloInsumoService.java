@@ -12,4 +12,6 @@ public interface ArticuloInsumoService extends BaseService<ArticuloInsumo,Long> 
     List<ArticuloInsumo> findByEsParaElaborarTrue();
 
     List<ArticuloInsumo> findByEsParaElaborarFalse();
+
+    public void changeHabilitado(Long id);
 }

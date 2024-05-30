@@ -32,4 +32,10 @@ public class ArticuloManufacturadoFacadeImp extends BaseFacadeImp<ArticuloManufa
         ArticuloManufacturado articuloPersisted = articuloManufacturadoService.create(articulo);
         return articuloManufacturadoMapper.toDTO(articuloPersisted);
     }
+
+    @Override
+    public void changeHabilitado(Long id) {
+        articuloManufacturadoService.changeHabilitado(id);
+    }
+
 }

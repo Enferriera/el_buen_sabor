@@ -167,7 +167,7 @@ public class BuenSaborBackApplication {
 			empresaRepository.save(empresaCarlos);
 
 			// Crear Categorías de productos y subCategorías de los mismos
-			Categoria categoriaBebidas = Categoria.builder().denominacion("Bebidas").
+			Categoria categoriaBebidas = Categoria.builder().denominacion("Bebidas").esInsumo(false).
 					build();
 			categoriaRepository.save(categoriaBebidas);
 
@@ -534,6 +534,15 @@ public class BuenSaborBackApplication {
 					.razonSocial("Razon social")
 					.build();
 			empresaRepository.save(empresa);
+			empresa.getSucursales().add(sucursal);
+			sucursal.setEmpresa(empresa);
+			sucursalRepository.save(sucursal);
+			sucursal2.setEmpresa(empresa);
+			sucursalRepository.save(sucursal2);
+
+			empresa.getSucursales().add(sucursal2);
+			            empresaRepository.save(empresa);
+
 
 			Categoria categoria = Categoria.builder()
 					.denominacion("Categoria de prueba")

@@ -21,4 +21,10 @@ public class ArticuloManufacturadoController extends BaseControllerImp<ArticuloM
     public ResponseEntity<ArticuloManufacturadoDto> create(@RequestBody ArticuloManufacturadoCreateDto dto) {
         return ResponseEntity.ok().body(facade.create(dto));
     }
+
+    @PutMapping("/changeHabilitado/{id}")
+    public ResponseEntity<?> changeHabilitado(@PathVariable Long id){
+        facade.changeHabilitado(id);
+        return ResponseEntity.ok().body("Se cambio el estado del Articulo Manufacturado");
+    }
 }

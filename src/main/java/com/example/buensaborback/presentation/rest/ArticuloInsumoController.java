@@ -39,4 +39,11 @@ public class ArticuloInsumoController extends BaseControllerImp<ArticuloInsumo, 
     public ResponseEntity<ArticuloInsumoDto> create(@RequestBody ArticuloInsumoCreateDto dto) {
         return ResponseEntity.ok().body(facade.create(dto));
     }
+
+    @PutMapping("/changeHabilitado/{id}")
+    public ResponseEntity<?> changeHabilitado(@PathVariable Long id){
+        facade.changeHabilitado(id);
+        return ResponseEntity.ok().body("Se cambio el estado del Insuomo");
+    }
+
 }

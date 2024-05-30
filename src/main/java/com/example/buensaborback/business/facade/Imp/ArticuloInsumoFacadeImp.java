@@ -12,6 +12,7 @@ import com.example.buensaborback.domain.dto.articulomanufacturadodto.ArticuloMan
 import com.example.buensaborback.domain.dto.articulomanufacturadodto.ArticuloManufacturadoDto;
 import com.example.buensaborback.domain.entities.ArticuloInsumo;
 import com.example.buensaborback.domain.entities.ArticuloManufacturado;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -34,6 +35,7 @@ public class ArticuloInsumoFacadeImp extends BaseFacadeImp<ArticuloInsumo, Artic
         super(baseService, baseMapper);
     }
 
+    @Transactional
     public List<ArticuloInsumoDto> findByEsParaElaborarTrue() {
         // Trae una página de entidades
         List<ArticuloInsumo> entities = articuloInsumoService.findByEsParaElaborarTrue();
@@ -45,6 +47,7 @@ public class ArticuloInsumoFacadeImp extends BaseFacadeImp<ArticuloInsumo, Artic
         return dtos;
     }
 
+    @Transactional
     public List<ArticuloInsumoDto> findByEsParaElaborarFalse() {
         // Trae una página de entidades
         List<ArticuloInsumo> entities = articuloInsumoService.findByEsParaElaborarFalse();
@@ -56,11 +59,18 @@ public class ArticuloInsumoFacadeImp extends BaseFacadeImp<ArticuloInsumo, Artic
         return dtos;
     }
 
+    @Override
+    @Transactional
     public ArticuloInsumoDto create(ArticuloInsumoCreateDto articuloInsumoCreateDto) {
         var articulo = articuloInsumoMapper.toCreateEntity(articuloInsumoCreateDto);
         System.out.println("se mapeo el articulo");
         ArticuloInsumo articuloPersisted = articuloInsumoService.create(articulo);
         return articuloInsumoMapper.toDTO(articuloPersisted);
+    }
+
+    @Override
+    public void changeHabilitado(Long id) {
+        articuloInsumoService.changeHabilitado(id);
     }
 
 }

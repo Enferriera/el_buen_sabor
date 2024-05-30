@@ -24,6 +24,8 @@ public class Articulo extends Base {
 
     protected String denominacion;
     protected Double precioVenta;
+    protected boolean habilitado = true;
+    protected String codigo;
 
 
     @OneToMany

@@ -113,8 +113,17 @@ public class CategoriaServiceImp extends BaseServiceImp<Categoria,Long> implemen
         categoriaExistente.setEsInsumo(newCategoria.isEsInsumo());
 
         // Actualizar las sucursales asociadas
-        Set<Sucursal> newSucursales = newCategoria.getSucursales();
-        Set<Sucursal> existingSucursales = categoriaExistente.getSucursales();
+        Set<Sucursal> newSucursales = new HashSet<>();
+        for(Sucursal sucursalNew : newCategoria.getSucursales()) {
+            Sucursal sucursalBd = sucursalService.getById(sucursalNew.getId());
+           newSucursales.add(sucursalBd);
+        }
+
+        Set<Sucursal> existingSucursales = new HashSet<>();
+        for(Sucursal sucursalNew : categoriaExistente.getSucursales()) {
+            Sucursal sucursalBd = sucursalService.getById(sucursalNew.getId());
+            existingSucursales.add(sucursalBd);
+        }
         if (newCategoria.getSucursales() != null && !newCategoria.getSucursales().isEmpty()) {
 
             existingSucursales.removeIf(sucursal -> {

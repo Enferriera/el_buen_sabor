@@ -6,4 +6,6 @@ import com.example.buensaborback.domain.dto.articulomanufacturadodto.ArticuloMan
 
 public interface ArticuloManufacturadoFacade extends BaseFacade<ArticuloManufacturadoDto, ArticuloManufacturadoDto, Long> {
 public ArticuloManufacturadoDto create(ArticuloManufacturadoCreateDto articuloManufacturadoCreateDto);
+    public void changeHabilitado(Long id);
+
 }
