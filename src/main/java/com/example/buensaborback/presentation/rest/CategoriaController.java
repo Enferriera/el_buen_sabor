@@ -11,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/categorias")
 @CrossOrigin("*")
@@ -20,16 +22,16 @@ public class CategoriaController extends BaseControllerImp<Categoria, CategoriaG
         super(facade);
     }
 
-    @GetMapping("/paged/categoriasInsumos")
-    public ResponseEntity<Page<CategoriaGetDto>> getCategoriaInsumos(Pageable pageable) {
+    @GetMapping("/categoriasInsumos")
+    public ResponseEntity<List<CategoriaGetDto>> getCategoriaInsumos() {
         //logger.info("INICIO GET ALL categorias de insumos");
-        return ResponseEntity.ok(facade.getCategoriaInsumos(pageable));
+        return ResponseEntity.ok(facade.getCategoriaInsumos());
     }
 
-    @GetMapping("/paged/categoriasManufacturados")
-    public ResponseEntity<Page<CategoriaGetDto>> getCategoriaManufacturados(Pageable pageable) {
+    @GetMapping("/categoriasManufacturados")
+    public ResponseEntity<List<CategoriaGetDto>> getCategoriaManufacturados() {
         //logger.info("INICIO GET ALL categoria articulos manufacturados");
-        return ResponseEntity.ok(facade.getCategoriaManufacturados(pageable));
+        return ResponseEntity.ok(facade.getCategoriaManufacturados());
     }
 
     @DeleteMapping("/baja/{id}")

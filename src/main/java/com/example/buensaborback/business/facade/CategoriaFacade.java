@@ -8,9 +8,11 @@ import com.example.buensaborback.domain.dto.SucursalDtos.SucursalShortDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface CategoriaFacade extends BaseFacade<CategoriaGetDto, CategoriaGetDto,  Long> {
-    public Page<CategoriaGetDto> getCategoriaInsumos (Pageable pageable);
-    public Page<CategoriaGetDto> getCategoriaManufacturados (Pageable pageable);
+    public List<CategoriaGetDto> getCategoriaInsumos ();
+    public List<CategoriaGetDto> getCategoriaManufacturados ();
     public void deleteInSucursales (Long id, SucursalShortDto shortSucursal);
 
     public CategoriaGetDto createNew(CategoriaPostDto categoriaDto);

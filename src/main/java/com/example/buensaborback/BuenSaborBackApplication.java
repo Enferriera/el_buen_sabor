@@ -167,19 +167,19 @@ public class BuenSaborBackApplication {
 			empresaRepository.save(empresaCarlos);
 
 			// Crear Categorías de productos y subCategorías de los mismos
-			Categoria categoriaBebidas = Categoria.builder().denominacion("Bebidas").esInsumo(false).
+			Categoria categoriaBebidas = Categoria.builder().denominacion("Bebidas").esInsumo(true).
 					build();
 			categoriaRepository.save(categoriaBebidas);
 
-			Categoria categoriaGaseosas = Categoria.builder().denominacion("Gaseosas").categoriaPadre(categoriaBebidas)
+			Categoria categoriaGaseosas = Categoria.builder().denominacion("Gaseosas").categoriaPadre(categoriaBebidas).esInsumo(true)
 					.build();
 			categoriaRepository.save(categoriaGaseosas);
 
-			Categoria categoriaTragos = Categoria.builder().denominacion("Tragos").categoriaPadre(categoriaBebidas).
+			Categoria categoriaTragos = Categoria.builder().denominacion("Tragos").categoriaPadre(categoriaBebidas).esInsumo(true).
 					build();
 			categoriaRepository.save(categoriaTragos);
 
-			Categoria categoriaPizzas = Categoria.builder().denominacion("Pizzas").
+			Categoria categoriaPizzas = Categoria.builder().denominacion("Pizzas").esInsumo(false).
 					build();
 
 			Categoria categoriaInsumos = Categoria.builder().denominacion("Insumos").esInsumo(true).

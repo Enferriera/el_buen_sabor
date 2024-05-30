@@ -31,13 +31,13 @@ public class CategoriaServiceImp extends BaseServiceImp<Categoria,Long> implemen
     SucursalServiceImpl sucursalService;
 
     @Override
-    public Page<Categoria> findByEsInsumoTrue(Pageable pageable) {
-        return categoriaRepository.findByEsInsumoTrue(pageable);
+    public List<Categoria> findByEsInsumoTrue() {
+        return categoriaRepository.findByEsInsumoTrue();
     }
 
     @Override
-    public Page<Categoria> findByEsInsumoFalse(Pageable pageable) {
-        return categoriaRepository.findByEsInsumoFalse(pageable);
+    public List<Categoria> findByEsInsumoFalse() {
+        return categoriaRepository.findByEsInsumoFalse();
     }
 
 

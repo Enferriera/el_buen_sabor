@@ -38,27 +38,27 @@ public class CategoriaFacadeImp extends BaseFacadeImp<Categoria, CategoriaGetDto
     }
 
     @Transactional
-    public Page<CategoriaGetDto> getCategoriaInsumos (Pageable pageable) {
+    public List<CategoriaGetDto> getCategoriaInsumos () {
         // Trae una página de entidades
-        Page<Categoria> entities = categoriaService.findByEsInsumoTrue(pageable);
+        List<Categoria> entities = categoriaService.findByEsInsumoTrue();
         // Mapea las entidades a DTOs
-        List<CategoriaGetDto> dtos = entities.getContent().stream()
+        List<CategoriaGetDto> dtos = entities.stream()
                 .map(categoriaMapper::toDTO)
                 .collect(Collectors.toList());
         // Devuelve una página de DTOs
-        return new PageImpl<>(dtos, pageable, entities.getTotalElements());
+        return dtos;
     }
 
     @Transactional
-    public Page<CategoriaGetDto> getCategoriaManufacturados (Pageable pageable) {
+    public List<CategoriaGetDto> getCategoriaManufacturados () {
         // Trae una página de entidades
-        Page<Categoria> entities = categoriaService.findByEsInsumoFalse(pageable);
+        List<Categoria> entities = categoriaService.findByEsInsumoFalse();
         // Mapea las entidades a DTOs
-        List<CategoriaGetDto> dtos = entities.getContent().stream()
+        List<CategoriaGetDto> dtos = entities.stream()
                 .map(categoriaMapper::toDTO)
                 .collect(Collectors.toList());
         // Devuelve una página de DTOs
-        return new PageImpl<>(dtos, pageable, entities.getTotalElements());
+        return dtos;
     }
 
     @Transactional

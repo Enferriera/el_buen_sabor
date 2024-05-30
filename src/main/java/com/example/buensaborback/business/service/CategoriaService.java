@@ -7,9 +7,11 @@ import com.example.buensaborback.domain.entities.Sucursal;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface CategoriaService extends BaseService<Categoria,Long> {
-    Page<Categoria> findByEsInsumoTrue(Pageable pageable);
-    Page<Categoria> findByEsInsumoFalse(Pageable pageable);
+    List<Categoria> findByEsInsumoTrue();
+    List<Categoria> findByEsInsumoFalse();
 
     void deleteInSucursales(Long id, SucursalShortDto sucursal);
 }
