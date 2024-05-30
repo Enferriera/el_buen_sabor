@@ -108,4 +108,9 @@ public class SucursalServiceImpl extends BaseServiceImp<Sucursal,Long> implement
     public boolean existsSucursalByEsCasaMatriz(Long id) {
         return sucursalRepository.existsSucursalByEsCasaMatriz(id);
     }
+
+    @Override
+    public List<Sucursal> findAllByEmpresaId(Long id) {
+        return sucursalRepository.findAllByEmpresaId(id);
+    }
 }

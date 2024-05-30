@@ -64,4 +64,12 @@ public class SucursalFacadeImp extends BaseFacadeImp<Sucursal, SucursalDto, Sucu
         return sucursalService.existsSucursalByEsCasaMatriz(id);
     }
 
+    @Override
+    public List<SucursalDto> findAllByEmpresaId(Long id) {
+        var entities = sucursalService.findAllByEmpresaId(id);
+        return entities
+                .stream()
+                .map(baseMapper::toDTO)
+                .collect(Collectors.toList());
+    }
 }

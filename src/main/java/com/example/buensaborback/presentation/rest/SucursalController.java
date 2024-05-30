@@ -46,4 +46,9 @@ public class SucursalController extends BaseControllerImp<Sucursal, SucursalDto,
     public ResponseEntity<Boolean> esCasaMatriz(@PathVariable Long id) {
         return ResponseEntity.ok().body(facade.existsSucursalByEsCasaMatriz(id));
     }
+
+    @GetMapping("/porEmpresa/{id}")
+    public List<SucursalDto> getSucursalesByEmpresaId(@PathVariable Long id) {
+        return facade.findAllByEmpresaId(id);
+    }
 }

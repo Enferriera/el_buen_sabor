@@ -19,4 +19,8 @@ public interface SucursalRepository extends BaseRepository<Sucursal,Long> {
 
     @Query("SELECT CASE WHEN COUNT(s.id) > 0 THEN TRUE ELSE FALSE END FROM Sucursal s WHERE s.empresa.id = :empresaId AND s.esCasaMatriz = TRUE")
     boolean existsSucursalByEsCasaMatriz(@Param("empresaId") Long empresaId);
+
+
+    @Query("SELECT s FROM Sucursal s  WHERE s.empresa.id = :id")
+    List<Sucursal> findAllByEmpresaId(@Param("id") Long id);
 }
