@@ -6,8 +6,12 @@ import com.example.buensaborback.business.mapper.ArticuloInsumoMapper;
 import com.example.buensaborback.business.mapper.BaseMapper;
 import com.example.buensaborback.business.service.ArticuloInsumoService;
 import com.example.buensaborback.business.service.Base.BaseService;
+import com.example.buensaborback.domain.dto.articuloInsumoDto.ArticuloInsumoCreateDto;
 import com.example.buensaborback.domain.dto.articuloInsumoDto.ArticuloInsumoDto;
+import com.example.buensaborback.domain.dto.articulomanufacturadodto.ArticuloManufacturadoCreateDto;
+import com.example.buensaborback.domain.dto.articulomanufacturadodto.ArticuloManufacturadoDto;
 import com.example.buensaborback.domain.entities.ArticuloInsumo;
+import com.example.buensaborback.domain.entities.ArticuloManufacturado;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -50,6 +54,13 @@ public class ArticuloInsumoFacadeImp extends BaseFacadeImp<ArticuloInsumo, Artic
                 .collect(Collectors.toList());
         // Devuelve una página de DTOs
         return dtos;
+    }
+
+    public ArticuloInsumoDto create(ArticuloInsumoCreateDto articuloInsumoCreateDto) {
+        var articulo = articuloInsumoMapper.toCreateEntity(articuloInsumoCreateDto);
+        System.out.println("se mapeo el articulo");
+        ArticuloInsumo articuloPersisted = articuloInsumoService.create(articulo);
+        return articuloInsumoMapper.toDTO(articuloPersisted);
     }
 
 }
