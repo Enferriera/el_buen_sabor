@@ -13,7 +13,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-/*@Component
+@Component
 class LocalidadesDownloader implements CommandLineRunner {
 
     @Autowired
@@ -67,4 +67,4 @@ class LocalidadesDownloader implements CommandLineRunner {
             localidadRepository.save(localidad);
         });
     }
-}*/
+}

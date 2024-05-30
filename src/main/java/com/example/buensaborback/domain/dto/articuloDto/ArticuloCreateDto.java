@@ -21,6 +21,8 @@ import java.util.Set;
 public class ArticuloCreateDto extends BaseDto {
     protected String denominacion;
     protected Double precioVenta;
+    protected boolean habilitado = true;
+    protected String codigo;
     protected Set<ImagenArticuloDto> imagenes = new HashSet<>();
     protected Long idUnidadMedida;
     protected Long idCategoria;
