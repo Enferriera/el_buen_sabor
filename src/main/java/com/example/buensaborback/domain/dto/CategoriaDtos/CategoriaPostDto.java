@@ -18,6 +18,6 @@ public class CategoriaPostDto extends BaseDto {
     private String denominacion;
     private boolean esInsumo;
     private Set<Long> idSucursales;
-    private Set<CategoriaDto> subCategorias;
+    private Long idCategoriaPadre;
 
 }

@@ -47,7 +47,7 @@ public class CategoriaServiceImp extends BaseServiceImp<Categoria,Long> implemen
         Set<Sucursal> sucursales = new HashSet<>();
 
         // Verificar y asociar sucursales existentes
-        if (categoria.getSucursales() != null && !categoria.getSucursales().isEmpty()) {
+       if (categoria.getSucursales() != null && !categoria.getSucursales().isEmpty()) {
             for (Sucursal sucursal : categoria.getSucursales()) {
                 Sucursal sucursalBd = sucursalService.getById(sucursal.getId());
                 if (sucursalBd == null) {
@@ -62,10 +62,18 @@ public class CategoriaServiceImp extends BaseServiceImp<Categoria,Long> implemen
         categoria.setSucursales(sucursales);
 
         // Mapear subcategorías y guardar la categoría
-        if (!categoria.getSubCategorias().isEmpty()) {
+       /* if (!categoria.getSubCategorias().isEmpty()) {
             mapearSubcategorias(categoria, sucursales);
-        }
+        }*/
+        if(categoria.getCategoriaPadre()!= null){
+            Categoria categoriaPadre = categoriaRepository.getById(categoria.getCategoriaPadre().getId());
 
+            categoria.setCategoriaPadre(categoriaPadre);
+            var categoriaHija=categoriaRepository.save(categoria);
+            categoriaPadre.getSubCategorias().add(categoria);
+            categoriaRepository.save(categoriaPadre);
+            return categoriaHija;
+        }
         return categoriaRepository.save(categoria);
     }
 
