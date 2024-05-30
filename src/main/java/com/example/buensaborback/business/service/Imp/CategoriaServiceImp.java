@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoriaServiceImp extends BaseServiceImp<Categoria,Long> implements CategoriaService {
@@ -108,51 +109,46 @@ public class CategoriaServiceImp extends BaseServiceImp<Categoria,Long> implemen
     public Categoria update(Categoria newCategoria, Long id) {
         Categoria categoriaExistente = categoriaRepository.getById(id);
 
+
         // Actualizar los detalles básicos de la categoría
         categoriaExistente.setDenominacion(newCategoria.getDenominacion());
         categoriaExistente.setEsInsumo(newCategoria.isEsInsumo());
 
         // Actualizar las sucursales asociadas
-        Set<Sucursal> newSucursales = new HashSet<>();
-        for(Sucursal sucursalNew : newCategoria.getSucursales()) {
-            Sucursal sucursalBd = sucursalService.getById(sucursalNew.getId());
-           newSucursales.add(sucursalBd);
-        }
+        Set<Sucursal> newSucursales = newCategoria.getSucursales().stream()
+                .map(sucursal -> sucursalService.getById(sucursal.getId()))
+                .collect(Collectors.toSet());
 
-        Set<Sucursal> existingSucursales = new HashSet<>();
-        for(Sucursal sucursalNew : categoriaExistente.getSucursales()) {
-            Sucursal sucursalBd = sucursalService.getById(sucursalNew.getId());
-            existingSucursales.add(sucursalBd);
-        }
-        if (newCategoria.getSucursales() != null && !newCategoria.getSucursales().isEmpty()) {
+        Set<Sucursal> existingSucursales = categoriaExistente.getSucursales();
 
-            existingSucursales.removeIf(sucursal -> {
-                boolean remove = !newSucursales.contains(sucursal);
-                if (remove) {
-                    sucursal.getCategorias().remove(categoriaExistente);
-                }
-                return remove;
-            });
-
-            // Agregar las nuevas sucursales
-            for (Sucursal sucursal : newSucursales) {
-                if (!existingSucursales.contains(sucursal)) {
-                    existingSucursales.add(sucursal);
-                    sucursal.getCategorias().add(categoriaExistente);
-                    sucursalService.update(sucursal, sucursal.getId());
-                }
+        // Remover asociaciones obsoletas
+        existingSucursales.removeIf(sucursal -> {
+            boolean remove = !newSucursales.contains(sucursal);
+            if (remove) {
+                sucursal.getCategorias().remove(categoriaExistente);
+                sucursalService.update(sucursal, sucursal.getId());
             }
+            return remove;
+        });
 
-            // Actualizar la relación de sucursales de la categoría existente
-            categoriaExistente.setSucursales(existingSucursales);
-
-            // Manejar subcategorías
-            actualizarSubcategorias(categoriaExistente, newCategoria, newSucursales);
+        // Agregar nuevas asociaciones
+        for (Sucursal sucursal : newSucursales) {
+            if (!existingSucursales.contains(sucursal)) {
+                existingSucursales.add(sucursal);
+                sucursal.getCategorias().add(categoriaExistente);
+                sucursalService.update(sucursal, sucursal.getId());
+            }
         }
-            System.out.println(categoriaExistente.getDenominacion());
-            return categoriaRepository.save(categoriaExistente);
 
+        // Actualizar la relación de sucursales de la categoría existente
+        categoriaExistente.setSucursales(existingSucursales);
+
+        // Manejar subcategorías
+        actualizarSubcategorias(categoriaExistente, newCategoria, newSucursales);
+
+        return categoriaRepository.save(categoriaExistente);
     }
+
 
     private void actualizarSubcategorias(Categoria categoriaExistente, Categoria newCategoria, Set<Sucursal> sucursales){
         if (!newCategoria.getSubCategorias().isEmpty()){
