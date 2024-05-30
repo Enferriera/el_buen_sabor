@@ -10,18 +10,18 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
 @Mapper(componentModel = "spring", uses = {ArticuloMapper.class, SucursalMapper.class, SucursalService.class, CategoriaService.class})
-public interface CategoriaMapper extends BaseMapper<Categoria, CategoriaPostDto, CategoriaGetDto>{
+public interface CategoriaMapper extends BaseMapper<Categoria, CategoriaGetDto, CategoriaGetDto>{
 
     @Override
     CategoriaGetDto toDTO(Categoria source);
 
-    @Override
+
 
     @Mappings({
-            @Mapping(source = "idSucursales", target = "sucursales", qualifiedByName = "getById"),
-            @Mapping(source = "idCategoriaPadre", target = "categoriaPadre", qualifiedByName = "getById")
+            @Mapping(source = "idSucursales", target = "sucursales", qualifiedByName = "getById",defaultExpression = "java(new java.util.HashSet<>())"),
+            @Mapping(source = "idCategoriaPadre", target = "categoriaPadre", qualifiedByName = "getById",defaultExpression = "java(null)"),
     })
-    Categoria toEntity(CategoriaPostDto source);
+    Categoria toEntityCreate(CategoriaPostDto source);
 
 
 }

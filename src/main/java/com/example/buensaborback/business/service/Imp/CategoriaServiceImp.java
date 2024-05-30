@@ -113,31 +113,36 @@ public class CategoriaServiceImp extends BaseServiceImp<Categoria,Long> implemen
         categoriaExistente.setEsInsumo(newCategoria.isEsInsumo());
 
         // Actualizar las sucursales asociadas
-        Set<Sucursal> newSucursales = new HashSet<>();
+        Set<Sucursal> newSucursales = newCategoria.getSucursales();
+        Set<Sucursal> existingSucursales = categoriaExistente.getSucursales();
         if (newCategoria.getSucursales() != null && !newCategoria.getSucursales().isEmpty()) {
-            for (Sucursal sucursal : newCategoria.getSucursales()) {
-                Sucursal sucursalBd = sucursalService.getById(sucursal.getId());
-                if (sucursalBd == null) {
-                    throw new RuntimeException("La sucursal con el id " + sucursal.getId() + " no existe.");
-                }
-                boolean categoriaExists = sucursalBd.getCategorias().stream()
-                        .anyMatch(cat -> cat.getId() != null && cat.getId().equals(newCategoria.getId()));
 
-                if (!categoriaExists) {
-                    sucursalBd.getCategorias().add(newCategoria);
+            existingSucursales.removeIf(sucursal -> {
+                boolean remove = !newSucursales.contains(sucursal);
+                if (remove) {
+                    sucursal.getCategorias().remove(categoriaExistente);
                 }
-                newSucursales.add(sucursalBd);
+                return remove;
+            });
+
+            // Agregar las nuevas sucursales
+            for (Sucursal sucursal : newSucursales) {
+                if (!existingSucursales.contains(sucursal)) {
+                    existingSucursales.add(sucursal);
+                    sucursal.getCategorias().add(categoriaExistente);
+                    sucursalService.update(sucursal, sucursal.getId());
+                }
             }
+
+            // Actualizar la relación de sucursales de la categoría existente
+            categoriaExistente.setSucursales(existingSucursales);
+
+            // Manejar subcategorías
+            actualizarSubcategorias(categoriaExistente, newCategoria, newSucursales);
         }
+            System.out.println(categoriaExistente.getDenominacion());
+            return categoriaRepository.save(categoriaExistente);
 
-        // Actualizar la relación de sucursales de la categoría existente
-        categoriaExistente.setSucursales(newSucursales);
-
-        // Manejar subcategorías
-        actualizarSubcategorias(categoriaExistente, newCategoria, newSucursales);
-
-        System.out.println(categoriaExistente.getDenominacion());
-        return categoriaRepository.save(categoriaExistente);
     }
 
     private void actualizarSubcategorias(Categoria categoriaExistente, Categoria newCategoria, Set<Sucursal> sucursales){

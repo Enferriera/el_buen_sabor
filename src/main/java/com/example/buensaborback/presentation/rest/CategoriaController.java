@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/categorias")
 @CrossOrigin("*")
-public class CategoriaController extends BaseControllerImp<Categoria, CategoriaPostDto, CategoriaGetDto, Long, CategoriaFacadeImp> {
+public class CategoriaController extends BaseControllerImp<Categoria, CategoriaGetDto, CategoriaGetDto, Long, CategoriaFacadeImp> {
 
     public CategoriaController(CategoriaFacadeImp facade) {
         super(facade);
@@ -35,5 +35,10 @@ public class CategoriaController extends BaseControllerImp<Categoria, CategoriaP
     @DeleteMapping("/baja/{id}")
     public void deleteById(@PathVariable Long id, @RequestBody SucursalShortDto sucursal) {
         facade.deleteInSucursales(id, sucursal);
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<CategoriaGetDto> createNew(@RequestBody CategoriaPostDto categoriaDto) {
+        return ResponseEntity.ok(facade.createNew(categoriaDto));
     }
 }

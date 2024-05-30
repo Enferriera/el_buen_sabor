@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class CategoriaFacadeImp extends BaseFacadeImp<Categoria, CategoriaPostDto, CategoriaGetDto,  Long> implements CategoriaFacade {
+public class CategoriaFacadeImp extends BaseFacadeImp<Categoria, CategoriaGetDto, CategoriaGetDto,  Long> implements CategoriaFacade {
 
     @Autowired
     CategoriaService categoriaService;
@@ -33,7 +33,7 @@ public class CategoriaFacadeImp extends BaseFacadeImp<Categoria, CategoriaPostDt
     @Autowired
     SucursalMapper sucursalMapper;
 
-    public CategoriaFacadeImp(BaseService<Categoria, Long> baseService, BaseMapper<Categoria, CategoriaPostDto, CategoriaGetDto> baseMapper) {
+    public CategoriaFacadeImp(BaseService<Categoria, Long> baseService, BaseMapper<Categoria, CategoriaGetDto, CategoriaGetDto> baseMapper) {
         super(baseService, baseMapper);
     }
 
@@ -64,6 +64,13 @@ public class CategoriaFacadeImp extends BaseFacadeImp<Categoria, CategoriaPostDt
     @Transactional
     public void deleteInSucursales (Long id, SucursalShortDto shortSucursal) {
         categoriaService.deleteInSucursales(id, shortSucursal);
+    }
+
+    @Transactional
+    public CategoriaGetDto createNew(CategoriaPostDto dto) {
+        Categoria categoria = categoriaMapper.toEntityCreate(dto);
+        System.out.println("categoria: " + categoria.getId());
+        return categoriaMapper.toDTO(categoriaService.create(categoria));
     }
 
 }
