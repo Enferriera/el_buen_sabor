@@ -21,7 +21,7 @@ public interface BaseRepository <E extends Base, ID extends Serializable> extend
     @Transactional
     default void delete(E entity) {
         //logger.info("EJECUTANDO DELETE SOBREESCRITO");
-        entity.setBaja(true);
+        entity.setEliminado(true);
         save(entity);
     }
 
@@ -45,7 +45,7 @@ public interface BaseRepository <E extends Base, ID extends Serializable> extend
         return entity;
     }
 
-    Page<E> findAllByBajaFalse(Pageable pageable);
+    Page<E> findAllByEliminadoFalse(Pageable pageable);
 
-    List<E> findAllByBajaFalse();
+    List<E> findAllByEliminadoFalse();
 }

@@ -21,4 +21,6 @@ public class DetallePedido extends Base{
     @ManyToOne
     private Articulo articulo;
 
+
+
 }

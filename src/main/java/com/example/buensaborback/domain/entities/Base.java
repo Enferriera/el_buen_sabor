@@ -24,6 +24,6 @@ public abstract class Base implements Serializable {
     protected Long id;
 
     @Builder.Default
-    protected boolean baja = false;
+    protected boolean eliminado = false;
 }
 

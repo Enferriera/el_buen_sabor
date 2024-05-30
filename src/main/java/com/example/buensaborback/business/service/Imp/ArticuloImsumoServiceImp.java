@@ -50,7 +50,7 @@ public class ArticuloImsumoServiceImp extends BaseServiceImp<ArticuloInsumo,Long
                     imagenBd.ifPresent(imagenesPersistidas::add);
                 } else {
                     System.out.println("no tiene id: " + imagen);
-                    imagen.setBaja(false);
+                    imagen.setEliminado(false);
                     ImagenArticulo savedImagen = imagenArticuloRepository.save(imagen);
                     imagenesPersistidas.add(savedImagen);
                 }

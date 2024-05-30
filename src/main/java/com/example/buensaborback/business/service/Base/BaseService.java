@@ -15,8 +15,8 @@ public interface BaseService <E extends Base, ID extends Serializable>{
     public E getById(ID id);
     public List<E> getAll();
     public Page<E> getAllPaged(Pageable pageable);
-    public List<E> getAllByBajaFalse();
-    public Page<E> getAllPagedByBajaFalse(Pageable pageable);
+    public List<E> getAllByEliminadoFalse();
+    public Page<E> getAllPagedByEliminadoFalse(Pageable pageable);
     public void deleteById(ID id);
     public E update(E request, ID id);
 }

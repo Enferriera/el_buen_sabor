@@ -62,7 +62,7 @@ public abstract class BaseFacadeImp<E extends Base,D extends BaseDto, GD extends
 
     public List<GD> getAllByBajaFalse(){
         // trae una lista de entidades
-        var entities = baseService.getAllByBajaFalse();
+        var entities = baseService.getAllByEliminadoFalse();
         //  devuelve una lista de DTO
         return entities
                 .stream()
@@ -72,7 +72,7 @@ public abstract class BaseFacadeImp<E extends Base,D extends BaseDto, GD extends
 
     public Page<GD> getAllPagedByBajaFalse(Pageable pageable){
         // Trae una página de entidades
-        Page<E> entities = baseService.getAllPagedByBajaFalse(pageable);
+        Page<E> entities = baseService.getAllPagedByEliminadoFalse(pageable);
         // Mapea las entidades a DTOs
         List<GD> dtos = entities.getContent().stream()
                 .map(baseMapper::toDTO)

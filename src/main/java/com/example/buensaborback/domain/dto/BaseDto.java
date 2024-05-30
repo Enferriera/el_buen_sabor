@@ -11,5 +11,5 @@ import lombok.Setter;
 @Setter
 public class BaseDto {
     protected Long id;
-    protected boolean baja;
+    protected boolean eliminado;
 }
