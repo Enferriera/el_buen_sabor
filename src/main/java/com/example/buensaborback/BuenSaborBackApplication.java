@@ -245,6 +245,7 @@ public class BuenSaborBackApplication {
 					stockMaximo(50).
 					precioCompra(50.0).
 					precioVenta(70.0).
+					habilitado(true).
 					build();
 			ArticuloInsumo harina = ArticuloInsumo.builder().denominacion("Harina").unidadMedida(unidadMedidaGramos).esParaElaborar(true).stockActual(4).stockMinimo(10).stockMaximo(40).precioCompra(40.0).precioVenta(60.5).build();
 			ArticuloInsumo queso = ArticuloInsumo.builder().denominacion("Queso").unidadMedida(unidadMedidaGramos).esParaElaborar(true).stockActual(20).stockMinimo(5).stockMaximo(50).precioCompra(23.6).precioVenta(66.6).build();
@@ -284,13 +285,15 @@ public class BuenSaborBackApplication {
 			// Crear Articulos Manufacturados
 			ArticuloManufacturado pizzaMuzarella = ArticuloManufacturado.builder().
 					denominacion("Pizza Muzarella").
+					codigo("M001").
 					descripcion("Una pizza clasica").
 					unidadMedida(unidadMedidaPorciones).
 					precioVenta(130.0).
 					tiempoEstimadoMinutos(15).
 					preparacion("Pasos de preparacion de una muzza de toda la vida").
+					habilitado(false).
 					build();
-			ArticuloManufacturado pizzaNapolitana = ArticuloManufacturado.builder().denominacion("Pizza Muzarella").descripcion("Una pizza clasica").unidadMedida(unidadMedidaPorciones).precioVenta(150.0).tiempoEstimadoMinutos(15).preparacion("Pasos de preparacion de una pizza napolitana italiana").build();
+			ArticuloManufacturado pizzaNapolitana = ArticuloManufacturado.builder().denominacion("Pizza Napolitana").codigo("M002").descripcion("Una pizza napolitana").unidadMedida(unidadMedidaPorciones).precioVenta(150.0).tiempoEstimadoMinutos(15).preparacion("Pasos de preparacion de una pizza napolitana italiana").habilitado(true).build();
 
 			// Crear fotos para los artículos manufacturados
 			ImagenArticulo imagenArticuloPizzaMuzarella = ImagenArticulo.builder().
