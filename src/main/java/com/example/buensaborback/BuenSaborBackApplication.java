@@ -134,6 +134,7 @@ public class BuenSaborBackApplication {
 			Sucursal sucursalGuaymallen = Sucursal.builder().
 					nombre("En Guaymallen").horarioApertura(LocalTime.of(17, 0)).
 					horarioCierre(LocalTime.of(23, 0)).
+					esCasaMatriz(true).
 					build();
 
 			Sucursal sucursalMarDelPlata = Sucursal.builder().nombre("En MDQ").
