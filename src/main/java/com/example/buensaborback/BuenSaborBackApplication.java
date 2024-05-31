@@ -238,6 +238,7 @@ public class BuenSaborBackApplication {
 			// Crear Insumos , coca cola , harina , etc
 			ArticuloInsumo cocaCola = ArticuloInsumo.builder().
 					denominacion("Coca cola").
+					codigo("I101").
 					unidadMedida(unidadMedidaLitros).
 					esParaElaborar(false).
 					stockActual(15).
@@ -247,9 +248,9 @@ public class BuenSaborBackApplication {
 					precioVenta(70.0).
 					habilitado(true).
 					build();
-			ArticuloInsumo harina = ArticuloInsumo.builder().denominacion("Harina").unidadMedida(unidadMedidaGramos).esParaElaborar(true).stockActual(4).stockMinimo(10).stockMaximo(40).precioCompra(40.0).precioVenta(60.5).build();
-			ArticuloInsumo queso = ArticuloInsumo.builder().denominacion("Queso").unidadMedida(unidadMedidaGramos).esParaElaborar(true).stockActual(20).stockMinimo(5).stockMaximo(50).precioCompra(23.6).precioVenta(66.6).build();
-			ArticuloInsumo tomate = ArticuloInsumo.builder().denominacion("Tomate").unidadMedida(unidadMedidaCantidad).esParaElaborar(true).stockActual(20).stockMinimo(5).stockMaximo(50).precioCompra(23.6).precioVenta(66.6).build();
+			ArticuloInsumo harina = ArticuloInsumo.builder().denominacion("Harina").codigo("I001").unidadMedida(unidadMedidaGramos).esParaElaborar(true).stockActual(4).stockMinimo(10).stockMaximo(40).precioCompra(40.0).precioVenta(60.5).build();
+			ArticuloInsumo queso = ArticuloInsumo.builder().denominacion("Queso").codigo("I002").unidadMedida(unidadMedidaGramos).esParaElaborar(true).stockActual(20).stockMinimo(5).stockMaximo(50).precioCompra(23.6).precioVenta(66.6).build();
+			ArticuloInsumo tomate = ArticuloInsumo.builder().denominacion("Tomate").codigo("I003").unidadMedida(unidadMedidaCantidad).esParaElaborar(true).stockActual(20).stockMinimo(5).stockMaximo(50).precioCompra(23.6).precioVenta(66.6).build();
 
 			// crear fotos para cada insumo
 			ImagenArticulo imagenArticuloCoca = ImagenArticulo.builder().
