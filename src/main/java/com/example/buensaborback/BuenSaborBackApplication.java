@@ -146,8 +146,8 @@ public class BuenSaborBackApplication {
 			Domicilio domicilioGaboto = Domicilio.builder().cp(7600).calle("Gaboto").numero(3475).
 					localidad(localidad2).build();
 			// GRABAMOS DOMICILIOS
-			domicilioRepository.save(domicilioBerutti);
-			domicilioRepository.save(domicilioGaboto);
+			//domicilioRepository.save(domicilioBerutti);
+			//domicilioRepository.save(domicilioGaboto);
 
 			//ASOCIAMOS LOS DOMICILIOS A SUCURSAL
 			sucursalGuaymallen.setDomicilio(domicilioBerutti);
@@ -507,11 +507,11 @@ public class BuenSaborBackApplication {
 			Domicilio domicilioSucu1 = Domicilio.builder().cp(5519).calle("calle1").numero(2684).piso(0).nroDpto(5).
 					localidad(localidad1).build();
 
-			domicilioRepository.save(domicilioSucu1);
+			//domicilioRepository.save(domicilioSucu1);
 
 			Domicilio domicilioSucu2 = Domicilio.builder().cp(5519).calle("calle2").numero(2684).piso(0).nroDpto(5).
 					localidad(localidad1).build();
-			domicilioRepository.save(domicilioSucu2);
+			//domicilioRepository.save(domicilioSucu2);
 
 			Sucursal sucursal = Sucursal.builder()
 					.nombre("sucursal prueba")

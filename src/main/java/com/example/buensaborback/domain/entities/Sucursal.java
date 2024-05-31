@@ -25,7 +25,7 @@ public class Sucursal extends  Base{
     private boolean esCasaMatriz;
     private String logo;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Domicilio domicilio;
 
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
