@@ -1,10 +1,12 @@
 package com.example.buensaborback.repositories;
 
+import com.example.buensaborback.domain.entities.ArticuloInsumo;
 import com.example.buensaborback.domain.entities.ArticuloManufacturado;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ArticuloManufacturadoRepository extends BaseRepository<ArticuloManufacturado,Long> {
@@ -21,4 +23,5 @@ public interface ArticuloManufacturadoRepository extends BaseRepository<Articulo
             "WHERE a.CATEGORIA_ID = ?1", nativeQuery = true)
     List<ArticuloManufacturado> getArticulosByCategoria(Long id);
 
+    Optional<ArticuloManufacturado> findByCodigo(String codigo);
 }

@@ -65,7 +65,7 @@ public class ArticuloInsumoFacadeImp extends BaseFacadeImp<ArticuloInsumo, Artic
     public ArticuloInsumoDto create(ArticuloInsumoCreateDto articuloInsumoCreateDto) {
         Optional<ArticuloInsumo> existingArticulo = articuloInsumoService.findByCodigo(articuloInsumoCreateDto.getCodigo());
         if (existingArticulo.isPresent()) {
-            throw new RuntimeException("ArticuloInsumo with code " + articuloInsumoCreateDto.getCodigo() + " already exists."); // O lanza una excepción personalizada
+            throw new RuntimeException("ArticuloInsumo con el codigo " + articuloInsumoCreateDto.getCodigo() + " ya existe.");
         }
         var articulo = articuloInsumoMapper.toCreateEntity(articuloInsumoCreateDto);
         System.out.println("se mapeo el articulo");
