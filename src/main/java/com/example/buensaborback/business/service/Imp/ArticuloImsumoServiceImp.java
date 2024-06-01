@@ -111,6 +111,7 @@ public class ArticuloImsumoServiceImp extends BaseServiceImp<ArticuloInsumo,Long
         }
 
         return articuloInsumoRepository.save(request);
+
     }
 
     @Override
@@ -143,4 +144,10 @@ public class ArticuloImsumoServiceImp extends BaseServiceImp<ArticuloInsumo,Long
         articulo.setHabilitado(!articulo.isHabilitado());
         baseRepository.save(articulo);
     }
+
+    @Override
+    public Optional<ArticuloInsumo> findByCodigo(String codigo) {
+        return articuloInsumoRepository.findByCodigo(codigo);
+    }
+
 }
