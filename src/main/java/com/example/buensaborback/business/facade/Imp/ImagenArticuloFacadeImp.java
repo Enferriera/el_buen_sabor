@@ -1,4 +1,4 @@
-package com.example.buensaborback.business.facade.impl;
+package com.example.buensaborback.business.facade.Imp;
 
 import com.example.buensaborback.business.facade.ImagenArticuloFacade;
 import com.example.buensaborback.business.service.ImagenArticuloService;

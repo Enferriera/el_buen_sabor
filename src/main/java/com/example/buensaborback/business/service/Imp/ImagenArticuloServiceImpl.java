@@ -74,6 +74,8 @@ public class ImagenArticuloServiceImpl implements ImagenArticuloService {
                     return ResponseEntity.badRequest().body("El archivo está vacío.");
                 }
 
+                imagenes = articulo.getImagenes();
+
                 ImagenArticulo image = new ImagenArticulo();
                 image.setName(file.getOriginalFilename());
                 image.setUrl(cloudinaryService.uploadFile(file));
