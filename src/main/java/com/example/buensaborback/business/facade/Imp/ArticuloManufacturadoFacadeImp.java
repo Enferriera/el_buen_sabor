@@ -13,7 +13,9 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+
+import java.util.Optional;
+
 
 @Service
 public class ArticuloManufacturadoFacadeImp extends BaseFacadeImp<ArticuloManufacturado, ArticuloManufacturadoDto, ArticuloManufacturadoDto, Long> implements ArticuloManufacturadoFacade {
@@ -29,6 +31,10 @@ public class ArticuloManufacturadoFacadeImp extends BaseFacadeImp<ArticuloManufa
     @Override
     @Transactional
     public ArticuloManufacturadoDto create(ArticuloManufacturadoCreateDto articuloManufacturadoCreateDto) {
+        Optional<ArticuloManufacturado> existingArticulo = articuloManufacturadoService.findByCodigo(articuloManufacturadoCreateDto.getCodigo());
+        if(existingArticulo.isPresent()){
+            throw new RuntimeException("Articulo manufacturado con el codigo "+articuloManufacturadoCreateDto.getCodigo()+ " ya existe.");
+        }
         var articulo = articuloManufacturadoMapper.toCreateEntity(articuloManufacturadoCreateDto);
         System.out.println("se mapeo el articulo");
         ArticuloManufacturado articuloPersisted = articuloManufacturadoService.create(articulo);

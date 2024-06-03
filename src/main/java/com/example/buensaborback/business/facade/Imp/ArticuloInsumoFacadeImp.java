@@ -20,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -62,8 +63,13 @@ public class ArticuloInsumoFacadeImp extends BaseFacadeImp<ArticuloInsumo, Artic
     @Override
     @Transactional
     public ArticuloInsumoDto create(ArticuloInsumoCreateDto articuloInsumoCreateDto) {
+        Optional<ArticuloInsumo> existingArticulo = articuloInsumoService.findByCodigo(articuloInsumoCreateDto.getCodigo());
+        if (existingArticulo.isPresent()) {
+            throw new RuntimeException("ArticuloInsumo con el codigo " + articuloInsumoCreateDto.getCodigo() + " ya existe.");
+        }
         var articulo = articuloInsumoMapper.toCreateEntity(articuloInsumoCreateDto);
         System.out.println("se mapeo el articulo");
+
         ArticuloInsumo articuloPersisted = articuloInsumoService.create(articulo);
         return articuloInsumoMapper.toDTO(articuloPersisted);
     }
