@@ -13,7 +13,9 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import java.util.Optional;
+
 
 @Service
 public class ArticuloManufacturadoFacadeImp extends BaseFacadeImp<ArticuloManufacturado, ArticuloManufacturadoDto, ArticuloManufacturadoDto, Long> implements ArticuloManufacturadoFacade {
@@ -44,4 +46,8 @@ public class ArticuloManufacturadoFacadeImp extends BaseFacadeImp<ArticuloManufa
         articuloManufacturadoService.changeHabilitado(id);
     }
 
+    @Override
+    public List<ArticuloManufacturadoDto> getHabilitados() {
+        return articuloManufacturadoMapper.toDTOsList(articuloManufacturadoService.getHabilitados());
+    }
 }

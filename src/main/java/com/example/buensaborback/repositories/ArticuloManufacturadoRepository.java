@@ -23,5 +23,12 @@ public interface ArticuloManufacturadoRepository extends BaseRepository<Articulo
             "WHERE a.CATEGORIA_ID = ?1", nativeQuery = true)
     List<ArticuloManufacturado> getArticulosByCategoria(Long id);
 
+
+    @Query(value = "SELECT *\n" +
+            "FROM ARTICULO_MANUFACTURADO am\n" +
+            "JOIN ARTICULO a ON am.ID = a.ID\n" +
+            "WHERE a.HABILITADO = TRUE", nativeQuery = true)
+    List<ArticuloManufacturado> getHabilitados();
+  
     Optional<ArticuloManufacturado> findByCodigo(String codigo);
 }

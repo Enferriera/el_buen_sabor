@@ -27,4 +27,9 @@ public class ArticuloManufacturadoController extends BaseControllerImp<ArticuloM
         facade.changeHabilitado(id);
         return ResponseEntity.ok().body("Se cambio el estado del Articulo Manufacturado");
     }
+
+    @GetMapping("/getHabilitados")
+    public ResponseEntity<?> getHabilitados(){
+        return ResponseEntity.ok().body(facade.getHabilitados());
+    }
 }
