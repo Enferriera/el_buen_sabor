@@ -29,6 +29,7 @@ public class PromocionDto extends BaseDto {
     private LocalDate fechaHasta;
     private LocalTime horaDesde;
     private LocalTime horaHasta;
+    private boolean habilitado = true;
     private String descripcionDescuento;
     private Double precioPromocional;
     private TipoPromocion tipoPromocion;
