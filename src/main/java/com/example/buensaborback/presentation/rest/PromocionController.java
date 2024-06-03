@@ -27,4 +27,15 @@ public class PromocionController extends BaseControllerImp<Promocion, PromocionD
     public ResponseEntity<PromocionDto> create(@RequestBody PromocionCreateDto dto) {
         return ResponseEntity.ok().body(promocionFacade.create(dto));
     }
+
+    @PutMapping("/changeHabilitado/{id}")
+    public ResponseEntity<?> changeHabilitado(@PathVariable Long id){
+        facade.changeHabilitado(id);
+        return ResponseEntity.ok().body("Se cambio el estado del Promocion");
+    }
+
+    @GetMapping("/getHabilitados")
+    public ResponseEntity<?> getHabilitados(){
+        return ResponseEntity.ok().body(facade.getHabilitados());
+    }
 }
