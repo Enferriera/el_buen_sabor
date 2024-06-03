@@ -1,6 +1,5 @@
 package com.example.buensaborback.domain.audit;
 
-
 import com.example.buensaborback.domain.config.CustomRevisionListener;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
@@ -25,7 +24,8 @@ public class Revision implements Serializable {
     private static final long serialVersionID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "revision_seq")
+    @SequenceGenerator(name = "revision_seq", sequenceName = "revision_sequence", allocationSize = 1)
     @RevisionNumber
     private int id;
 
@@ -34,4 +34,3 @@ public class Revision implements Serializable {
     @RevisionTimestamp
     private Date date;
 }
-
