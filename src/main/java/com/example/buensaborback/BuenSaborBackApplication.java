@@ -28,7 +28,7 @@ public class BuenSaborBackApplication {
 		logger.info("Estoy activo en el main Alberto");
 	}
 
-
+/*
 	@Autowired
 	private ClienteRepository clienteRepository;
 	@Autowired
@@ -615,7 +615,7 @@ public class BuenSaborBackApplication {
 			logger.info("----------------Pedido ---------------------");
 			logger.info("{}",pedido);
 		};
-	} */
-		};
 	}
+		};
+	}*/
 }

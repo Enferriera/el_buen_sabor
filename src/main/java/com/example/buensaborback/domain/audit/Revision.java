@@ -24,8 +24,10 @@ import java.util.Date;
 public class Revision implements Serializable {
     private static final long serialVersionID = 1L;
 
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "revision_seq")
+    @SequenceGenerator(name = "revision_seq", sequenceName = "revision_sequence", allocationSize = 1)
     @RevisionNumber
     private int id;
 
