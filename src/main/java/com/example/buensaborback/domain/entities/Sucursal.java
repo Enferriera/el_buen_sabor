@@ -54,4 +54,8 @@ public class Sucursal extends  Base{
 
     @ManyToOne
     private Empresa empresa;
+
+    @OneToMany(mappedBy = "sucursal",fetch = FetchType.LAZY)
+    @Builder.Default
+    private Set<StockInsumoSucursal> stocksSucursal=new HashSet<>();
 }

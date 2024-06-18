@@ -24,6 +24,7 @@ public class Articulo extends Base {
 
     protected String denominacion;
     protected Double precioVenta;
+    @Builder.Default
     protected boolean habilitado = true;
     protected String codigo;
 

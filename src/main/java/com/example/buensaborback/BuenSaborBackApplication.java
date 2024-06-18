@@ -28,7 +28,7 @@ public class BuenSaborBackApplication {
 		logger.info("Estoy activo en el main Alberto");
 	}
 
-/*
+
 	@Autowired
 	private ClienteRepository clienteRepository;
 	@Autowired
@@ -43,6 +43,8 @@ public class BuenSaborBackApplication {
 
 	@Autowired
 	private ProvinciaRepository provinciaRepository;
+	@Autowired
+	private StockInsumoSucursalRepository stockInsumoSucursalRepository;
 
 	@Autowired
 	private LocalidadRepository localidadRepository;
@@ -100,7 +102,8 @@ public class BuenSaborBackApplication {
 						   ImagenArticuloRepository imagenArticuloRepository,
 						   PromocionRepository promocionRepository,
 						   PedidoRepository pedidoRepository,
-						   EmpleadoRepository empleadoRepository, FacturaRepository facturaRepository) {
+						   EmpleadoRepository empleadoRepository, FacturaRepository facturaRepository,
+						   StockInsumoSucursalRepository stockInsumoSucursalRepository) {
 		return args -> {
 			logger.info("----------------ESTOY----FUNCIONANDO---------------------");
 			// Etapa del dashboard
@@ -242,16 +245,13 @@ public class BuenSaborBackApplication {
 					codigo("I101").
 					unidadMedida(unidadMedidaLitros).
 					esParaElaborar(false).
-					stockActual(15).
-					stockMinimo(10).
-					stockMaximo(50).
 					precioCompra(50.0).
 					precioVenta(70.0).
 					habilitado(true).
 					build();
-			ArticuloInsumo harina = ArticuloInsumo.builder().denominacion("Harina").codigo("I001").unidadMedida(unidadMedidaGramos).esParaElaborar(true).stockActual(4).stockMinimo(10).stockMaximo(40).precioCompra(40.0).precioVenta(60.5).build();
-			ArticuloInsumo queso = ArticuloInsumo.builder().denominacion("Queso").codigo("I002").unidadMedida(unidadMedidaGramos).esParaElaborar(true).stockActual(20).stockMinimo(5).stockMaximo(50).precioCompra(23.6).precioVenta(66.6).build();
-			ArticuloInsumo tomate = ArticuloInsumo.builder().denominacion("Tomate").codigo("I003").unidadMedida(unidadMedidaCantidad).esParaElaborar(true).stockActual(20).stockMinimo(5).stockMaximo(50).precioCompra(23.6).precioVenta(66.6).build();
+			ArticuloInsumo harina = ArticuloInsumo.builder().denominacion("Harina").codigo("I001").unidadMedida(unidadMedidaGramos).esParaElaborar(true).precioCompra(40.0).precioVenta(60.5).build();
+			ArticuloInsumo queso = ArticuloInsumo.builder().denominacion("Queso").codigo("I002").unidadMedida(unidadMedidaGramos).esParaElaborar(true).precioCompra(23.6).precioVenta(66.6).build();
+			ArticuloInsumo tomate = ArticuloInsumo.builder().denominacion("Tomate").codigo("I003").unidadMedida(unidadMedidaCantidad).esParaElaborar(true).precioCompra(23.6).precioVenta(66.6).build();
 
 			// crear fotos para cada insumo
 			ImagenArticulo imagenArticuloCoca = ImagenArticulo.builder().
@@ -271,6 +271,23 @@ public class BuenSaborBackApplication {
 			queso.getImagenes().add(imagenArticuloQueso);
 			tomate.getImagenes().add(imagenArticuloTomate);
 			// Grabamos los Articulos
+
+
+			//Asociamos el Stock a la sucursal
+			StockInsumoSucursal stockCocacolaSuc1=StockInsumoSucursal.builder().
+					stockActual(15).
+					stockMinimo(10).
+					stockMaximo(50).
+					articuloInsumo(cocaCola).sucursal(sucursalGuaymallen).build();
+			StockInsumoSucursal stockHarinaSuc1=StockInsumoSucursal.builder().stockActual(4).stockMinimo(10).stockMaximo(40).articuloInsumo(harina).sucursal(sucursalGuaymallen).build();
+			StockInsumoSucursal stockQuesoSuc1=StockInsumoSucursal.builder().stockActual(4).stockMinimo(10).stockMaximo(40).articuloInsumo(queso).sucursal(sucursalGuaymallen).build();
+			StockInsumoSucursal stockTomateSuc1=StockInsumoSucursal.builder().stockActual(4).stockMinimo(10).stockMaximo(40).articuloInsumo(tomate).sucursal(sucursalGuaymallen).build();
+
+	harina.getStocksInsumo().add(stockHarinaSuc1);
+	cocaCola.getStocksInsumo().add(stockCocacolaSuc1);
+	queso.getStocksInsumo().add(stockQuesoSuc1);
+	tomate.getStocksInsumo().add(stockTomateSuc1);
+
 			articuloInsumoRepository.save(cocaCola);
 			articuloInsumoRepository.save(harina);
 			articuloInsumoRepository.save(queso);
@@ -615,7 +632,7 @@ public class BuenSaborBackApplication {
 			logger.info("----------------Pedido ---------------------");
 			logger.info("{}",pedido);
 		};
-	}
-		};
 	}*/
+		};
+	}
 }

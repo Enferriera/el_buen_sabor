@@ -2,14 +2,8 @@ package com.example.buensaborback.business.service.Imp;
 
 import com.example.buensaborback.business.service.ArticuloInsumoService;
 import com.example.buensaborback.business.service.Base.BaseServiceImp;
-import com.example.buensaborback.domain.entities.ArticuloInsumo;
-import com.example.buensaborback.domain.entities.ArticuloManufacturadoDetalle;
-import com.example.buensaborback.domain.entities.Categoria;
-import com.example.buensaborback.domain.entities.ImagenArticulo;
-import com.example.buensaborback.repositories.ArticuloInsumoRepository;
-import com.example.buensaborback.repositories.ArticuloManufacturadoDetalleRepository;
-import com.example.buensaborback.repositories.CategoriaRepository;
-import com.example.buensaborback.repositories.ImagenArticuloRepository;
+import com.example.buensaborback.domain.entities.*;
+import com.example.buensaborback.repositories.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -34,6 +28,9 @@ public class ArticuloImsumoServiceImp extends BaseServiceImp<ArticuloInsumo,Long
 
     @Autowired
     CategoriaRepository categoriaRepository;
+
+    @Autowired
+    StockInsumoSucursalRepository stockInsumoSucursalRepository;
 
     @Override
     @Transactional
@@ -66,6 +63,9 @@ public class ArticuloImsumoServiceImp extends BaseServiceImp<ArticuloInsumo,Long
 
 
             request.setCategoria(categoria);
+        }
+        for(StockInsumoSucursal stock: request.getStocksInsumo()){
+            stock.setArticuloInsumo(request);
         }
 
         return articuloInsumoRepository.save(request);
