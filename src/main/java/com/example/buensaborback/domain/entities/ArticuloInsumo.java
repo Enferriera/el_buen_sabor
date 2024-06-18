@@ -23,7 +23,7 @@ public class ArticuloInsumo extends Articulo {
     private Double precioCompra;
     private Boolean esParaElaborar;
 
-    @OneToMany(mappedBy = "articuloInsumo",fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "articuloInsumo",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @Builder.Default
     private Set<StockInsumoSucursal> stocksInsumo=new HashSet<>();
 
