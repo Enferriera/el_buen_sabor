@@ -31,6 +31,6 @@ public class SucursalDto extends BaseDto {
 
     private EmpresaDto empresa;
 
-    private Set<StockInsumoShortDto> stocksSucursal;
+   // private Set<StockInsumoShortDto> stocksSucursal;
 
 }
