@@ -20,4 +20,6 @@ public class StockInsumoSucursalServiceImpl extends BaseServiceImp<StockInsumoSu
    public Set<StockInsumoSucursal> findAllBySucursalId(Long idSucursal){
         return stockInsumoSucursalRepository.findAllBySucursalId(idSucursal);
     }
+
+
 }

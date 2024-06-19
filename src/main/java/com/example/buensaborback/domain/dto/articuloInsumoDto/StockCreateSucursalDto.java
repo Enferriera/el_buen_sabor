@@ -15,5 +15,6 @@ public class StockCreateSucursalDto extends BaseDto {
     private Integer stockActual;
     private Integer stockMinimo;
     private Integer stockMaximo;
+    private Long idArticuloInsumo;
     private Long idSucursal;
 }

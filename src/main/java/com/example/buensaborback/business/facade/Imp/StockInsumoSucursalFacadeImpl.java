@@ -6,6 +6,7 @@ import com.example.buensaborback.business.mapper.BaseMapper;
 import com.example.buensaborback.business.mapper.StockInsumoSucursalMapper;
 import com.example.buensaborback.business.service.Base.BaseService;
 import com.example.buensaborback.business.service.StockInsumoSucursalService;
+import com.example.buensaborback.domain.dto.articuloInsumoDto.StockCreateSucursalDto;
 import com.example.buensaborback.domain.dto.articuloInsumoDto.StockInsumoShortDto;
 import com.example.buensaborback.domain.entities.StockInsumoSucursal;
 import jakarta.transaction.Transactional;
@@ -31,4 +32,11 @@ public class StockInsumoSucursalFacadeImpl extends BaseFacadeImp<StockInsumoSucu
     public Set<StockInsumoShortDto> findAllBySucursalId(Long idSucursal){
         return stockInsumoSucursalMapper.toDTOsSet(stockInsumoSucursalService.findAllBySucursalId(idSucursal));
     }
+
+    @Transactional
+    public StockInsumoShortDto createNew(StockCreateSucursalDto source){
+        var stockPersist= stockInsumoSucursalMapper.toCreateEntity(source);
+        return stockInsumoSucursalMapper.toDTO(stockInsumoSucursalService.create(stockPersist));
+    }
+
 }

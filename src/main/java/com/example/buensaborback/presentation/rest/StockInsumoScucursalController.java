@@ -1,6 +1,7 @@
 package com.example.buensaborback.presentation.rest;
 
 import com.example.buensaborback.business.facade.Imp.StockInsumoSucursalFacadeImpl;
+import com.example.buensaborback.domain.dto.articuloInsumoDto.StockCreateSucursalDto;
 import com.example.buensaborback.domain.dto.articuloInsumoDto.StockInsumoShortDto;
 import com.example.buensaborback.domain.entities.StockInsumoSucursal;
 import com.example.buensaborback.presentation.rest.Base.BaseControllerImp;
@@ -21,5 +22,10 @@ public class StockInsumoScucursalController extends BaseControllerImp<StockInsum
     @GetMapping("/getBySucursalId/{idSucursal}")
     public ResponseEntity<Set<StockInsumoShortDto>> getBySucursalId(@PathVariable Long idSucursal){
         return ResponseEntity.ok().body(facade.findAllBySucursalId(idSucursal));
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<StockInsumoShortDto> create(@RequestBody StockCreateSucursalDto source){
+        return ResponseEntity.ok().body(facade.createNew(source));
     }
 }

@@ -9,4 +9,6 @@ import java.util.Set;
 public interface StockInsumoSucursalService extends BaseService<StockInsumoSucursal,Long> {
 
     Set<StockInsumoSucursal> findAllBySucursalId( Long idSucursal);
+
+
 }
