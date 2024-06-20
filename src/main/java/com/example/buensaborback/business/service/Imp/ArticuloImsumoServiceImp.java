@@ -169,4 +169,10 @@ public class ArticuloImsumoServiceImp extends BaseServiceImp<ArticuloInsumo,Long
         return articuloInsumoRepository.findByCodigo(codigo);
     }
 
+    @Override
+    @Transactional
+    public List<ArticuloInsumo> findArticulosInsumosBySucursalId(Long idSucursal){
+        return articuloInsumoRepository.findArticulosInsumosBySucursalId(idSucursal);
+    }
+
 }

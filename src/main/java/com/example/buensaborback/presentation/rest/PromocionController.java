@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/promociones")
 @CrossOrigin(origins="*")
@@ -37,5 +39,10 @@ public class PromocionController extends BaseControllerImp<Promocion, PromocionD
     @GetMapping("/getHabilitados")
     public ResponseEntity<?> getHabilitados(){
         return ResponseEntity.ok().body(facade.getHabilitados());
+    }
+
+    @GetMapping("/getPromocionPorSucursal/{idSucursal}")
+    public ResponseEntity<List<PromocionDto>> getPromocionPorSucursal(@PathVariable Long idSucursal ){
+        return ResponseEntity.ok().body(promocionFacade.findPromocionesBySucursalId(idSucursal));
     }
 }

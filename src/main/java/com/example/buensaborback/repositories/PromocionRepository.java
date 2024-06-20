@@ -17,4 +17,6 @@ public interface PromocionRepository extends BaseRepository<Promocion,Long>{
             "FROM Promocion\n" +
             "WHERE HABILITADO = TRUE", nativeQuery = true)
     List<Promocion> getHabilitados();
+    @Query("SELECT p FROM Promocion p JOIN p.sucursales s WHERE s.id = :idSucursal AND p.eliminado=false")
+    List<Promocion> findPromocionesBySucursalId(@Param("idSucursal") Long idSucursal);
 }

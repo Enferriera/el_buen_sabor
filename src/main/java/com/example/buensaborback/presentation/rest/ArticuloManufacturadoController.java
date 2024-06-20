@@ -8,6 +8,8 @@ import com.example.buensaborback.presentation.rest.Base.BaseControllerImp;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/articulosManufacturados")
 @CrossOrigin("*")
@@ -31,5 +33,10 @@ public class ArticuloManufacturadoController extends BaseControllerImp<ArticuloM
     @GetMapping("/getHabilitados")
     public ResponseEntity<?> getHabilitados(){
         return ResponseEntity.ok().body(facade.getHabilitados());
+    }
+
+    @GetMapping("/getManufacturadosPorSucursal/{idSucursal}")
+    public ResponseEntity<List<ArticuloManufacturadoDto>> getManufacturadosPorSucursal(@PathVariable Long idSucursal){
+        return ResponseEntity.ok().body(facade.findArticulosManufacturadosBySucursalId(idSucursal));
     }
 }

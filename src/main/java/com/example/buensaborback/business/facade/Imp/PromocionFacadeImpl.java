@@ -45,4 +45,10 @@ public PromocionDto create(PromocionCreateDto promocionDto) {
     public List<PromocionDto> getHabilitados() {
         return promocionMapper.toDTOsList(promocionService.getHabilitados());
     }
+
+    @Override
+    public List<PromocionDto> findPromocionesBySucursalId(Long idSucursal){
+        return promocionMapper.toDTOsList(promocionService.findPromocionesBySucursalId(idSucursal));
+    }
 }
+

@@ -8,6 +8,7 @@ import com.example.buensaborback.business.service.ArticuloInsumoService;
 import com.example.buensaborback.business.service.Base.BaseService;
 import com.example.buensaborback.domain.dto.articuloInsumoDto.ArticuloInsumoCreateDto;
 import com.example.buensaborback.domain.dto.articuloInsumoDto.ArticuloInsumoDto;
+import com.example.buensaborback.domain.dto.articuloInsumoDto.ArticuloInsumoShortDto;
 import com.example.buensaborback.domain.dto.articulomanufacturadodto.ArticuloManufacturadoCreateDto;
 import com.example.buensaborback.domain.dto.articulomanufacturadodto.ArticuloManufacturadoDto;
 import com.example.buensaborback.domain.entities.ArticuloInsumo;
@@ -81,6 +82,11 @@ public class ArticuloInsumoFacadeImp extends BaseFacadeImp<ArticuloInsumo, Artic
     @Override
     public void changeHabilitado(Long id) {
         articuloInsumoService.changeHabilitado(id);
+    }
+
+    @Override
+    public List<ArticuloInsumoDto> findArticulosInsumosBySucursalId(Long idSucursal){
+        return articuloInsumoMapper.toDTOsList(articuloInsumoService.findArticulosInsumosBySucursalId(idSucursal));
     }
 
 }

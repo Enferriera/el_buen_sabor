@@ -8,6 +8,7 @@ import com.example.buensaborback.business.service.ArticuloManufacturadoService;
 import com.example.buensaborback.business.service.Base.BaseService;
 import com.example.buensaborback.domain.dto.articulomanufacturadodto.ArticuloManufacturadoCreateDto;
 import com.example.buensaborback.domain.dto.articulomanufacturadodto.ArticuloManufacturadoDto;
+import com.example.buensaborback.domain.entities.ArticuloInsumo;
 import com.example.buensaborback.domain.entities.ArticuloManufacturado;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,4 +52,11 @@ public class ArticuloManufacturadoFacadeImp extends BaseFacadeImp<ArticuloManufa
     public List<ArticuloManufacturadoDto> getHabilitados() {
         return articuloManufacturadoMapper.toDTOsList(articuloManufacturadoService.getHabilitados());
     }
+
+    @Override
+    public List<ArticuloManufacturadoDto> findArticulosManufacturadosBySucursalId(Long id){
+        return articuloManufacturadoMapper.toDTOsList(articuloManufacturadoService.findArticulosManufacturadosBySucursalId(id));
+    }
+
+
 }

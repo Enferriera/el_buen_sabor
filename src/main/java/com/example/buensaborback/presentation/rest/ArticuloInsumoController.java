@@ -3,6 +3,7 @@ package com.example.buensaborback.presentation.rest;
 import com.example.buensaborback.business.facade.Imp.ArticuloInsumoFacadeImp;
 import com.example.buensaborback.domain.dto.articuloInsumoDto.ArticuloInsumoCreateDto;
 import com.example.buensaborback.domain.dto.articuloInsumoDto.ArticuloInsumoDto;
+import com.example.buensaborback.domain.dto.articuloInsumoDto.ArticuloInsumoShortDto;
 import com.example.buensaborback.domain.dto.articulomanufacturadodto.ArticuloManufacturadoCreateDto;
 import com.example.buensaborback.domain.dto.articulomanufacturadodto.ArticuloManufacturadoDto;
 import com.example.buensaborback.domain.entities.ArticuloInsumo;
@@ -44,6 +45,11 @@ public class ArticuloInsumoController extends BaseControllerImp<ArticuloInsumo, 
     public ResponseEntity<?> changeHabilitado(@PathVariable Long id){
         facade.changeHabilitado(id);
         return ResponseEntity.ok().body("Se cambio el estadoPedido del Insuomo");
+    }
+
+    @GetMapping("/getInsumosPorSucursal/{idSucursal}")
+    public ResponseEntity<List<ArticuloInsumoDto>> getInsumosPorSUcursal(@PathVariable Long idSucursal){
+        return ResponseEntity.ok().body(facade.findArticulosInsumosBySucursalId(idSucursal));
     }
 
 }

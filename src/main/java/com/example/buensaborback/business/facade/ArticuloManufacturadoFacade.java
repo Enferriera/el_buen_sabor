@@ -3,6 +3,7 @@ package com.example.buensaborback.business.facade;
 import com.example.buensaborback.business.facade.Base.BaseFacade;
 import com.example.buensaborback.domain.dto.articulomanufacturadodto.ArticuloManufacturadoCreateDto;
 import com.example.buensaborback.domain.dto.articulomanufacturadodto.ArticuloManufacturadoDto;
+import com.example.buensaborback.domain.entities.ArticuloManufacturado;
 
 import java.util.List;
 
@@ -11,4 +12,6 @@ public ArticuloManufacturadoDto create(ArticuloManufacturadoCreateDto articuloMa
     public void changeHabilitado(Long id);
 
     public List<ArticuloManufacturadoDto> getHabilitados();
+
+    public List<ArticuloManufacturadoDto> findArticulosManufacturadosBySucursalId(Long id);
 }

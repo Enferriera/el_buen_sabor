@@ -131,5 +131,10 @@ public class ArticuloManufacturadoServiceImp extends BaseServiceImp<ArticuloManu
         return articuloManufacturadoRepository.findByCodigo(codigo);
     }
 
+    @Override
+    @Transactional
+    public List<ArticuloManufacturado> findArticulosManufacturadosBySucursalId(Long id){
+        return articuloManufacturadoRepository.findArticulosManufacturadosBySucursalId(id);
+    }
 
 }
