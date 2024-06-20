@@ -7,6 +7,7 @@ import com.example.buensaborback.business.mapper.CategoriaMapper;
 import com.example.buensaborback.business.mapper.SucursalMapper;
 import com.example.buensaborback.business.service.Base.BaseService;
 import com.example.buensaborback.business.service.CategoriaService;
+import com.example.buensaborback.domain.dto.CategoriaDtos.CategoriaDto;
 import com.example.buensaborback.domain.dto.CategoriaDtos.CategoriaPostDto;
 import com.example.buensaborback.domain.dto.CategoriaDtos.CategoriaGetDto;
 import com.example.buensaborback.domain.dto.SucursalDtos.SucursalShortDto;
@@ -72,5 +73,18 @@ public class CategoriaFacadeImp extends BaseFacadeImp<Categoria, CategoriaGetDto
         System.out.println("categoria: " + categoria.getId());
         return categoriaMapper.toDTO(categoriaService.create(categoria));
     }
+
+    @Override
+    @Transactional
+    public List<CategoriaDto> findCategoriasInsumoBySucursalId(Long idSucursal){
+        return categoriaMapper.toDTOList(categoriaService.findCategoriasInsumoBySucursalId(idSucursal));
+    }
+
+    @Override
+    @Transactional
+    public List<CategoriaDto> findCategoriasManufacturadoBySucursalId(Long idSucursal){
+        return categoriaMapper.toDTOList(categoriaService.findCategoriasManufacturadoBySucursalId(idSucursal));
+    }
+
 
 }

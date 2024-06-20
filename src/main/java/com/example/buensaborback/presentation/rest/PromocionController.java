@@ -31,7 +31,7 @@ public class PromocionController extends BaseControllerImp<Promocion, PromocionD
     @PutMapping("/changeHabilitado/{id}")
     public ResponseEntity<?> changeHabilitado(@PathVariable Long id){
         facade.changeHabilitado(id);
-        return ResponseEntity.ok().body("Se cambio el estado del Promocion");
+        return ResponseEntity.ok().body("Se cambio el estadoPedido del Promocion");
     }
 
     @GetMapping("/getHabilitados")

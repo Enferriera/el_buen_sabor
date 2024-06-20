@@ -57,20 +57,39 @@ public class ArticuloImsumoServiceImp extends BaseServiceImp<ArticuloInsumo,Long
 
         if (request.getCategoria() != null) {
             Categoria categoria = categoriaRepository.getById(request.getCategoria().getId());
-            if (categoria == null ) {
+            if (categoria == null) {
                 throw new RuntimeException("La categoría con id: " + request.getCategoria().getId() + " no existe");
             }
 
 
             request.setCategoria(categoria);
         }
-        for(StockInsumoSucursal stock: request.getStocksInsumo()){
-            stock.setArticuloInsumo(request);
-        }
+        StockInsumoSucursal stockBase = request.getStocksInsumo().stream().findFirst().orElse(null);
+        if (stockBase != null) {
+            // Lista temporal para almacenar los nuevos stocks
+            Set<StockInsumoSucursal> nuevosStocks = new HashSet<>();
 
+            for (Sucursal sucursal : request.getCategoria().getSucursales()) {
+                // Crear un nuevo stock basado en stockBase
+                StockInsumoSucursal nuevoStock = StockInsumoSucursal.builder()
+                        .stockActual(stockBase.getStockActual())
+                        .stockMinimo(stockBase.getStockMinimo())
+                        .stockMaximo(stockBase.getStockMaximo())
+                        .sucursal(sucursal)
+                        .articuloInsumo(request)
+                        .build();
+
+                // Añadir el nuevo stock a la lista temporal
+                nuevosStocks.add(nuevoStock);
+            }
+
+            // Añadir todos los nuevos stocks al conjunto original
+            request.setStocksInsumo(nuevosStocks);
+
+
+        }
         return articuloInsumoRepository.save(request);
     }
-
     @Override
     public ArticuloInsumo update(ArticuloInsumo request, Long id) {
         ArticuloInsumo articulo = articuloInsumoRepository.getById(id);

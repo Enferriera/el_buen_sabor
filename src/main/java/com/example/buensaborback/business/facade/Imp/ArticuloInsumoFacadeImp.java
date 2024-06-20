@@ -12,6 +12,7 @@ import com.example.buensaborback.domain.dto.articulomanufacturadodto.ArticuloMan
 import com.example.buensaborback.domain.dto.articulomanufacturadodto.ArticuloManufacturadoDto;
 import com.example.buensaborback.domain.entities.ArticuloInsumo;
 import com.example.buensaborback.domain.entities.ArticuloManufacturado;
+import com.example.buensaborback.domain.entities.StockInsumoSucursal;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -69,7 +70,10 @@ public class ArticuloInsumoFacadeImp extends BaseFacadeImp<ArticuloInsumo, Artic
         }
         var articulo = articuloInsumoMapper.toCreateEntity(articuloInsumoCreateDto);
         System.out.println("se mapeo el articulo");
+        StockInsumoSucursal stock=StockInsumoSucursal.builder().stockActual(articuloInsumoCreateDto.getStockActual())
+                .stockMaximo(articuloInsumoCreateDto.getStockMaximo()).stockMinimo(articuloInsumoCreateDto.getStockMinimo()).build();
 
+        articulo.getStocksInsumo().add(stock);
         ArticuloInsumo articuloPersisted = articuloInsumoService.create(articulo);
         return articuloInsumoMapper.toDTO(articuloPersisted);
     }

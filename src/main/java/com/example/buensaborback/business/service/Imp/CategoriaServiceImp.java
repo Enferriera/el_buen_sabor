@@ -186,6 +186,16 @@ public class CategoriaServiceImp extends BaseServiceImp<Categoria,Long> implemen
         }
     }
 
+    @Override
+    public  List<Categoria> findCategoriasInsumoBySucursalId(Long idSucursal){
+        return categoriaRepository.findCategoriasInsumoBySucursalId(idSucursal);
+    }
+
+    @Override
+    public  List<Categoria> findCategoriasManufacturadoBySucursalId(Long idSucursal){
+        return categoriaRepository.findCategoriasManufacturadoBySucursalId(idSucursal);
+    }
+
     /*
     private void actualizarSubcategorias(Categoria categoriaExistente, Categoria newCategoria, Set<Sucursal> sucursales) {
         // Mapear subcategorías de la nueva categoría

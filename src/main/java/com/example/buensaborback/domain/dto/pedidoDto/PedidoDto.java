@@ -5,7 +5,7 @@ import com.example.buensaborback.domain.dto.DomicilioDto;
 import com.example.buensaborback.domain.dto.SucursalDtos.SucursalShortDto;
 import com.example.buensaborback.domain.dto.personaDto.PersonaShortDto;
 import com.example.buensaborback.domain.entities.Factura;
-import com.example.buensaborback.domain.enums.Estado;
+import com.example.buensaborback.domain.enums.EstadoPedido;
 import com.example.buensaborback.domain.enums.FormaPago;
 import com.example.buensaborback.domain.enums.TipoEnvio;
 import lombok.AllArgsConstructor;
@@ -27,7 +27,7 @@ public class PedidoDto extends BaseDto {
     private LocalTime horaEstimadaFinalizacion;
     private Double total;
 
-    private Estado estado;
+    private EstadoPedido estadoPedido;
     private TipoEnvio tipoEnvio;
     private FormaPago formaPago;
     private LocalDate fechaPedido;

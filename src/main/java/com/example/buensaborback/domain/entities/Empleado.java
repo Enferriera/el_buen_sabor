@@ -1,5 +1,6 @@
 package com.example.buensaborback.domain.entities;
 
+import com.example.buensaborback.domain.enums.Rol;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -16,7 +17,7 @@ import java.util.Set;
 @SuperBuilder
 @Audited
 public class Empleado extends Persona {
-
+    private Rol rol;
     @OneToMany(mappedBy = "empleado", cascade = CascadeType.REFRESH, orphanRemoval = true)
     @ToString.Exclude
     @Builder.Default

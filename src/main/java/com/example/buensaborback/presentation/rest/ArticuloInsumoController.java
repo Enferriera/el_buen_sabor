@@ -43,7 +43,7 @@ public class ArticuloInsumoController extends BaseControllerImp<ArticuloInsumo, 
     @PutMapping("/changeHabilitado/{id}")
     public ResponseEntity<?> changeHabilitado(@PathVariable Long id){
         facade.changeHabilitado(id);
-        return ResponseEntity.ok().body("Se cambio el estado del Insuomo");
+        return ResponseEntity.ok().body("Se cambio el estadoPedido del Insuomo");
     }
 
 }

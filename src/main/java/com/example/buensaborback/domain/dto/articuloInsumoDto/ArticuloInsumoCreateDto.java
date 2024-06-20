@@ -16,5 +16,8 @@ import java.util.Set;
 public class ArticuloInsumoCreateDto extends ArticuloCreateDto {
     private Double precioCompra;
     private Boolean esParaElaborar;
-    private Set<StockCreateSucursalDto> stocksInsumo;
+    private Integer stockActual;
+    private Integer stockMinimo;
+    private Integer stockMaximo;
+   // private Set<StockCreateSucursalDto> stocksInsumo;
 }

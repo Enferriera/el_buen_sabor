@@ -488,7 +488,7 @@ public class BuenSaborBackApplication {
 					.horaEstimadaFinalizacion(LocalTime.now())
 					.total(300.0)
 					.totalCosto(170.6)
-					.estado(Estado.PREPARACION)
+					.estadoPedido(EstadoPedido.PREPARACION)
 					.formaPago(FormaPago.MERCADO_PAGO)
 					.tipoEnvio(TipoEnvio.DELIVERY)
 					.sucursal(sucursalGuaymallen)
@@ -505,7 +505,7 @@ public class BuenSaborBackApplication {
 			pedidoRepository.save(pedido);
 
 			Random random = new Random();
-			Factura facturaBuilder = Factura.builder().fechaFacturacion(LocalDate.now())
+			/*Factura facturaBuilder = Factura.builder().fechaFacturacion(LocalDate.now())
 					.mpPaymentId(random.nextInt(1000))  // Se asume un rango máximo de 1000
 					.mpMerchantOrderId(random.nextInt(1000)) // Se asume un rango máximo de 1000
 					.mpPreferenceId("MP-" + random.nextInt(10000))  // Se asume un rango máximo de 10000
@@ -515,7 +515,7 @@ public class BuenSaborBackApplication {
 
 			facturaRepository.save(facturaBuilder);
 
-			pedido.setFactura(facturaBuilder);
+			pedido.setFactura(facturaBuilder);*/
 
 			pedidoRepository.save(pedido);
 

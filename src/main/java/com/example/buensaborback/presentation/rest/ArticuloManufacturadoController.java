@@ -25,7 +25,7 @@ public class ArticuloManufacturadoController extends BaseControllerImp<ArticuloM
     @PutMapping("/changeHabilitado/{id}")
     public ResponseEntity<?> changeHabilitado(@PathVariable Long id){
         facade.changeHabilitado(id);
-        return ResponseEntity.ok().body("Se cambio el estado del Articulo Manufacturado");
+        return ResponseEntity.ok().body("Se cambio el estadoPedido del Articulo Manufacturado");
     }
 
     @GetMapping("/getHabilitados")

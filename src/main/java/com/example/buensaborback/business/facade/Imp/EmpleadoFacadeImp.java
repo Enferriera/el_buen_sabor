@@ -3,14 +3,38 @@ package com.example.buensaborback.business.facade.Imp;
 import com.example.buensaborback.business.facade.Base.BaseFacadeImp;
 import com.example.buensaborback.business.facade.EmpleadoFacade;
 import com.example.buensaborback.business.mapper.BaseMapper;
+import com.example.buensaborback.business.mapper.EmpleadoMapper;
 import com.example.buensaborback.business.service.Base.BaseService;
+import com.example.buensaborback.business.service.EmpleadoService;
 import com.example.buensaborback.domain.dto.EmpleadoDto;
 import com.example.buensaborback.domain.entities.Empleado;
+import com.example.buensaborback.domain.enums.Rol;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class EmpleadoFacadeImp extends BaseFacadeImp<Empleado, EmpleadoDto,EmpleadoDto, Long> implements EmpleadoFacade {
     public EmpleadoFacadeImp(BaseService<Empleado, Long> baseService, BaseMapper<Empleado, EmpleadoDto, EmpleadoDto> baseMapper) {
         super(baseService, baseMapper);
+    }
+@Autowired
+private EmpleadoMapper  empleadoMapper;
+    @Autowired
+    private EmpleadoService empleadoService;
+    @Override
+    public EmpleadoDto findByEmail(String email) {
+        return empleadoMapper.toDTO(empleadoService.findByEmail(email));
+    }
+
+    @Override
+    public int contarPorRol(Rol rol) {
+        return empleadoService.contarPorRol(rol);
+    }
+
+    @Override
+    public List<EmpleadoDto> findAllBySucursalId(Long id) {
+        return empleadoMapper.toDTOsList(empleadoService.findAllBySucursalId(id));
     }
 }

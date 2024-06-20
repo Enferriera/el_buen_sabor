@@ -25,6 +25,7 @@ public class Persona extends Base {
     private String apellido;
     private String telefono;
     private LocalDate fechaNacimiento;
+    private String email;
 
     @OneToOne
     private Usuario usuario;

@@ -2,7 +2,7 @@ package com.example.buensaborback.domain.entities;
 
 
 import com.example.buensaborback.domain.enums.FormaPago;
-import com.example.buensaborback.domain.enums.Estado;
+import com.example.buensaborback.domain.enums.EstadoPedido;
 import com.example.buensaborback.domain.enums.TipoEnvio;
 import jakarta.persistence.*;
 import lombok.*;
@@ -29,7 +29,7 @@ public class Pedido extends Base{
     private Double totalCosto;
 
     @Enumerated(EnumType.STRING)
-    private Estado estado;
+    private EstadoPedido estadoPedido;
 
     @Enumerated(EnumType.STRING)
     private TipoEnvio tipoEnvio;

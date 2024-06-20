@@ -100,7 +100,7 @@ m1=.1
 - horaEstimadaFinalizacion LocalTime
 - total : Double
 - totalCosto : Double
-- estado : Estado Enum
+- estadoPedido : Estado Enum
 - tipoEnvpio : TipoEnvio Enum
 -formaPago : FormaPagoenum
 - FechaPedido : LocalDate

@@ -1,6 +1,7 @@
 package com.example.buensaborback.presentation.rest;
 
 import com.example.buensaborback.business.facade.Imp.CategoriaFacadeImp;
+import com.example.buensaborback.domain.dto.CategoriaDtos.CategoriaDto;
 import com.example.buensaborback.domain.dto.CategoriaDtos.CategoriaPostDto;
 import com.example.buensaborback.domain.dto.CategoriaDtos.CategoriaGetDto;
 import com.example.buensaborback.domain.dto.SucursalDtos.SucursalShortDto;
@@ -42,5 +43,15 @@ public class CategoriaController extends BaseControllerImp<Categoria, CategoriaG
     @PostMapping("/create")
     public ResponseEntity<CategoriaGetDto> createNew(@RequestBody CategoriaPostDto categoriaDto) {
         return ResponseEntity.ok(facade.createNew(categoriaDto));
+    }
+
+    @GetMapping("/categoriasInsumoPorSucursal/{idSucursal}")
+    public ResponseEntity<List<CategoriaDto>> getCategoriaInsumoBySucursalId(@PathVariable Long idSucursal){
+        return ResponseEntity.ok().body(facade.findCategoriasInsumoBySucursalId(idSucursal));
+    }
+
+    @GetMapping("/categoriasManufacturadoPorSucursal/{idSucursal}")
+    public ResponseEntity<List<CategoriaDto>> getCategoriaManufacturadoBySucursalId(@PathVariable Long idSucursal){
+        return ResponseEntity.ok().body(facade.findCategoriasManufacturadoBySucursalId(idSucursal));
     }
 }
