@@ -19,4 +19,6 @@ public interface CategoriaRepository extends BaseRepository<Categoria,Long>{
     List<Categoria> findCategoriasInsumoBySucursalId(@Param("idSucursal") Long idSucursal);
     @Query("SELECT c FROM Categoria c JOIN c.sucursales s WHERE s.id = :idSucursal AND c.eliminado=false AND c.esInsumo=false")
     List<Categoria> findCategoriasManufacturadoBySucursalId(@Param("idSucursal") Long idSucursal);
+    @Query("SELECT c FROM Categoria c JOIN c.sucursales s WHERE s.id = :idSucursal AND c.eliminado=false")
+    List<Categoria> findAllCategoriasBySucursalId(@Param("idSucursal") Long idSucursal);
 }

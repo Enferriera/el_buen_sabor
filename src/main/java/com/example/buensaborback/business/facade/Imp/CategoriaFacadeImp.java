@@ -86,5 +86,10 @@ public class CategoriaFacadeImp extends BaseFacadeImp<Categoria, CategoriaGetDto
         return categoriaMapper.toDTOList(categoriaService.findCategoriasManufacturadoBySucursalId(idSucursal));
     }
 
+    @Override
+    @Transactional
+    public List<CategoriaDto> findAllCategoriasBySucursalId(Long idSucursal){
+        return categoriaMapper.toDTOList(categoriaService.findAllCategoriasBySucursalId(idSucursal));
+    }
 
 }

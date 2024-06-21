@@ -54,4 +54,9 @@ public class CategoriaController extends BaseControllerImp<Categoria, CategoriaG
     public ResponseEntity<List<CategoriaDto>> getCategoriaManufacturadoBySucursalId(@PathVariable Long idSucursal){
         return ResponseEntity.ok().body(facade.findCategoriasManufacturadoBySucursalId(idSucursal));
     }
+
+    @GetMapping("/allCategoriasPorSucursal/{idSucursal}")
+    public ResponseEntity<List<CategoriaDto>> getAllCategoriaBySucursalId(@PathVariable Long idSucursal){
+        return ResponseEntity.ok().body(facade.findAllCategoriasBySucursalId(idSucursal));
+    }
 }
