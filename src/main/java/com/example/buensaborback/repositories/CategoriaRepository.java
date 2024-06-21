@@ -15,10 +15,10 @@ public interface CategoriaRepository extends BaseRepository<Categoria,Long>{
     List<Categoria> findByEsInsumoFalse();
     @Query("SELECT c FROM Categoria c LEFT JOIN FETCH c.sucursales WHERE c.id = :id")
     Categoria findWithSucursalesById(@Param("id") Long id);
-    @Query(value = "SELECT c.ID, c.ELIMINADO, c.DENOMINACION, c.CATEGORIA_ID\n" +
-            "FROM CATEGORIA c\n" +
-            "JOIN SUCURSAL_CATEGORIA sc ON c.ID = sc.CATEGORIA_ID\n" +
-            "JOIN SUCURSAL s ON sc.SUCURSAL_ID = s.ID\n" +
-            "WHERE s.ID = ?1", nativeQuery = true)
-    List<Categoria> getCategoriasBySucursal(Long idSucursal);
+    @Query("SELECT c FROM Categoria c JOIN c.sucursales s WHERE s.id = :idSucursal AND c.eliminado=false AND c.esInsumo=true")
+    List<Categoria> findCategoriasInsumoBySucursalId(@Param("idSucursal") Long idSucursal);
+    @Query("SELECT c FROM Categoria c JOIN c.sucursales s WHERE s.id = :idSucursal AND c.eliminado=false AND c.esInsumo=false")
+    List<Categoria> findCategoriasManufacturadoBySucursalId(@Param("idSucursal") Long idSucursal);
+    @Query("SELECT c FROM Categoria c JOIN c.sucursales s WHERE s.id = :idSucursal AND c.eliminado=false")
+    List<Categoria> findAllCategoriasBySucursalId(@Param("idSucursal") Long idSucursal);
 }

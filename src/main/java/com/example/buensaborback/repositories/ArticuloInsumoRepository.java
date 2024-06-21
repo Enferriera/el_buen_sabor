@@ -2,9 +2,11 @@ package com.example.buensaborback.repositories;
 
 
 import com.example.buensaborback.domain.entities.ArticuloInsumo;
+import com.example.buensaborback.domain.entities.ArticuloManufacturado;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -21,4 +23,7 @@ public interface ArticuloInsumoRepository extends BaseRepository<ArticuloInsumo,
     List<ArticuloInsumo> getArticulosByCategoria(Long idCategoria);
 
     Optional<ArticuloInsumo> findByCodigo(String codigo);
+
+    @Query("SELECT ai FROM ArticuloInsumo ai JOIN ai.categoria c JOIN c.sucursales s WHERE s.id = :idSucursal AND ai.eliminado=false")
+    List<ArticuloInsumo> findArticulosInsumosBySucursalId(@Param("idSucursal") Long idSucursal);
 }

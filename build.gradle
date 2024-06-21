@@ -54,6 +54,18 @@ dependencies {
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	//GMAIL
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '3.3.0'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '3.3.0'
+
+	//PDF
+	implementation 'com.itextpdf:kernel:7.1.15'
+	implementation 'com.itextpdf:layout:7.1.15'
+
+	// EXCEL
+	// https://mvnrepository.com/artifact/org.apache.poi/poi
+	implementation group: 'org.apache.poi', name: 'poi', version: '5.2.5'
 }
 
 tasks.named('test') {

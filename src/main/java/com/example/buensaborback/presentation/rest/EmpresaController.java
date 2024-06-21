@@ -7,6 +7,7 @@ import com.example.buensaborback.domain.entities.Empresa;
 import com.example.buensaborback.presentation.rest.Base.BaseControllerImp;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/empresas")
@@ -25,4 +26,6 @@ public class EmpresaController extends BaseControllerImp<Empresa, EmpresaDto,Emp
     public ResponseEntity<EmpresaLargeDto> getEmpresaSucursales(@PathVariable Long idEmpresa) {
         return ResponseEntity.ok(facade.findWithSucursalesById(idEmpresa));
     }
+
+
 }

@@ -1,12 +1,13 @@
-package com.example.buensaborback.domain.dto;
+package com.example.buensaborback.domain.dto.personaDto;
 
+import com.example.buensaborback.domain.dto.BaseDto;
+import com.example.buensaborback.domain.dto.ImagenPersonaDto;
+import com.example.buensaborback.domain.dto.UsuarioDto;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 

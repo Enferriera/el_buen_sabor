@@ -12,9 +12,12 @@ import com.example.buensaborback.domain.dto.promocionDto.PromocionCreateDto;
 import com.example.buensaborback.domain.dto.promocionDto.PromocionDto;
 import com.example.buensaborback.domain.entities.Promocion;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class PromocionFacadeImpl extends BaseFacadeImp<Promocion,PromocionDto,PromocionDto,Long> implements PromocionFacade {
@@ -45,4 +48,25 @@ public PromocionDto create(PromocionCreateDto promocionDto) {
     public List<PromocionDto> getHabilitados() {
         return promocionMapper.toDTOsList(promocionService.getHabilitados());
     }
+
+    @Override
+    public List<PromocionDto> findPromocionesBySucursalId(Long idSucursal){
+        return promocionMapper.toDTOsList(promocionService.findPromocionesBySucursalId(idSucursal));
+    }
+
+    @Override
+    public ResponseEntity<List<Map<String, Object>>> getAllImagesByPromocionId(Long id) {
+        return promocionService.getAllImagesByPromocionId(id);
+    }
+
+    @Override
+    public ResponseEntity<String> uploadImages(MultipartFile[] files, Long id) {
+        return promocionService.uploadImages(files,id);
+    }
+
+    @Override
+    public ResponseEntity<String> deleteImage(String publicId, Long id) {
+        return promocionService.deleteImage(publicId, id);
+    }
 }
+

@@ -2,7 +2,7 @@ package com.example.buensaborback.domain.entities;
 
 
 import com.example.buensaborback.domain.enums.FormaPago;
-import com.example.buensaborback.domain.enums.Estado;
+import com.example.buensaborback.domain.enums.EstadoPedido;
 import com.example.buensaborback.domain.enums.TipoEnvio;
 import jakarta.persistence.*;
 import lombok.*;
@@ -27,8 +27,14 @@ public class Pedido extends Base{
     private LocalTime horaEstimadaFinalizacion;
     private Double total;
     private Double totalCosto;
-    private Estado estado;
+
+    @Enumerated(EnumType.STRING)
+    private EstadoPedido estadoPedido;
+
+    @Enumerated(EnumType.STRING)
     private TipoEnvio tipoEnvio;
+
+    @Enumerated(EnumType.STRING)
     private FormaPago formaPago;
     private LocalDate fechaPedido;
 
@@ -56,4 +62,12 @@ public class Pedido extends Base{
     @ManyToOne
     @JoinColumn(name = "empleado_id")
     private Empleado empleado;
+
+    public void calcularTotal(){
+        this.total = 0.0;
+        for(DetallePedido detalle: detallePedidos){
+            detalle.calculaSubtotal();
+            this.total+=detalle.getSubTotal();
+        }
+    }
 }

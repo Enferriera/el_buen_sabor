@@ -17,6 +17,8 @@ public class EmpresaServiceImpl extends BaseServiceImp<Empresa,Long> implements 
     @Autowired
     EmpresaRepository empresaRepository;
 
+
+
     @Override
     public Empresa addSucursal(Long idEmpresa, Long idSucursal) {
         Empresa empresa = empresaRepository.findWithSucursalesById(idEmpresa);
@@ -30,4 +32,8 @@ public class EmpresaServiceImpl extends BaseServiceImp<Empresa,Long> implements 
     public Empresa findWithSucursalesById(Long id) {
         return empresaRepository.findWithSucursalesById(id);
     }
+
+
+
+
 }

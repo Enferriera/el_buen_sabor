@@ -91,6 +91,8 @@ public class CategoriaServiceImp extends BaseServiceImp<Categoria,Long> implemen
         }
     }
 
+    @Override
+    @Transactional
     public void deleteInSucursales(Long id, SucursalShortDto sucursalShort) {
         Categoria categoriaExistente = categoriaRepository.getById(id);
 
@@ -184,6 +186,24 @@ public class CategoriaServiceImp extends BaseServiceImp<Categoria,Long> implemen
                 }
             }
         }
+    }
+
+    @Override
+    @Transactional
+    public  List<Categoria> findCategoriasInsumoBySucursalId(Long idSucursal){
+        return categoriaRepository.findCategoriasInsumoBySucursalId(idSucursal);
+    }
+
+    @Override
+    @Transactional
+    public  List<Categoria> findCategoriasManufacturadoBySucursalId(Long idSucursal){
+        return categoriaRepository.findCategoriasManufacturadoBySucursalId(idSucursal);
+    }
+
+    @Override
+    @Transactional
+    public List<Categoria> findAllCategoriasBySucursalId(Long idSucursal){
+        return categoriaRepository.findAllCategoriasBySucursalId(idSucursal);
     }
 
     /*

@@ -5,6 +5,7 @@ import com.example.buensaborback.domain.dto.CategoriaDtos.CategoriaDto;
 import com.example.buensaborback.domain.dto.CategoriaDtos.CategoriaPostDto;
 import com.example.buensaborback.domain.dto.CategoriaDtos.CategoriaGetDto;
 import com.example.buensaborback.domain.dto.SucursalDtos.SucursalShortDto;
+import com.example.buensaborback.domain.entities.Categoria;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -14,6 +15,10 @@ public interface CategoriaFacade extends BaseFacade<CategoriaGetDto, CategoriaGe
     public List<CategoriaGetDto> getCategoriaInsumos ();
     public List<CategoriaGetDto> getCategoriaManufacturados ();
     public void deleteInSucursales (Long id, SucursalShortDto shortSucursal);
+    public List<CategoriaDto> findCategoriasInsumoBySucursalId(Long idSucursal);
+    public List<CategoriaDto> findCategoriasManufacturadoBySucursalId(Long idSucursal);
 
     public CategoriaGetDto createNew(CategoriaPostDto categoriaDto);
+
+    List<CategoriaGetDto> findAllCategoriasBySucursalId(Long idSucursal);
 }

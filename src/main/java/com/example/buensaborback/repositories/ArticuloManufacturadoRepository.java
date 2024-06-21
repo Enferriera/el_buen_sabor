@@ -3,6 +3,7 @@ package com.example.buensaborback.repositories;
 import com.example.buensaborback.domain.entities.ArticuloInsumo;
 import com.example.buensaborback.domain.entities.ArticuloManufacturado;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -31,4 +32,7 @@ public interface ArticuloManufacturadoRepository extends BaseRepository<Articulo
     List<ArticuloManufacturado> getHabilitados();
   
     Optional<ArticuloManufacturado> findByCodigo(String codigo);
+
+    @Query("SELECT am FROM ArticuloManufacturado am JOIN am.categoria c JOIN c.sucursales s WHERE s.id = :idSucursal AND am.eliminado=false")
+    List<ArticuloManufacturado> findArticulosManufacturadosBySucursalId(@Param("idSucursal") Long idSucursal);
 }
