@@ -38,31 +38,6 @@ public class PedidoServiceImpl extends BaseServiceImp<Pedido, Long> implements P
     @Autowired
     private FacturaRepository facturaRepository;
 
-//    @Override
-//    public void validarStock(Set<DetallePedido> detalles) throws RuntimeException {
-//        for (DetallePedido detalle : detalles) {
-//            Articulo articulo = detalle.getArticulo();
-//            if (articulo instanceof ArticuloInsumo) {
-//                ArticuloInsumo insumo = (ArticuloInsumo) articulo;
-//                if (!insumo.tieneStockSuficiente(detalle.getCantidad())) {
-//                    throw new RuntimeException("Stock insuficiente para el artículo: " + insumo.getDenominacion());
-//                }
-//                // Decrementar el stock
-//                insumo.setStockActual(insumo.getStockActual() - detalle.getCantidad());
-//                articuloService.update(insumo, insumo.getId());
-//            } else{
-//                ArticuloManufacturado articuloManufacturado = articuloManufacturadoService.getById(articulo.getId());
-//                for (ArticuloManufacturadoDetalle amd : articuloManufacturado.getArticuloManufacturadoDetalles()){
-//                    if (!amd.getArticuloInsumo().tieneStockSuficiente(detalle.getCantidad())) {
-//                        throw new RuntimeException("Stock insuficiente para el artículo: " + amd.getArticuloInsumo().getDenominacion());
-//                    }
-//                    // Decrementar el stock
-//                    amd.getArticuloInsumo().setStockActual(amd.getArticuloInsumo().getStockActual() - detalle.getCantidad());
-//                    articuloService.update(amd.getArticuloInsumo(), amd.getArticuloInsumo().getId());
-//                }
-//            }
-//        }
-//    }
 
     @Override
     public boolean aplicarDescuento(Pedido pedido) {
