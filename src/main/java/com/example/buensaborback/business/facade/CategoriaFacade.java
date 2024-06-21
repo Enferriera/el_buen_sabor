@@ -20,5 +20,5 @@ public interface CategoriaFacade extends BaseFacade<CategoriaGetDto, CategoriaGe
 
     public CategoriaGetDto createNew(CategoriaPostDto categoriaDto);
 
-    List<CategoriaDto> findAllCategoriasBySucursalId(Long idSucursal);
+    List<CategoriaGetDto> findAllCategoriasBySucursalId(Long idSucursal);
 }
