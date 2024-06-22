@@ -504,6 +504,46 @@ public class BuenSaborBackApplication {
 			pedido.setEmpleado(empleado);
 			pedidoRepository.save(pedido);
 
+			Pedido pedido2 = Pedido.builder().fechaPedido(LocalDate.now())
+					.horaEstimadaFinalizacion(LocalTime.now())
+					.fechaPedido(LocalDate.of(2023, 1, 1))
+					.total(300.0)
+					.totalCosto(170.6)
+					.estadoPedido(EstadoPedido.PREPARACION)
+					.formaPago(FormaPago.MERCADO_PAGO)
+					.tipoEnvio(TipoEnvio.DELIVERY)
+					.sucursal(sucursalGuaymallen)
+					.domicilio(domicilioCliente)
+					.build();
+
+			DetallePedido detallePedido3 = DetallePedido.builder().articulo(pizzaMuzarella).cantidad(1).subTotal(200.0).build();
+			DetallePedido detallePedido4 = DetallePedido.builder().articulo(cocaCola).cantidad(4).subTotal(100.0).build();
+
+			pedido2.getDetallePedidos().add(detallePedido3);
+			pedido2.getDetallePedidos().add(detallePedido4);
+			pedido2.setCliente(cliente);
+			pedido2.setEmpleado(empleado);
+			pedidoRepository.save(pedido2);
+
+			Pedido pedido3 = Pedido.builder().fechaPedido(LocalDate.now())
+					.horaEstimadaFinalizacion(LocalTime.now())
+					.fechaPedido(LocalDate.of(2023, 1, 1))
+					.total(300.0)
+					.totalCosto(170.6)
+					.estadoPedido(EstadoPedido.PREPARACION)
+					.formaPago(FormaPago.MERCADO_PAGO)
+					.tipoEnvio(TipoEnvio.DELIVERY)
+					.sucursal(sucursalGuaymallen)
+					.domicilio(domicilioCliente)
+					.build();
+
+			DetallePedido detallePedido6 = DetallePedido.builder().articulo(cocaCola).cantidad(4).subTotal(100.0).build();
+
+			pedido3.getDetallePedidos().add(detallePedido6);
+			pedido3.setCliente(cliente);
+			pedido3.setEmpleado(empleado);
+			pedidoRepository.save(pedido3);
+
 			Random random = new Random();
 			/*Factura facturaBuilder = Factura.builder().fechaFacturacion(LocalDate.now())
 					.mpPaymentId(random.nextInt(1000))  // Se asume un rango máximo de 1000
