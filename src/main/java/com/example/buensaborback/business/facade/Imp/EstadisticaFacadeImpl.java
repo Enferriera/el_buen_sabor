@@ -17,8 +17,8 @@ public class EstadisticaFacadeImpl implements EstadisticaFacade {
     private EstadisticaService estadisticasService;
 
     @Override
-    public List<RankingProductos> bestProducts(Date initialDate, Date endDate) {
-        return estadisticasService.bestProducts(initialDate, endDate);
+    public List<RankingProductos> bestProducts(Date initialDate, Date endDate, Long idSucursal) {
+        return estadisticasService.bestProducts(initialDate, endDate, idSucursal);
     }
 
     @Override
@@ -42,7 +42,12 @@ public class EstadisticaFacadeImpl implements EstadisticaFacade {
     }
 
     @Override
-    public byte[] generarReporteExcel(Date fechaDesde, Date fechaHasta) throws IOException {
-        return estadisticasService.generarReporteExcel(fechaDesde,fechaHasta);
+    public byte[] generarReporteExcel(Date fechaDesde, Date fechaHasta, Long idSucursal) throws IOException {
+        return estadisticasService.generarReporteExcel(fechaDesde,fechaHasta,idSucursal);
+    }
+
+    @Override
+    public List<RankingProductos> bestProductsByEmpresa(Date initialDate, Date endDate, Long idEmpresa){
+        return estadisticasService.bestProductsByEmpresa(initialDate,endDate, idEmpresa);
     }
 }

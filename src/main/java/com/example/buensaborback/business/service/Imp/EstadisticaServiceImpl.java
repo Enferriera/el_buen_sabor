@@ -10,6 +10,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
@@ -28,8 +29,8 @@ public class EstadisticaServiceImpl implements EstadisticaService {
     private PedidoRepository pedidoRepository;
 
     @Override
-    public List<RankingProductos> bestProducts(Date initialDate, Date endDate) {
-        return detallePedidoRepository.bestProducts(initialDate, endDate);
+    public List<RankingProductos> bestProducts(Date initialDate, Date endDate, Long idSucursal) {
+        return detallePedidoRepository.bestProducts(initialDate, endDate, idSucursal);
     }
 
     @Override
@@ -53,7 +54,7 @@ public class EstadisticaServiceImpl implements EstadisticaService {
     }
 
     @Override
-    public byte[] generarReporteExcel(Date fechaDesde, Date fechaHasta) throws IOException {
+    public byte[] generarReporteExcel(Date fechaDesde, Date fechaHasta,Long idSucursal) throws IOException {
         Workbook workbook = new HSSFWorkbook();
         Sheet sheet = workbook.createSheet("Ranking de comidas");
 
@@ -65,7 +66,7 @@ public class EstadisticaServiceImpl implements EstadisticaService {
             cell.setCellValue(headers[i]);
         }
 
-        List<RankingProductos> ranking = bestProducts(fechaDesde, fechaHasta);
+        List<RankingProductos> ranking = bestProducts(fechaDesde, fechaHasta,idSucursal);
 
         int rowNum = 1;
         for (RankingProductos r : ranking){
@@ -184,4 +185,12 @@ public class EstadisticaServiceImpl implements EstadisticaService {
 
         return baos.toByteArray();
     }
+
+
+    @Override
+   public List<RankingProductos> bestProductsByEmpresa(Date initialDate, Date endDate, Long idEmpresa){
+        return detallePedidoRepository.bestProductsByEmpresa(initialDate,endDate, idEmpresa);
+    }
+
+
 }

@@ -20,11 +20,12 @@ public class EstadisticaController {
     @Autowired
     private EstadisticaFacade estadisticasFacade;
 
-    @GetMapping("/ranking")
+    @GetMapping("/ranking/{idSucursal}")
     public ResponseEntity<?> rankin (
             @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaDesde,
-            @RequestParam("fechaHasta") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaHasta){
-        return ResponseEntity.ok(estadisticasFacade.bestProducts(fechaDesde, fechaHasta));
+            @RequestParam("fechaHasta") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaHasta,
+            @PathVariable Long idSucursal){
+        return ResponseEntity.ok(estadisticasFacade.bestProducts(fechaDesde, fechaHasta,idSucursal));
     }
 
     @GetMapping("/recaudacionesDiarias")
@@ -55,11 +56,12 @@ public class EstadisticaController {
         return ResponseEntity.ok(estadisticasFacade.findCantidadPedidosPorCliente(fechaDesde, fechaHasta));
     }
 
-    @GetMapping("/excel")
+    @GetMapping("/excel/{idSucursal}")
     public ResponseEntity<?> excel (
             @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaDesde,
-            @RequestParam("fechaHasta") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaHasta) throws IOException {
-        byte[] excelContent = estadisticasFacade.generarReporteExcel(fechaDesde, fechaHasta);
+            @RequestParam("fechaHasta") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaHasta,
+     @PathVariable Long idSucursal) throws IOException {
+        byte[] excelContent = estadisticasFacade.generarReporteExcel(fechaDesde, fechaHasta,idSucursal);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
         headers.set(HttpHeaders.CONTENT_DISPOSITION,"attachment;filename=estadisticas.xls");
@@ -69,4 +71,13 @@ public class EstadisticaController {
                 .headers(headers)
                 .body(excelContent);
     }
+
+    @GetMapping("/rankingEmpresa/{idEmpresa}")
+    public ResponseEntity<?> rankinEmpresa (
+            @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaDesde,
+            @RequestParam("fechaHasta") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaHasta,
+            @PathVariable Long idEmpresa){
+        return ResponseEntity.ok(estadisticasFacade.bestProductsByEmpresa(fechaDesde, fechaHasta,idEmpresa));
+    }
+
 }
