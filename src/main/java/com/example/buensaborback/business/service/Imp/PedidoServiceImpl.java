@@ -1,14 +1,19 @@
 package com.example.buensaborback.business.service.Imp;
 
+import com.example.buensaborback.business.exceptions.ServicioException;
 import com.example.buensaborback.business.service.*;
 import com.example.buensaborback.business.service.Base.BaseServiceImp;
 import com.example.buensaborback.domain.entities.*;
 import com.example.buensaborback.domain.enums.EstadoPedido;
+import com.example.buensaborback.domain.enums.FormaPago;
 import com.example.buensaborback.domain.enums.Rol;
 import com.example.buensaborback.domain.enums.TipoEnvio;
 import com.example.buensaborback.repositories.FacturaRepository;
 import com.example.buensaborback.repositories.PedidoRepository;
+import com.example.buensaborback.repositories.StockInsumoSucursalRepository;
 import com.itextpdf.io.IOException;
+import jakarta.transaction.Transactional;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,175 +23,260 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+@Log4j2
 @Service
 public class PedidoServiceImpl extends BaseServiceImp<Pedido, Long> implements PedidoService {
     @Autowired
     private PedidoRepository pedidoRepository;
 
-    @Autowired
-    private ArticuloInsumoService articuloInsumoService;
+
     @Autowired
     private ArticuloManufacturadoService articuloManufacturadoService;
-    @Autowired
-    private ArticuloService articuloService;
-    @Autowired
-    private EmpleadoService empleadoService;
+
     @Autowired
     private FacturaService facturaService;
     @Autowired
-    private EmailService emailService;
+    private StockInsumoSucursalRepository stockInsumoSucursalRepository;
+
     @Autowired
-    private FacturaRepository facturaRepository;
+    private EmailServiceImpl emailServiceImpl;
+
+
+
+
 
 
     @Override
-    public boolean aplicarDescuento(Pedido pedido) {
-        if (pedido.getTipoEnvio() == TipoEnvio.TAKE_AWAY) {
-            pedido.setTotal(pedido.getTotal() * 0.9); // Aplicar 10% de descuento
-            return true;
-        }
-        return false;
-    }
-
-
-    @Override
-    public void calcularTiempoEstimado(Pedido pedido) {
-        int tiempoArticulos = pedido.getDetallePedidos().stream()
-                .mapToInt(detalle -> {
-                    if (detalle.getArticulo() instanceof ArticuloManufacturado) {
-                        ArticuloManufacturado articuloManufacturado = (ArticuloManufacturado) detalle.getArticulo();
-                        return articuloManufacturado.getTiempoEstimadoMinutos();
-                    } else {
-                        return 0;
-                    }
-                })
-                .sum();
-        int tiempoCocina = obtenerPedidosEnCocina().stream()
-                .flatMap(p -> p.getDetallePedidos().stream())
-                .mapToInt(detalle -> {
-                    if (detalle.getArticulo() instanceof ArticuloManufacturado) {
-                        ArticuloManufacturado articuloManufacturado = (ArticuloManufacturado) detalle.getArticulo();
-                        return articuloManufacturado.getTiempoEstimadoMinutos();
-                    } else {
-                        return 0;
-                    }
-                })
-                .sum();
-
-        int cantidadCocineros = contarCocineros();
-        //Si no hay cocineros disponibles, devuelve 0
-        int tiempoCocinaPromedio = cantidadCocineros > 0 ? tiempoCocina / cantidadCocineros : 0;
-
-        int tiempoDelivery = pedido.getTipoEnvio() == TipoEnvio.DELIVERY ? 10 : 0;
-        pedido.setHoraEstimadaFinalizacion(LocalTime.now().plusMinutes(tiempoArticulos + tiempoCocinaPromedio + tiempoDelivery));
-    }
-
-    @Override
-    public List<Pedido> obtenerPedidosEnCocina() {
+    public List<Pedido> obtenerPedidosEnCocina(Long idSucursal) {
         // Implementar la lógica para obtener los pedidos que están en preparación
-        return pedidoRepository.findByEstadoPedido(EstadoPedido.PREPARACION);
+        return pedidoRepository.findByEstadoPedidoAndSucursalId(EstadoPedido.PREPARACION, idSucursal);
+    }
+    private StockInsumoSucursal obtenerStockInsumoSucursal(ArticuloInsumo insumo, Sucursal sucursal) {
+        return sucursal.getStocksSucursal()
+                .stream()
+                .filter(stock -> stock.getArticuloInsumo().equals(insumo))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("No se encontró stock para el insumo: " + insumo.getDenominacion() + " en la sucursal: " + sucursal.getNombre()));
     }
 
     @Override
-    public int contarCocineros() {
-        return empleadoService.contarPorRol(Rol.COCINERO);
-    }
-
-    @Override
-    public Pedido cambiaEstado(EstadoPedido estado, Long id) {
-        Pedido pedido = getById(id);
-        pedido.setEstadoPedido(estado);
-
-        if (estado == EstadoPedido.PREPARACION) {
-            Factura factura = new Factura();
-            factura.setFechaFacturacion(LocalDate.now());
-            if (aplicarDescuento(pedido)){
-                factura.setMontoDescuento(10);
-            }else {
-                factura.setMontoDescuento(0);
-            }
-            factura.setFormaPago(pedido.getFormaPago());
-            factura.setTotalVenta(pedido.getTotal());
-            pedido.setFactura(factura);
-
-            facturaRepository.save(factura);
-        }
-
-
-        if (estado == EstadoPedido.COMPLETADO) {
-            try {
-                // creamos la factura  la factura PDF
-                byte[] facturaPdf = facturaService.generarFacturaPDF(pedido);
-
-                // traemos el email del cliente
-                String emailCliente = pedido.getCliente().getEmail();
-
-                // Enviar el email con la factura
-                emailService.sendMail(facturaPdf, emailCliente, null, "Factura de Pedido " + pedido.getId(), "Adjunto encontrará la factura de su pedido.", "factura_" + pedido.getId() + ".pdf");
-
-            } catch (IOException | java.io.IOException e) {
-                throw new RuntimeException("Error al generar o enviar la factura: " + e.getMessage(), e);
-            }
-
-        }
-        if (estado == EstadoPedido.CANCELADO) {
-           // revertirStock(pedido.getDetallePedidos());
-        }
-
-
-        return pedidoRepository.save(pedido);
-    }
-
-   /* private void revertirStock(Set<DetallePedido> detalles) {
-        for (DetallePedido detalle : detalles) {
-            Articulo articulo = detalle.getArticulo();
-            if (articulo instanceof ArticuloInsumo) {
-                ArticuloInsumo insumo = (ArticuloInsumo) articulo;
-                insumo.setStockActual(insumo.getStockActual() + detalle.getCantidad());
-                articuloInsumoService.update(insumo, insumo.getId());
-            } else {
-                ArticuloManufacturado articuloManufacturado = articuloManufacturadoService.getById(articulo.getId());
-                for (ArticuloManufacturadoDetalle amd : articuloManufacturado.getArticuloManufacturadoDetalles()) {
-                    ArticuloInsumo insumo = amd.getArticuloInsumo();
-                    insumo.setStockActual(insumo.getStockActual() + detalle.getCantidad());
-                    articuloInsumoService.update(insumo, insumo.getId());
-                }
-            }
-        }
-    }
-    private void calcularTotal(Pedido pedido) {
-        double total = 0.0;
-        for (DetallePedido detalle : pedido.getDetallePedidos()) {
-            total += detalle.getCantidad() * detalle.getArticulo().getPrecioVenta();
-        }
-        pedido.setTotal(total);
-    }
-    private void calcularTotalCosto(Pedido pedido) {
-        double totalCosto = 0.0;
+    public void revertirStock(Pedido pedido) throws RuntimeException {
         for (DetallePedido detalle : pedido.getDetallePedidos()) {
             Articulo articulo = detalle.getArticulo();
+            int cantidadRequerida = detalle.getCantidad();
+
             if (articulo instanceof ArticuloInsumo) {
                 ArticuloInsumo insumo = (ArticuloInsumo) articulo;
-                totalCosto += detalle.getCantidad() * insumo.getPrecioCompra();
+                StockInsumoSucursal stock = obtenerStockInsumoSucursal(insumo, pedido.getSucursal());
+
+                // Incrementar el stock
+                stock.setStockActual(stock.getStockActual() + cantidadRequerida);
+                stockInsumoSucursalRepository.save(stock);
+
             } else if (articulo instanceof ArticuloManufacturado) {
-                ArticuloManufacturado manufacturado = (ArticuloManufacturado) articulo;
+                ArticuloManufacturado manufacturado = articuloManufacturadoService.getById(articulo.getId());
+
                 for (ArticuloManufacturadoDetalle detalleManufacturado : manufacturado.getArticuloManufacturadoDetalles()) {
                     ArticuloInsumo insumo = detalleManufacturado.getArticuloInsumo();
-                    totalCosto += detalleManufacturado.getCantidad() * insumo.getPrecioCompra();
+                    int cantidadNecesaria = detalleManufacturado.getCantidad() * cantidadRequerida;
+                    StockInsumoSucursal stock = obtenerStockInsumoSucursal(insumo, pedido.getSucursal());
+
+                    // Incrementar el stock
+                    stock.setStockActual(stock.getStockActual() + cantidadNecesaria);
+                    stockInsumoSucursalRepository.save(stock);
                 }
+            } else {
+                throw new RuntimeException("Tipo de artículo desconocido: " + articulo.getClass().getName());
             }
         }
-        pedido.setTotalCosto(totalCosto);
-
-    }*/
-    @Override
-    public List<Pedido> findByEstadoPedido(EstadoPedido estado) {
-        return pedidoRepository.findByEstadoPedido(estado);
     }
 
     @Override
-    public Optional<Pedido> findById(Long id) {
-        return pedidoRepository.findById(id);
+    @Transactional(rollbackOn = ServicioException.class)
+    public Pedido updateEstado(Long id, EstadoPedido estado) throws ServicioException {
+        Optional<Pedido> optionalPedido = baseRepository.findById(id);
+        if (optionalPedido.isEmpty()) {
+            throw new ServicioException("No se encontro el pedido con el id dado.");
+        }
+        if (estado == null) {
+            throw new ServicioException("El estado nuevo no puede ser nulo.");
+        }
+
+        Pedido pedido = optionalPedido.get();
+        EstadoPedido estadoAnterior = pedido.getEstadoPedido();
+        switch (pedido.getFormaPago()) {
+            case EFECTIVO -> pedido=updateEstadoEfectivo(estado, pedido);
+            case MERCADO_PAGO -> pedido=updateEstadoMercadoPago(estado, pedido);
+        }
+
+        try {
+            emailServiceImpl.sendEmail(
+                    pedido.getCliente().getUsuarioCliente().getEmail(),
+                    "Actualizacion pedido Buen Sabor",
+                    "Tu pedido a cambiado de estado: " + estadoAnterior + " -> " + estado
+            );
+        } catch (Exception e) {
+            log.error(e);
+        }
+        return pedido;
+    }
+
+    public Pedido updateEstadoEfectivo(EstadoPedido newEstado, Pedido pedido) throws ServicioException {
+        if (!pedido.getEstadoPedido().isValidNextState(newEstado, FormaPago.EFECTIVO)) {
+            throw new ServicioException(pedido.getEstadoPedido() + " -> " + newEstado + " es una transicion de estados invalida en pedidos en EFECTIVO");
+        }
+
+        //TODO: incluir estas nuevas validaciones en el enum (va a ser necesario pasar como parametro el tipo envio)
+        if (pedido.getTipoEnvio().equals(TipoEnvio.TAKE_AWAY) && newEstado.equals(EstadoPedido.EN_CAMINO)) {
+            throw new ServicioException(pedido.getEstadoPedido() + " -> " + newEstado + " es una transicion de estados invalida en pedidos TAKE_AWAY");
+        }
+
+        if (pedido.getTipoEnvio().equals(TipoEnvio.DELIVERY) && pedido.getEstadoPedido().equals(EstadoPedido.PENDIENTE_ENTREGA) && (newEstado.equals(EstadoPedido.PAGADO) || newEstado.equals(EstadoPedido.COMPLETADO))) {
+            throw new ServicioException(pedido.getEstadoPedido() + " -> " + newEstado + " es una transicion de estados invalida en pedidos DELIVERY");
+        }
+
+        switch (newEstado) {
+            case PAGADO, COMPLETADO -> {
+                pedido.setEstadoPedido(EstadoPedido.COMPLETADO);
+                if(pedido.getFactura() == null) {
+                    Factura factura=facturaService.saveFacturaAfterPagoEfectivo(pedido);
+                    pedido.setFactura(factura);
+                    pedidoRepository.save(pedido);
+
+                    try {
+                        // creamos la factura  la factura PDF
+                        byte[] facturaPdf = facturaService.generarFacturaPDF(pedido);
+
+                        // traemos el email del cliente
+                        String emailCliente = pedido.getCliente().getUsuarioCliente().getEmail();
+
+                        // Enviar el email con la factura
+                        emailServiceImpl.sendMail(facturaPdf, emailCliente, null, "Factura de Pedido " + pedido.getId(), "Adjunto encontrará la factura de su pedido.", "factura_" + pedido.getId() + ".pdf");
+
+                    } catch (IOException | java.io.IOException e) {
+                        throw new RuntimeException("Error al generar o enviar la factura: " + e.getMessage(), e);
+                    }
+                }else{
+                    pedidoRepository.save(pedido);
+                }
+
+            }
+            case PENDIENTE_PAGO, PENDIENTE_ENTREGA, PREPARACION, EN_CAMINO -> {
+                pedido.setEstadoPedido(newEstado);
+                pedidoRepository.save(pedido);
+            }
+            case CANCELADO -> {
+                this.revertirStock(pedido);
+                pedido.setEstadoPedido(newEstado);
+                pedidoRepository.save(pedido);
+            }
+            case NOTA_CREDITO -> {
+                this.revertirStock(pedido);
+                pedido.setEstadoPedido(newEstado);
+                pedidoRepository.save(pedido);
+                try {
+                    // creamos la factura  la factura PDF
+                    byte[] facturaPdf = facturaService.generarFacturaPDF(pedido);
+
+                    // traemos el email del cliente
+                    String emailCliente = pedido.getCliente().getUsuarioCliente().getEmail();
+
+                    // Enviar el email con la factura
+                    emailServiceImpl.sendMail(facturaPdf, emailCliente, null, "Nota de credito de Pedido " + pedido.getId(), "Adjunto encontrará la nota de Credito de su pedido.", "factura_" + pedido.getId() + ".pdf");
+
+                } catch (IOException | java.io.IOException e) {
+                    throw new RuntimeException("Error al generar o enviar la factura: " + e.getMessage(), e);
+                }
+
+            }
+            default -> throw new ServicioException("Invalid state");
+        }
+        return pedido;
+    }
+
+    public Pedido updateEstadoMercadoPago(EstadoPedido newEstado, Pedido pedido) throws ServicioException {
+        if (!pedido.getEstadoPedido().isValidNextState(newEstado, FormaPago.MERCADO_PAGO)) {
+            throw new ServicioException(pedido.getEstadoPedido() + " -> " + newEstado + " es una transicion de estados invalida en pedidos de MERCADO_PAGO");
+        }
+
+        //TODO: incluir estas nuevas validaciones en el enum (va a ser necesario pasar como parametro el tipo envio)
+        if (pedido.getTipoEnvio().equals(TipoEnvio.TAKE_AWAY) && newEstado.equals(EstadoPedido.EN_CAMINO)) {
+            throw new ServicioException(pedido.getEstadoPedido() + " -> " + newEstado + " es una transicion de estados invalida en pedidos TAKE_AWAY");
+        }
+
+        if (pedido.getTipoEnvio().equals(TipoEnvio.DELIVERY) && pedido.getEstadoPedido().equals(EstadoPedido.PENDIENTE_ENTREGA) && (newEstado.equals(EstadoPedido.PAGADO) || newEstado.equals(EstadoPedido.COMPLETADO))) {
+            throw new ServicioException(pedido.getEstadoPedido() + " -> " + newEstado + " es una transicion de estados invalida en pedidos DELIVERY");
+        }
+
+        switch (newEstado) {
+            case PAGADO, PREPARACION, PENDIENTE_ENTREGA, EN_CAMINO, COMPLETADO -> {
+                pedido.setEstadoPedido(newEstado);
+
+                if(pedido.getFactura() == null) {
+                    Factura factura=facturaService.saveFacturaAfterPagoEfectivo(pedido);
+                    pedido.setFactura(factura);
+                    pedidoRepository.save(pedido);
+
+                    try {
+                        // creamos la factura  la factura PDF
+                        byte[] facturaPdf = facturaService.generarFacturaPDF(pedido);
+
+                        // traemos el email del cliente
+                        String emailCliente = pedido.getCliente().getUsuarioCliente().getEmail();
+
+                        // Enviar el email con la factura
+                        emailServiceImpl.sendMail(facturaPdf, emailCliente, null, "Factura de Pedido " + pedido.getId(), "Adjunto encontrará la factura de su pedido.", "factura_" + pedido.getId() + ".pdf");
+
+                    } catch (IOException | java.io.IOException e) {
+                        throw new RuntimeException("Error al generar o enviar la factura: " + e.getMessage(), e);
+                    }
+                }else{
+                    pedidoRepository.save(pedido);
+                }
+
+
+            }
+            case NOTA_CREDITO -> {
+                if (pedido.getEstadoPedido().equals(EstadoPedido.PAGADO)) {
+                    this.revertirStock(pedido);
+                }
+                pedido.setEstadoPedido(newEstado);
+                pedidoRepository.save(pedido);
+                try {
+                    // creamos la factura  la factura PDF
+                    byte[] facturaPdf = facturaService.generarFacturaPDF(pedido);
+
+                    // traemos el email del cliente
+                    String emailCliente = pedido.getCliente().getUsuarioCliente().getEmail();
+
+                    // Enviar el email con la factura
+                    emailServiceImpl.sendMail(facturaPdf, emailCliente, null, "Nota de credito de Pedido " + pedido.getId(), "Adjunto encontrará la nota de Credito de su pedido.", "factura_" + pedido.getId() + ".pdf");
+
+                } catch (IOException | java.io.IOException e) {
+                    throw new RuntimeException("Error al generar o enviar la factura: " + e.getMessage(), e);
+                }
+            }
+            case PENDIENTE_PAGO ->
+                    throw new ServicioException("Estado PENDIENTE_PAGO en pedidos de MERCADO_PAGO no implementado a traves de metodo updateEstado.");
+            case CANCELADO ->{
+                this.revertirStock(pedido);
+                pedido.setEstadoPedido(newEstado);
+                pedidoRepository.save(pedido);
+            }
+
+            default -> throw new ServicioException("Estado seleccionado invalido.");
+        }
+
+        return pedido;
+    }
+
+    @Override
+    public  List<Pedido> findByEstadoPedidoAndSucursalId(EstadoPedido estado,Long idSucursal){
+        return pedidoRepository.findByEstadoPedidoAndSucursalId(estado, idSucursal);
+    }
+    @Override
+    public Pedido findById(Long id) {
+        return pedidoRepository.getById(id);
     }
 
     @Override

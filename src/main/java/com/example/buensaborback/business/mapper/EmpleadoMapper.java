@@ -8,7 +8,7 @@ import com.example.buensaborback.domain.entities.Empleado;
 import com.example.buensaborback.domain.entities.Empresa;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring",uses={UsuarioMapper.class})
 public interface EmpleadoMapper extends BaseMapper<Empleado, EmpleadoDto, EmpleadoDto> {
 
 }

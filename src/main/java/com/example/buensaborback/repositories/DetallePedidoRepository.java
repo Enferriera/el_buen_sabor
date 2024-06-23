@@ -3,6 +3,7 @@ package com.example.buensaborback.repositories;
 import com.example.buensaborback.domain.dto.Estadisticas.RankingProductos;
 import com.example.buensaborback.domain.entities.DetallePedido;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
@@ -24,4 +25,7 @@ public interface DetallePedidoRepository extends BaseRepository<DetallePedido,Lo
             "order by countVentas desc;",
             nativeQuery = true)
     List<RankingProductos> bestProducts(Date initialDate, Date endDate);
+
+    @Query("SELECT d FROM Pedido p JOIN p.detallePedidos d WHERE p.id = :idPedido")
+    List<DetallePedido> findAllByPedidoId(@Param("idPedido")Long idPedido);
 }

@@ -27,8 +27,6 @@ public class Persona extends Base {
     private LocalDate fechaNacimiento;
     private String email;
 
-    @OneToOne
-    private Usuario usuario;
 
     @OneToOne
     @NotAudited

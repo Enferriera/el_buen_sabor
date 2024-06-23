@@ -1,10 +1,16 @@
 package com.example.buensaborback.business.service.Imp;
 
+import com.example.buensaborback.business.exceptions.ServicioException;
+import com.example.buensaborback.business.mapper.FacturaMapper;
 import com.example.buensaborback.business.service.Base.BaseServiceImp;
 import com.example.buensaborback.business.service.FacturaService;
+import com.example.buensaborback.domain.entities.DetalleFactura;
 import com.example.buensaborback.domain.entities.DetallePedido;
 import com.example.buensaborback.domain.entities.Factura;
 import com.example.buensaborback.domain.entities.Pedido;
+import com.example.buensaborback.domain.enums.FormaPago;
+import com.example.buensaborback.repositories.DetallePedidoRepository;
+import com.example.buensaborback.repositories.FacturaRepository;
 import com.itextpdf.io.font.constants.StandardFonts;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
@@ -13,16 +19,30 @@ import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.PdfReader;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
 public class FacturaServiceImpl extends BaseServiceImp<Factura,Long> implements FacturaService {
+    @Autowired
+    private FacturaRepository facturaRepository;
+    @Autowired
+    private DetallePedidoRepository detallePedidoRepository;
+
+    @Autowired
+    private DetalleFacturaServiceImpl   detalleFacturaService;
+
+    @Autowired
+    private FacturaMapper facturaMapper;
 
     @Override
     public byte[] generarFacturaPDF(Pedido pedido) throws IOException {
@@ -102,5 +122,44 @@ public class FacturaServiceImpl extends BaseServiceImp<Factura,Long> implements 
         pdfDoc.close();
 
         return baos.toByteArray();
+    }
+
+    @Override
+    public Factura saveFacturaAfterPagoEfectivo(Pedido pedido) throws ServicioException {
+        if(facturaRepository.existsByPedidoId(pedido.getId())) {
+            throw new ServicioException("Ya existe una factura para el pedido dado.");
+        }
+
+        Factura factura = new Factura();
+
+        factura.setFechaFacturacion(pedido.getFechaPedido());
+        factura.setTotalVenta(pedido.getTotal());
+        factura.setFormaPago(FormaPago.EFECTIVO);
+
+       factura = facturaRepository.save(factura);
+
+        List<DetallePedido> detallesPedidos = detallePedidoRepository.findAllByPedidoId(pedido.getId());
+        Set<DetalleFactura> detallesFactura= new HashSet<>();
+        for(DetallePedido detallePedido : detallesPedidos) {
+            detallesFactura.add(detalleFacturaService.saveDetalleFromPedido(detallePedido));
+        }
+        factura.setDetalleFacturas(detallesFactura);
+
+        factura = facturaRepository.save(factura);
+
+        return factura;
+    }
+
+    @Override
+    public Factura crearNotaCredito(Pedido pedido) throws ServicioException {
+        Optional<Factura> optionalFactura = facturaRepository.findByPedidoId(pedido.getId());
+        if(optionalFactura.isEmpty()) {
+            throw new ServicioException("No se encontro factura para el pedido dado.");
+        }
+
+        Factura factura = optionalFactura.get();
+
+
+        return factura;
     }
 }
