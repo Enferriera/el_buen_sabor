@@ -448,9 +448,9 @@ public class BuenSaborBackApplication {
 
 			//Crea un cliente y un usuario
 			ImagenPersona imagenCliente = ImagenPersona.builder().url("https://hips.hearstapps.com/hmg-prod/images/la-la-land-final-1638446140.jpg").build();
-			imagenPersonaRepository.save(imagenCliente);
+			//imagenPersonaRepository.save(imagenCliente);
 			ImagenPersona imagenEmpleado = ImagenPersona.builder().url("https://hips.hearstapps.com/hmg-prod/images/la-la-land-final-1638446140.jpg").build();
-			imagenPersonaRepository.save(imagenEmpleado);
+			//imagenPersonaRepository.save(imagenEmpleado);
 			Domicilio domicilioCliente = Domicilio.builder().cp(5519).calle("Cangallo").numero(800).piso(0).nroDpto(1).localidad(localidad1).build();
 			domicilioRepository.save(domicilioCliente);
 			UsuarioCliente usuarioCliente = UsuarioCliente.builder().email("enferrelariel@hotmail.com").build();
@@ -461,7 +461,7 @@ public class BuenSaborBackApplication {
 			usuarioCliente2.setClave("asd");
 			usuarioClienteRepository.save(usuarioCliente2);
 			Usuario usuarioEmpleado = Usuario.builder().username("martin").auth0Id("9565a49d-ecc1-4f4e-adea-6cdcb7edc43a").rol(Rol.CAJERO).build();
-			usuarioRepository.save(usuarioEmpleado);
+			//usuarioRepository.save(usuarioEmpleado);
 
 			Cliente cliente = new Cliente();
 

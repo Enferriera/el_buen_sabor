@@ -1,6 +1,7 @@
 package com.example.buensaborback.presentation.rest;
 
 import com.example.buensaborback.business.facade.Imp.EmpleadoFacadeImp;
+import com.example.buensaborback.domain.dto.empleadoDto.EmpleadoCreateDto;
 import com.example.buensaborback.domain.dto.empleadoDto.EmpleadoDto;
 import com.example.buensaborback.domain.entities.Empleado;
 import com.example.buensaborback.presentation.rest.Base.BaseControllerImp;
@@ -20,5 +21,10 @@ public class EmpleadoController extends BaseControllerImp<Empleado, EmpleadoDto,
     @GetMapping("/empleadosPorSucursal/{idSucursal}")
     public ResponseEntity<List<EmpleadoDto>> getEMpleadosPorSucursal(@PathVariable Long idSucursal){
         return ResponseEntity.ok().body(facade.findAllBySucursalId(idSucursal));
+    }
+
+    @PostMapping("/createEmpleado")
+    public ResponseEntity<EmpleadoDto> createEmpleado(@RequestBody EmpleadoCreateDto empleadoDto) {
+        return ResponseEntity.ok().body(facade.createEmpleado(empleadoDto));
     }
 }

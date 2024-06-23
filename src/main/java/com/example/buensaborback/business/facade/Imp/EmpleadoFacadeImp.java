@@ -6,6 +6,7 @@ import com.example.buensaborback.business.mapper.BaseMapper;
 import com.example.buensaborback.business.mapper.EmpleadoMapper;
 import com.example.buensaborback.business.service.Base.BaseService;
 import com.example.buensaborback.business.service.EmpleadoService;
+import com.example.buensaborback.domain.dto.empleadoDto.EmpleadoCreateDto;
 import com.example.buensaborback.domain.dto.empleadoDto.EmpleadoDto;
 import com.example.buensaborback.domain.entities.Empleado;
 import com.example.buensaborback.domain.enums.Rol;
@@ -36,5 +37,10 @@ private EmpleadoMapper  empleadoMapper;
     @Override
     public List<EmpleadoDto> findAllBySucursalId(Long id) {
         return empleadoMapper.toDTOsList(empleadoService.findAllBySucursalId(id));
+    }
+
+    @Override
+    public EmpleadoDto createEmpleado(EmpleadoCreateDto empleadoDto) {
+        return empleadoMapper.toDTO(empleadoService.createEmpleado(empleadoMapper.toCreateEntity(empleadoDto)));
     }
 }
