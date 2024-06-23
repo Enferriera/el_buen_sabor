@@ -1,6 +1,7 @@
 package com.example.buensaborback.presentation.rest;
 
 import com.example.buensaborback.business.facade.Imp.EmpleadoFacadeImp;
+import com.example.buensaborback.domain.dto.empleadoDto.EmpleadoDto;
 import com.example.buensaborback.domain.entities.Empleado;
 import com.example.buensaborback.presentation.rest.Base.BaseControllerImp;
 import org.springframework.http.ResponseEntity;
