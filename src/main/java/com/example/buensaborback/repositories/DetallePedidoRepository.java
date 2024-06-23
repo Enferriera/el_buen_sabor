@@ -26,7 +26,6 @@ public interface DetallePedidoRepository extends BaseRepository<DetallePedido,Lo
     @Query("SELECT d FROM Pedido p JOIN p.detallePedidos d WHERE p.id = :idPedido")
     List<DetallePedido> findAllByPedidoId(@Param("idPedido")Long idPedido);
 
-    List<RankingProductos> bestProducts(@Param("initialDate") Date initialDate, @Param("endDate") Date endDate);
 
 
 }
