@@ -7,6 +7,7 @@ import com.example.buensaborback.domain.entities.Domicilio;
 import com.example.buensaborback.domain.entities.Empleado;
 import com.example.buensaborback.domain.enums.Rol;
 import com.example.buensaborback.repositories.EmpleadoRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,5 +30,11 @@ public class EmpleadoServiceImp extends BaseServiceImp<Empleado,Long> implements
     @Override
     public List<Empleado> findAllBySucursalId(Long id) {
         return empleadoRepository.findAllBySucursalId(id);
+    }
+
+    @Override
+    @Transactional
+    public Empleado createEmpleado(Empleado empleado) {
+        return empleadoRepository.save(empleado);
     }
 }

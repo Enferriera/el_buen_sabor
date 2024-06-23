@@ -28,6 +28,6 @@ public class Empleado extends Persona {
     @JoinColumn(name = "sucursal_id")
     private Sucursal sucursal;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private Usuario usuario;
 }
