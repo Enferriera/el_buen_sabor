@@ -27,4 +27,7 @@ public class Empleado extends Persona {
     @ToString.Exclude
     @JoinColumn(name = "sucursal_id")
     private Sucursal sucursal;
+
+    @OneToOne
+    private Usuario usuario;
 }

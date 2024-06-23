@@ -37,7 +37,8 @@ public class BuenSaborBackApplication {
 	private PromocionDetalleRepository promocionDetalleRepository;
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-
+	@Autowired
+	private UsuarioClienteRepository usuarioClienteRepository;
 	@Autowired
 	private PaisRepository paisRepository;
 
@@ -88,7 +89,8 @@ public class BuenSaborBackApplication {
 						   ImagenPersonaRepository imagenPersonaRepository,
 
 						   PromocionDetalleRepository promocionDetalleRepository,
-						   UsuarioRepository usuarioClienteRepository,
+						   UsuarioRepository usuarioRepository,
+						   UsuarioClienteRepository usuarioClienteRepository,
 						   PaisRepository paisRepository,
 						   ProvinciaRepository provinciaRepository,
 						   LocalidadRepository localidadRepository,
@@ -451,8 +453,13 @@ public class BuenSaborBackApplication {
 			imagenPersonaRepository.save(imagenEmpleado);
 			Domicilio domicilioCliente = Domicilio.builder().cp(5519).calle("Cangallo").numero(800).piso(0).nroDpto(1).localidad(localidad1).build();
 			domicilioRepository.save(domicilioCliente);
-			Usuario usuarioCliente = Usuario.builder().username("sebastian").auth0Id("9565a49d-ecc1-4f4e-adea-6cdcb7edc4a3").build();
-			usuarioRepository.save(usuarioCliente);
+			UsuarioCliente usuarioCliente = UsuarioCliente.builder().email("enferrelariel@hotmail.com").build();
+			usuarioCliente.setClave("eee");
+			usuarioClienteRepository.save(usuarioCliente);
+
+			UsuarioCliente usuarioCliente2 = UsuarioCliente.builder().email("pepe@gmail.com").build();
+			usuarioCliente2.setClave("asd");
+			usuarioClienteRepository.save(usuarioCliente2);
 			Usuario usuarioEmpleado = Usuario.builder().username("martin").auth0Id("9565a49d-ecc1-4f4e-adea-6cdcb7edc43a").rol(Rol.CAJERO).build();
 			usuarioRepository.save(usuarioEmpleado);
 
@@ -462,7 +469,7 @@ public class BuenSaborBackApplication {
 			//cliente.setEmail("correoFalso@gmail.com");
 			cliente.setNombre("Sebastian");
 			cliente.setApellido("Wilder");
-			cliente.setUsuario(usuarioCliente);
+			cliente.setUsuarioCliente(usuarioCliente);
 			cliente.setTelefono("2615920825");
 			//	cliente.setEstaActivo(true);
 			cliente.getDomicilios().add(domicilioCliente);

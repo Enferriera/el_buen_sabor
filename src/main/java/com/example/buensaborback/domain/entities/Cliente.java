@@ -29,4 +29,7 @@ public class Cliente extends Persona {
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private Set<Pedido> pedidos = new HashSet<>();
+
+    @OneToOne
+    private UsuarioCliente usuarioCliente;
 }

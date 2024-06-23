@@ -20,6 +20,13 @@ public interface DetallePedidoRepository extends BaseRepository<DetallePedido,Lo
             "group by am.id, am.denominacion " +
             "order by countVentas desc",
             nativeQuery = true)
+
+    List<RankingProductos> bestProducts(Date initialDate, Date endDate);
+
+    @Query("SELECT d FROM Pedido p JOIN p.detallePedidos d WHERE p.id = :idPedido")
+    List<DetallePedido> findAllByPedidoId(@Param("idPedido")Long idPedido);
+
     List<RankingProductos> bestProducts(@Param("initialDate") Date initialDate, @Param("endDate") Date endDate);
+
 
 }
