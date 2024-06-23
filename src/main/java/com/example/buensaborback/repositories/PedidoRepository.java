@@ -36,24 +36,23 @@ public interface PedidoRepository extends BaseRepository<Pedido,Long>{
             "WHERE p.fechaPedido BETWEEN :initialDate AND :endDate")
     CostoGanancia findCostosGananciasByFecha(LocalDate initialDate, LocalDate endDate);
 
-    @Query(value = "SELECT date(p.fecha_pedido) AS fecha, SUM(p.total) AS ingresos " +
+    @Query(value = "SELECT TRUNCATE(p.fecha_pedido) AS fecha, SUM(p.total) AS ingresos " +
             "FROM pedido p " +
             "WHERE p.fecha_pedido BETWEEN :initialDate AND :endDate " +
-            "GROUP BY date(p.fecha_pedido)", nativeQuery = true)
-    List<IngresosDiarios> ingresosDiarios(Date initialDate, Date endDate);
+            "GROUP BY TRUNCATE(p.fecha_pedido)", nativeQuery = true)
+    List<IngresosDiarios> ingresosDiarios(@Param("initialDate") Date initialDate, @Param("endDate") Date endDate);
 
-    @Query(value = "SELECT DATE_FORMAT(p.fecha_pedido, '%Y-%m') AS mes, SUM(p.total) AS ingresos " +
+    @Query(value = "SELECT FORMATDATETIME(p.fecha_pedido, 'yyyy-MM') AS mes, SUM(p.total) AS ingresos " +
             "FROM Pedido p " +
             "WHERE p.fecha_pedido BETWEEN :startDate AND :endDate " +
-            "GROUP BY DATE_FORMAT(p.fecha_pedido, '%Y-%m')", nativeQuery = true)
-    List<IngresosMensuales> ingresosMensuales(Date startDate, Date endDate);
+            "GROUP BY FORMATDATETIME(p.fecha_pedido, 'yyyy-MM')", nativeQuery = true)
+    List<IngresosMensuales> ingresosMensuales(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
+
 
     @Query("SELECT p.cliente.email AS email, COUNT(p) AS cantidadPedidos " +
             "FROM Pedido p " +
-            "WHERE p.fechaPedido BETWEEN :startDate AND :endDate " +
+            "WHERE CAST(p.fechaPedido AS DATE) BETWEEN :startDate AND :endDate " +
             "GROUP BY p.cliente.email " +
             "ORDER BY cantidadPedidos DESC")
-    List<PedidosCliente> findCantidadPedidosPorCliente(LocalDate startDate, LocalDate endDate);
-
-
+    List<PedidosCliente> findCantidadPedidosPorCliente(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 }
