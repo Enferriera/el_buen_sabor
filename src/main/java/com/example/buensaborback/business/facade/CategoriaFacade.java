@@ -14,7 +14,7 @@ import java.util.List;
 public interface CategoriaFacade extends BaseFacade<CategoriaGetDto, CategoriaGetDto,  Long> {
     public List<CategoriaGetDto> getCategoriaInsumos ();
     public List<CategoriaGetDto> getCategoriaManufacturados ();
-    public void deleteInSucursales (Long id, SucursalShortDto shortSucursal);
+    public void deleteCategoriaInSucursales (Long idCategoria, Long idSucursal);
     public List<CategoriaDto> findCategoriasInsumoBySucursalId(Long idSucursal);
     public List<CategoriaDto> findCategoriasManufacturadoBySucursalId(Long idSucursal);
 

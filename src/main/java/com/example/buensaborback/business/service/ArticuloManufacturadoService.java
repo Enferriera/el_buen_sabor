@@ -1,6 +1,7 @@
 package com.example.buensaborback.business.service;
 
 import com.example.buensaborback.business.service.Base.BaseService;
+import com.example.buensaborback.domain.dto.SucursalDtos.SucursalShortDto;
 import com.example.buensaborback.domain.entities.ArticuloManufacturado;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;

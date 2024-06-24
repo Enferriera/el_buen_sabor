@@ -35,9 +35,9 @@ public class CategoriaController extends BaseControllerImp<Categoria, CategoriaG
         return ResponseEntity.ok(facade.getCategoriaManufacturados());
     }
 
-    @DeleteMapping("/baja/{id}")
-    public void deleteById(@PathVariable Long id, @RequestBody SucursalShortDto sucursal) {
-        facade.deleteInSucursales(id, sucursal);
+    @DeleteMapping("/baja/{idCategoria}/{idSucursal}")
+    public void deleteById(@PathVariable Long idCategoria, @PathVariable Long idSucursal) {
+        facade.deleteCategoriaInSucursales(idCategoria, idSucursal);
     }
 
     @PostMapping("/create")

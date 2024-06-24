@@ -13,4 +13,6 @@ import org.mapstruct.Mapping;
 public interface SucursalMapper extends BaseMapper<Sucursal, SucursalDto, SucursalDto>{
 
     public SucursalShortDto toShortDTO(Sucursal source);
+
+    public Sucursal shortToEntity(SucursalShortDto source);
 }

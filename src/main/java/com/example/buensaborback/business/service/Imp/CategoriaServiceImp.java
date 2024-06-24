@@ -91,11 +91,11 @@ public class CategoriaServiceImp extends BaseServiceImp<Categoria,Long> implemen
 
     @Override
     @Transactional
-    public void deleteInSucursales(Long id, SucursalShortDto sucursalShort) {
-        Categoria categoriaExistente = categoriaRepository.getById(id);
+    public void deleteCategoriaInSucursales(Long idCategoria, Long idSucursal) {
+        Categoria categoriaExistente = categoriaRepository.getById(idCategoria);
 
 
-        Sucursal sucursal = sucursalService.getById(sucursalShort.getId());
+        Sucursal sucursal = sucursalService.getById(idSucursal);
 
         // Eliminar la relación entre la sucursal y la categoría existente
         sucursal.getCategorias().remove(categoriaExistente);

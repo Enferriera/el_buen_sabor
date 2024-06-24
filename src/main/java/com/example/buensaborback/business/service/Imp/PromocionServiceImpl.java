@@ -3,9 +3,8 @@ package com.example.buensaborback.business.service.Imp;
 import com.example.buensaborback.business.service.Base.BaseServiceImp;
 import com.example.buensaborback.business.service.CloudinaryService;
 import com.example.buensaborback.business.service.PromocionService;
-import com.example.buensaborback.domain.entities.ArticuloManufacturado;
-import com.example.buensaborback.domain.entities.ImagenPromocion;
-import com.example.buensaborback.domain.entities.Promocion;
+import com.example.buensaborback.business.service.SucursalService;
+import com.example.buensaborback.domain.entities.*;
 import com.example.buensaborback.repositories.ImagenPromocionRepository;
 import com.example.buensaborback.repositories.PromocionRepository;
 import jakarta.transaction.Transactional;
@@ -25,6 +24,8 @@ public class PromocionServiceImpl extends BaseServiceImp<Promocion,Long> impleme
     private final PromocionRepository promocionRepository;
     @Autowired
     CloudinaryService cloudinaryService;
+    @Autowired
+    private SucursalService sucursalService;
     @Autowired
     private ImagenPromocionRepository imagenPromocionRepository;
 
@@ -143,6 +144,20 @@ public class PromocionServiceImpl extends BaseServiceImp<Promocion,Long> impleme
             // Devolver un error (400) si ocurre alguna excepción durante la eliminación
             return new ResponseEntity<>("{\"status\":\"ERROR\", \"message\":\"" + e.getMessage() + "\"}", HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @Override
+    public void deletePromocionInSucursales(Long idPromocion, Long idSucursal){
+        Promocion promocionExistente = promocionRepository.getById(idPromocion);
+
+
+        Sucursal sucursal = sucursalService.getById(idSucursal);
+
+        // Eliminar la relación entre la sucursal y la categoría existente
+        sucursal.getPromociones().remove(promocionExistente);
+        promocionExistente.getSucursales().remove(sucursal);
+
+        promocionRepository.save(promocionExistente);
     }
 
 }

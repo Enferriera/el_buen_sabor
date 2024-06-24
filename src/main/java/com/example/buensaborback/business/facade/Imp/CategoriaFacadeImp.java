@@ -63,8 +63,8 @@ public class CategoriaFacadeImp extends BaseFacadeImp<Categoria, CategoriaGetDto
     }
 
     @Transactional
-    public void deleteInSucursales (Long id, SucursalShortDto shortSucursal) {
-        categoriaService.deleteInSucursales(id, shortSucursal);
+    public void deleteCategoriaInSucursales (Long idCategoria, Long idSucursal) {
+        categoriaService.deleteCategoriaInSucursales(idCategoria, idSucursal);
     }
 
     @Transactional

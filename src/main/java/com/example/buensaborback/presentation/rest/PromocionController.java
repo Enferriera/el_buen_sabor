@@ -3,6 +3,7 @@ package com.example.buensaborback.presentation.rest;
 
 import com.example.buensaborback.business.facade.Imp.PromocionFacadeImpl;
 
+import com.example.buensaborback.domain.dto.SucursalDtos.SucursalShortDto;
 import com.example.buensaborback.domain.dto.promocionDto.PromocionCreateDto;
 import com.example.buensaborback.domain.dto.promocionDto.PromocionDto;
 
@@ -45,6 +46,11 @@ public class PromocionController extends BaseControllerImp<Promocion, PromocionD
     @GetMapping("/getPromocionPorSucursal/{idSucursal}")
     public ResponseEntity<List<PromocionDto>> getPromocionPorSucursal(@PathVariable Long idSucursal ){
         return ResponseEntity.ok().body(promocionFacade.findPromocionesBySucursalId(idSucursal));
+    }
+
+    @DeleteMapping("/baja/{idPromocion}/{idSucursal}")
+    public void deleteById(@PathVariable Long idPromocion, @PathVariable Long idSucursal) {
+        facade.deletePromocionInSucursales(idPromocion, idSucursal);
     }
 
     // Método POST para subir imágenes

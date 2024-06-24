@@ -1,10 +1,12 @@
 package com.example.buensaborback.business.facade;
 
 import com.example.buensaborback.business.facade.Base.BaseFacade;
+import com.example.buensaborback.domain.dto.SucursalDtos.SucursalShortDto;
 import com.example.buensaborback.domain.dto.articulomanufacturadodto.ArticuloManufacturadoDto;
 import com.example.buensaborback.domain.dto.promocionDto.PromocionCreateDto;
 import com.example.buensaborback.domain.dto.promocionDto.PromocionDto;
 import com.example.buensaborback.domain.entities.Promocion;
+import com.example.buensaborback.domain.entities.Sucursal;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,6 +22,7 @@ public interface PromocionFacade extends BaseFacade<PromocionDto,PromocionDto, L
     public List<PromocionDto> getHabilitados();
 
     public List<PromocionDto> findPromocionesBySucursalId(Long idSucursal);
+    public void deletePromocionInSucursales(Long idPromocion, Long idSucursal);
 
     //Imagenes
     // Método para obtener todas las imágenes almacenadas

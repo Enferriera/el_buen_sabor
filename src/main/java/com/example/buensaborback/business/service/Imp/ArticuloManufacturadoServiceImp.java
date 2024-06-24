@@ -3,6 +3,8 @@ package com.example.buensaborback.business.service.Imp;
 import com.example.buensaborback.business.service.ArticuloManufacturadoService;
 import com.example.buensaborback.business.service.Base.BaseServiceImp;
 import com.example.buensaborback.business.service.CloudinaryService;
+import com.example.buensaborback.business.service.SucursalService;
+import com.example.buensaborback.domain.dto.SucursalDtos.SucursalShortDto;
 import com.example.buensaborback.domain.entities.*;
 import com.example.buensaborback.repositories.*;
 import jakarta.transaction.Transactional;
@@ -34,6 +36,9 @@ public class ArticuloManufacturadoServiceImp extends BaseServiceImp<ArticuloManu
 
     @Autowired
     private CloudinaryService cloudinaryService;
+
+    @Autowired
+    private SucursalService sucursalService;
 
     @Override
     @Transactional
@@ -233,6 +238,8 @@ public class ArticuloManufacturadoServiceImp extends BaseServiceImp<ArticuloManu
             return new ResponseEntity<>("{\"status\":\"ERROR\", \"message\":\"" + e.getMessage() + "\"}", HttpStatus.BAD_REQUEST);
         }
     }
+
+
 
 
 }
