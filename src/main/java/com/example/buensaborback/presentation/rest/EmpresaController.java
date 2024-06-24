@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/empresas")
-@CrossOrigin("*")
+@CrossOrigin(origins="*")
 public class EmpresaController extends BaseControllerImp<Empresa, EmpresaDto,EmpresaDto, Long, EmpresaFacadeImpl> {
     public EmpresaController(EmpresaFacadeImpl facade) {
         super(facade);

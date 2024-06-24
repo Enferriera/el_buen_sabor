@@ -18,7 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/articulosInsumos")
-@CrossOrigin("*")
+@CrossOrigin(origins="*")
 public class ArticuloInsumoController extends BaseControllerImp<ArticuloInsumo, ArticuloInsumoDto, ArticuloInsumoDto,Long, ArticuloInsumoFacadeImp> {
 
     public ArticuloInsumoController(ArticuloInsumoFacadeImp facade) {

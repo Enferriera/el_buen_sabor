@@ -17,6 +17,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/pedidos")
+@CrossOrigin(origins="*")
 public class PedidoController extends BaseControllerImp<Pedido, PedidoDto,PedidoDto,Long, PedidoFacadeImpl> {
     public PedidoController(PedidoFacadeImpl facade, PedidoService pedidoService) {
         super(facade);

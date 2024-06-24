@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/categorias")
-@CrossOrigin("*")
+@CrossOrigin(origins="*")
 public class CategoriaController extends BaseControllerImp<Categoria, CategoriaGetDto, CategoriaGetDto, Long, CategoriaFacadeImp> {
 
     public CategoriaController(CategoriaFacadeImp facade) {

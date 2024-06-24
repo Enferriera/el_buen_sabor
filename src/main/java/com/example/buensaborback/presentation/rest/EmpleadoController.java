@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/empleados")
-@CrossOrigin("*")
+@CrossOrigin(origins="*")
 public class EmpleadoController extends BaseControllerImp<Empleado, EmpleadoDto,EmpleadoDto,Long, EmpleadoFacadeImp> {
     public EmpleadoController(EmpleadoFacadeImp facade) {
         super(facade);

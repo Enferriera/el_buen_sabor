@@ -12,7 +12,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/stocks")
-@CrossOrigin("*")
+@CrossOrigin(origins="*")
 public class StockInsumoScucursalController extends BaseControllerImp<StockInsumoSucursal, StockInsumoShortDto,StockInsumoShortDto,Long, StockInsumoSucursalFacadeImpl> {
     public StockInsumoScucursalController(StockInsumoSucursalFacadeImpl facade) {
         super(facade);

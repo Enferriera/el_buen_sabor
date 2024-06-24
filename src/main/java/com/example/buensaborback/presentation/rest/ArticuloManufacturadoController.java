@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/articulosManufacturados")
-@CrossOrigin("*")
+@CrossOrigin(origins="*")
 public class ArticuloManufacturadoController extends BaseControllerImp<ArticuloManufacturado, ArticuloManufacturadoDto, ArticuloManufacturadoDto,Long, ArticuloManufacturadoFacadeImp> {
 
     public ArticuloManufacturadoController(ArticuloManufacturadoFacadeImp facade) {

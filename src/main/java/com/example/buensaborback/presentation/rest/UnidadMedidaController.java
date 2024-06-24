@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/unidadesMedidas")
-@CrossOrigin("*")
+@CrossOrigin(origins="*")
 public class UnidadMedidaController extends BaseControllerImp<UnidadMedida, UnidadMedidaDto,UnidadMedidaDto,Long, UnidadMedidaFacadeImp> {
 
     public UnidadMedidaController(UnidadMedidaFacadeImp facade) {
