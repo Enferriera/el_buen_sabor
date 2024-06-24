@@ -5,6 +5,7 @@ import com.example.buensaborback.business.service.Base.BaseService;
 import com.example.buensaborback.domain.entities.DetallePedido;
 import com.example.buensaborback.domain.entities.Pedido;
 import com.example.buensaborback.domain.enums.EstadoPedido;
+import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -19,6 +20,8 @@ public interface PedidoService extends BaseService<Pedido, Long> {
     public void revertirStock(Pedido pedido) throws RuntimeException;
     public Pedido updateEstado(Long id, EstadoPedido estado) throws ServicioException;
     public  List<Pedido> findByEstadoPedidoAndSucursalId(EstadoPedido estado,Long idSucursal);
+
+    List<Pedido> obtenerPedidosEnDelivery(Long idSucursal);
 
 
 

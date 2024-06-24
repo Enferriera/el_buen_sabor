@@ -516,7 +516,7 @@ public class BuenSaborBackApplication {
 					.fechaPedido(LocalDate.of(2023, 1, 1))
 					.total(300.0)
 					.totalCosto(170.6)
-					.estadoPedido(EstadoPedido.COMPLETADO)
+					.estadoPedido(EstadoPedido.PENDIENTE_PAGO)
 					.formaPago(FormaPago.MERCADO_PAGO)
 					.tipoEnvio(TipoEnvio.DELIVERY)
 					.sucursal(sucursalGuaymallen)

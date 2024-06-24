@@ -48,9 +48,14 @@ public class PedidoServiceImpl extends BaseServiceImp<Pedido, Long> implements P
 
     @Override
     public List<Pedido> obtenerPedidosEnCocina(Long idSucursal) {
-        // Implementar la lógica para obtener los pedidos que están en preparación
         return pedidoRepository.findByEstadoPedidoAndSucursalId(EstadoPedido.PREPARACION, idSucursal);
     }
+
+    @Override
+    public List<Pedido> obtenerPedidosEnDelivery(Long idSucursal){
+        return pedidoRepository.findByEstadoPedidoAndSucursalId(EstadoPedido.EN_CAMINO,idSucursal);
+    }
+
     private StockInsumoSucursal obtenerStockInsumoSucursal(ArticuloInsumo insumo, Sucursal sucursal) {
         return sucursal.getStocksSucursal()
                 .stream()

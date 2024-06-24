@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -31,6 +32,16 @@ public class PedidoController extends BaseControllerImp<Pedido, PedidoDto,Pedido
         EstadoPedido estadoActual = pedido.getEstadoPedido();
         FormaPago formaPago = pedido.getFormaPago();
         return estadoActual.getValidNextStates(formaPago);
+    }
+
+    @GetMapping("/pedidosEnCocinaPorSucursal/{idSucursal}")
+    public ResponseEntity<List<PedidoDto>> pedidosEnCocinaSucursal(@PathVariable Long idSucursal){
+        return ResponseEntity.ok().body(facade.obtenerPedidosEnCocina(idSucursal));
+    }
+
+    @GetMapping("/pedidosEnDeliveryPorSucursal/{idSucursal}")
+    public ResponseEntity<List<PedidoDto>> pedidosEnDeliverySucursal(@PathVariable Long idSucursal){
+        return ResponseEntity.ok().body(facade.obtenerPedidosEnDelivery(idSucursal));
     }
 
     @PutMapping("/cambiaEstado/{id}")

@@ -44,4 +44,16 @@ public class PedidoFacadeImpl extends BaseFacadeImp<Pedido, PedidoDto, PedidoDto
                 .map(baseMapper::toDTO)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    @Transactional
+    public List<PedidoDto> obtenerPedidosEnCocina(Long idSucursal){
+        return pedidoMapper.toDTOsList(pedidoService.obtenerPedidosEnCocina(idSucursal));
+    }
+
+    @Override
+    @Transactional
+    public List<PedidoDto> obtenerPedidosEnDelivery(Long idSucursal){
+        return pedidoMapper.toDTOsList(pedidoService.obtenerPedidosEnDelivery(idSucursal));
+    }
 }

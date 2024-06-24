@@ -6,20 +6,19 @@ import com.example.buensaborback.domain.dto.Estadisticas.IngresosMensuales;
 import com.example.buensaborback.domain.dto.Estadisticas.PedidosCliente;
 import com.example.buensaborback.domain.entities.Pedido;
 import com.example.buensaborback.domain.enums.EstadoPedido;
-import org.springframework.cglib.core.Local;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Repository
 public interface PedidoRepository extends BaseRepository<Pedido,Long>{
     @Query("SELECT p FROM Pedido p WHERE p.estadoPedido =:estado AND p.sucursal.id =:idSucursal")
     List<Pedido> findByEstadoPedidoAndSucursalId(@Param("estado")EstadoPedido estado, @Param("idSucursal")Long idSucursal);
-
+    @Query("SELECT p FROM Pedido p WHERE p.estadoPedido = 'PREPARACION' AND p.sucursal.id =:idSucursal")
+    List<Pedido> buscarPedidosEnCocina(@Param("idSucursal")Long idSucursal);
 
     List<Pedido> findByClienteId(Long clienteId);
 
