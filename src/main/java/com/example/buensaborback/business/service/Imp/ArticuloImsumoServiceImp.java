@@ -139,15 +139,21 @@ public class ArticuloImsumoServiceImp extends BaseServiceImp<ArticuloInsumo,Long
 
     @Override
     public void deleteById(Long id) {
+        System.out.println("entre al delete correcto");
         ArticuloInsumo insumo = articuloInsumoRepository.getById(id);
         if (insumo == null) {
             throw new RuntimeException("Insumo no encontrado: { id: " + id + " }");
         }
-        List<ArticuloManufacturadoDetalle> insumoEsUtilizado = articuloManufacturadoDetalleRepository.getByArticuloInsumo(insumo);
+        List<ArticuloManufacturadoDetalle> insumoEsUtilizado = articuloManufacturadoDetalleRepository.getByArticuloInsumo(insumo.getId());
         if (!insumoEsUtilizado.isEmpty()) {
+            System.out.println("si tengo un manufacturado detalle");
             throw new RuntimeException("No se puede eliminar el articulo porque está presente en un detalle");
         }
-        articuloInsumoRepository.deleteById(id);
+        for(StockInsumoSucursal stock: insumo.getStocksInsumo()){
+            StockInsumoSucursal stockBase=stockInsumoSucursalRepository.getById(stock.getId());
+            stockInsumoSucursalRepository.delete(stockBase);
+        }
+        articuloInsumoRepository.delete(insumo);
     }
 
     @Override

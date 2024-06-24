@@ -20,6 +20,9 @@ public interface ArticuloInsumoService extends BaseService<ArticuloInsumo,Long> 
 
     public void changeHabilitado(Long id);
 
+    @Override
+    public void deleteById(Long id);
+
     public Optional<ArticuloInsumo> findByCodigo(String codigo);
 
     List<ArticuloInsumo> findArticulosInsumosBySucursalId(Long idSucursal);

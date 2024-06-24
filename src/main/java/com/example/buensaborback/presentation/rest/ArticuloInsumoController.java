@@ -95,4 +95,12 @@ public class ArticuloInsumoController extends BaseControllerImp<ArticuloInsumo, 
         }
     }
 
+    @Override
+    @DeleteMapping("/baja/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable Long id){
+        facade.deleteById(id);
+        return ResponseEntity.ok(null);
+    }
+
+
 }

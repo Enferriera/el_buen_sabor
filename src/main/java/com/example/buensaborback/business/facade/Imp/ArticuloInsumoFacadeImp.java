@@ -66,6 +66,11 @@ public class ArticuloInsumoFacadeImp extends BaseFacadeImp<ArticuloInsumo, Artic
     }
 
     @Override
+    public void deleteById(Long id){
+        articuloInsumoService.deleteById(id);
+    }
+
+    @Override
     @Transactional
     public ArticuloInsumoDto create(ArticuloInsumoCreateDto articuloInsumoCreateDto) {
         Optional<ArticuloInsumo> existingArticulo = articuloInsumoService.findByCodigo(articuloInsumoCreateDto.getCodigo());
