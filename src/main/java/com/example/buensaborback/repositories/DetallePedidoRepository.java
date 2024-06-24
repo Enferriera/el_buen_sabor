@@ -2,10 +2,12 @@ package com.example.buensaborback.repositories;
 
 import com.example.buensaborback.domain.dto.Estadisticas.RankingProductos;
 import com.example.buensaborback.domain.entities.DetallePedido;
+import org.springframework.cglib.core.Local;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -21,8 +23,8 @@ public interface DetallePedidoRepository extends BaseRepository<DetallePedido,Lo
             "group by am.id, am.denominacion " +
             "order by countVentas desc",
             nativeQuery = true)
-    List<RankingProductos> bestProducts(@Param("initialDate") Date initialDate,
-                                        @Param("endDate") Date endDate,
+    List<RankingProductos> bestProducts(@Param("initialDate") LocalDate initialDate,
+                                        @Param("endDate") LocalDate endDate,
                                         @Param("idSucursal") Long idSucursal);
 
     @Query("SELECT d FROM Pedido p JOIN p.detallePedidos d WHERE p.id = :idPedido")
@@ -40,8 +42,8 @@ public interface DetallePedidoRepository extends BaseRepository<DetallePedido,Lo
             "GROUP BY s.nombre, am.id, am.denominacion " +
             "ORDER BY countVentas DESC",
             nativeQuery = true)
-    List<RankingProductos> bestProductsByEmpresa(@Param("initialDate") Date initialDate,
-                                                 @Param("endDate") Date endDate,
+    List<RankingProductos> bestProductsByEmpresa(@Param("initialDate") LocalDate initialDate,
+                                                 @Param("endDate") LocalDate endDate,
                                                  @Param("idEmpresa") Long idEmpresa);
 
 

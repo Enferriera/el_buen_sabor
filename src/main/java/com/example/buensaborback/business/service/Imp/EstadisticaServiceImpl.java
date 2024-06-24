@@ -18,7 +18,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Date;
 import java.util.List;
 @Service
 public class EstadisticaServiceImpl implements EstadisticaService {
@@ -30,27 +29,27 @@ public class EstadisticaServiceImpl implements EstadisticaService {
     private PedidoRepository pedidoRepository;
 
     @Override
-    public List<RankingProductos> bestProducts(Date initialDate, Date endDate, Long idSucursal) {
+    public List<RankingProductos> bestProducts(LocalDate initialDate, LocalDate endDate, Long idSucursal) {
         return detallePedidoRepository.bestProducts(initialDate, endDate, idSucursal);
     }
 
     @Override
-    public List<IngresosDiarios> ingresosDiariosPorSucursal(Date initialDate, Date endDate, Long idSucursal){
+    public List<IngresosDiarios> ingresosDiariosPorSucursal(LocalDate initialDate, LocalDate endDate, Long idSucursal){
         return pedidoRepository.ingresosDiariosPorSucursal(initialDate, endDate,idSucursal);
     }
 
     @Override
-    public List<IngresosMensuales> ingresosMensualesPorSucursal(Date startDate, Date endDate, Long idSucursal) {
+    public List<IngresosMensuales> ingresosMensualesPorSucursal(LocalDate startDate, LocalDate endDate, Long idSucursal) {
         return pedidoRepository.ingresosMensualesPorSucursal(startDate, endDate,idSucursal);
     }
 
     @Override
-   public List<IngresosDiarios> ingresosDiariosPorEmpresa(Date initialDate, Date endDate, Long idEmpresa){
+   public List<IngresosDiarios> ingresosDiariosPorEmpresa(LocalDate initialDate, LocalDate endDate, Long idEmpresa){
         return pedidoRepository.ingresosDiariosPorEmpresa(initialDate,endDate,idEmpresa);
     }
 
     @Override
-    public List<IngresosMensuales> ingresosMensualesPorEmpresa(Date startDate, Date endDate, Long idEmpresa){
+    public List<IngresosMensuales> ingresosMensualesPorEmpresa(LocalDate startDate, LocalDate endDate, Long idEmpresa){
         return pedidoRepository.ingresosMensualesPorEmpresa(startDate,endDate,idEmpresa);
     }
 
@@ -72,7 +71,7 @@ public class EstadisticaServiceImpl implements EstadisticaService {
 
 
     @Override
-    public byte[] generarReporteExcelPorSucursal(Date fechaDesde, Date fechaHasta,Long idSucursal) throws IOException {
+    public byte[] generarReporteExcelPorSucursal(LocalDate fechaDesde, LocalDate fechaHasta,Long idSucursal) throws IOException {
         Workbook workbook = new HSSFWorkbook();
         Sheet sheet = workbook.createSheet("Ranking de comidas");
 
@@ -156,8 +155,8 @@ public class EstadisticaServiceImpl implements EstadisticaService {
             cell.setCellValue(headersPedidoClientes[i]);
         }
 
-        LocalDate dateInicio = fechaDesde.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate dateFin = fechaHasta.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate dateInicio = fechaDesde;
+        LocalDate dateFin = fechaHasta;
 
         List<PedidosCliente> pedidosClientes = findCantidadPedidosPorClienteYSucursal(dateInicio, dateFin,idSucursal);
 
@@ -205,7 +204,7 @@ public class EstadisticaServiceImpl implements EstadisticaService {
     }
 
     @Override
-    public byte[] generarReporteExcelPorEmpresa(Date fechaDesde, Date fechaHasta,Long idEmpresa) throws IOException {
+    public byte[] generarReporteExcelPorEmpresa(LocalDate fechaDesde, LocalDate fechaHasta,Long idEmpresa) throws IOException {
         Workbook workbook = new HSSFWorkbook();
         Sheet sheet = workbook.createSheet("Ranking de comidas");
 
@@ -289,8 +288,8 @@ public class EstadisticaServiceImpl implements EstadisticaService {
             cell.setCellValue(headersPedidoClientes[i]);
         }
 
-        LocalDate dateInicio = fechaDesde.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate dateFin = fechaHasta.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate dateInicio = fechaDesde;
+        LocalDate dateFin = fechaHasta;
 
         List<PedidosCliente> pedidosClientes = findCantidadPedidosPorClienteYEmpresa(dateInicio, dateFin,idEmpresa);
 
@@ -341,7 +340,7 @@ public class EstadisticaServiceImpl implements EstadisticaService {
 
     @Override
     @Transactional
-   public List<RankingProductos> bestProductsByEmpresa(Date initialDate, Date endDate, Long idEmpresa){
+   public List<RankingProductos> bestProductsByEmpresa(LocalDate initialDate, LocalDate endDate, Long idEmpresa){
         return detallePedidoRepository.bestProductsByEmpresa(initialDate,endDate, idEmpresa);
     }
 

@@ -6,6 +6,7 @@ import com.example.buensaborback.domain.dto.Estadisticas.IngresosMensuales;
 import com.example.buensaborback.domain.dto.Estadisticas.PedidosCliente;
 import com.example.buensaborback.domain.entities.Pedido;
 import com.example.buensaborback.domain.enums.EstadoPedido;
+import org.springframework.cglib.core.Local;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -55,13 +56,14 @@ public interface PedidoRepository extends BaseRepository<Pedido,Long>{
                                                        @Param("endDate") LocalDate endDate,
                                                        @Param("idEmpresa") Long idEmpresa);
 
-    @Query(value = "SELECT DATE(p.fecha_pedido) AS fecha, SUM(p.total) AS ingresos " +
-            "FROM pedido p " +
-            "WHERE p.fecha_pedido BETWEEN :initialDate AND :endDate " +
-            "AND p.sucursal_id = :idSucursal AND p.estado_pedido='COMPLETADO' " +
-            "GROUP BY DATE(p.fecha_pedido)", nativeQuery = true)
-    List<IngresosDiarios> ingresosDiariosPorSucursal(@Param("initialDate") Date initialDate,
-                                                     @Param("endDate") Date endDate,
+    @Query("SELECT CAST(p.fechaPedido AS date) AS fecha, SUM(p.total) AS ingresos " +
+            "FROM Pedido p " +
+            "WHERE p.fechaPedido BETWEEN :startDate AND :endDate " +
+            "AND p.sucursal.id = :idSucursal " +
+            "AND p.estadoPedido = 'COMPLETADO' " +
+            "GROUP BY CAST(p.fechaPedido AS date)")
+    List<IngresosDiarios> ingresosDiariosPorSucursal(@Param("startDate") LocalDate startDate,
+                                                     @Param("endDate") LocalDate endDate,
                                                      @Param("idSucursal") Long idSucursal);
 
     @Query(value = "SELECT FORMATDATETIME(p.fecha_pedido, 'yyyy-MM') AS mes, SUM(p.total) AS ingresos " +
@@ -69,18 +71,19 @@ public interface PedidoRepository extends BaseRepository<Pedido,Long>{
             "WHERE p.fecha_pedido BETWEEN :startDate AND :endDate " +
             "AND p.sucursal_id = :idSucursal AND p.estado_pedido='COMPLETADO'" +
             "GROUP BY FORMATDATETIME(p.fecha_pedido, 'yyyy-MM')", nativeQuery = true)
-    List<IngresosMensuales> ingresosMensualesPorSucursal(@Param("startDate") Date startDate,
-                                                         @Param("endDate") Date endDate,
+    List<IngresosMensuales> ingresosMensualesPorSucursal(@Param("startDate") LocalDate startDate,
+                                                         @Param("endDate") LocalDate endDate,
                                                          @Param("idSucursal") Long idSucursal);
 
-    @Query(value = "SELECT DATE(p.fecha_pedido) AS fecha, SUM(p.total) AS ingresos " +
-            "FROM pedido p " +
-            "JOIN sucursal s ON p.sucursal_id = s.id " +
-            "WHERE p.fecha_pedido BETWEEN :initialDate AND :endDate " +
-            "AND s.empresa_id = :idEmpresa AND p.estado_pedido = 'COMPLETADO' " +
-            "GROUP BY DATE(p.fecha_pedido)", nativeQuery = true)
-    List<IngresosDiarios> ingresosDiariosPorEmpresa(@Param("initialDate") Date initialDate,
-                                                    @Param("endDate") Date endDate,
+    @Query("SELECT CAST(p.fechaPedido AS date) AS fecha, SUM(p.total) AS ingresos " +
+            "FROM Pedido p " +
+            "JOIN p.sucursal s " +  // Suponiendo que tienes una relación 'sucursal' en Pedido
+            "WHERE p.fechaPedido BETWEEN :startDate AND :endDate " +
+            "AND s.empresa.id = :idEmpresa " +  // Filtrar por idEmpresa
+            "AND p.estadoPedido = 'COMPLETADO' " +
+            "GROUP BY CAST(p.fechaPedido AS date)")
+    List<IngresosDiarios> ingresosDiariosPorEmpresa(@Param("startDate") LocalDate startDate,
+                                                    @Param("endDate") LocalDate endDate,
                                                     @Param("idEmpresa") Long idEmpresa);
 
     @Query(value = "SELECT FORMATDATETIME(p.fecha_pedido, 'yyyy-MM') AS mes, SUM(p.total) AS ingresos " +
@@ -89,27 +92,27 @@ public interface PedidoRepository extends BaseRepository<Pedido,Long>{
             "WHERE p.fecha_pedido BETWEEN :startDate AND :endDate " +
             "AND s.empresa_id = :idEmpresa AND p.estado_pedido = 'COMPLETADO' " +
             "GROUP BY FORMATDATETIME(p.fecha_pedido, 'yyyy-MM')", nativeQuery = true)
-    List<IngresosMensuales> ingresosMensualesPorEmpresa(@Param("startDate") Date startDate,
-                                                        @Param("endDate") Date endDate,
+    List<IngresosMensuales> ingresosMensualesPorEmpresa(@Param("startDate") LocalDate startDate,
+                                                        @Param("endDate") LocalDate endDate,
                                                         @Param("idEmpresa") Long idEmpresa);
 
 
-    @Query("SELECT p.cliente.email AS email, COUNT(p) AS cantidadPedidos " +
+    @Query("SELECT p.cliente.usuarioCliente.email AS email, COUNT(p) AS cantidadPedidos " +
             "FROM Pedido p " +
             "WHERE CAST(p.fechaPedido AS DATE) BETWEEN :startDate AND :endDate " +
             "AND p.sucursal.id = :idSucursal AND p.estadoPedido='COMPLETADO' " +
-            "GROUP BY p.cliente.email " +
+            "GROUP BY p.cliente.usuarioCliente.email " +
             "ORDER BY cantidadPedidos DESC")
     List<PedidosCliente> findCantidadPedidosPorClienteYSucursal(@Param("startDate") LocalDate startDate,
                                                                 @Param("endDate") LocalDate endDate,
                                                                 @Param("idSucursal") Long idSucursal);
 
-    @Query("SELECT p.cliente.email AS email, COUNT(p) AS cantidadPedidos " +
+    @Query("SELECT p.cliente.usuarioCliente.email AS email, COUNT(p) AS cantidadPedidos " +
             "FROM Pedido p " +
             "JOIN p.sucursal s " +
             "WHERE CAST(p.fechaPedido AS DATE) BETWEEN :startDate AND :endDate " +
             "AND s.empresa.id = :idEmpresa AND p.estadoPedido = 'COMPLETADO' " +
-            "GROUP BY p.cliente.email " +
+            "GROUP BY p.cliente.usuarioCliente.email " +
             "ORDER BY cantidadPedidos DESC")
     List<PedidosCliente> findCantidadPedidosPorClienteYEmpresa(@Param("startDate") LocalDate startDate,
                                                                @Param("endDate") LocalDate endDate,
