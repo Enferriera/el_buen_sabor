@@ -45,6 +45,16 @@ public class PedidoController extends BaseControllerImp<Pedido, PedidoDto,Pedido
         return ResponseEntity.ok().body(facade.obtenerPedidosEnDelivery(idSucursal));
     }
 
+    @GetMapping("/pedidosIngresoCajaPorSucursal/{idSucursal}")
+    public ResponseEntity<List<PedidoDto>> pedidosIngresoCajaSucursal(@PathVariable Long idSucursal){
+        return ResponseEntity.ok().body(facade.buscarPedidosIngresoCaja(idSucursal));
+    }
+
+    @GetMapping("/pedidosPendienteEntregaCaja/{idSucursal}")
+    public ResponseEntity<List<PedidoDto>> pedidosPendienteEntregaCaja(@PathVariable Long idSucursal){
+        return ResponseEntity.ok().body(facade.buscarPedidosPendienteEntrega(idSucursal));
+    }
+
     @PutMapping("/cambiaEstado/{id}")
     public ResponseEntity<?> cambiaEstado(@RequestParam String estadoPedido, @PathVariable Long id ) {
         try {

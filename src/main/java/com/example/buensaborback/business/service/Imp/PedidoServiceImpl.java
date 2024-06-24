@@ -56,6 +56,15 @@ public class PedidoServiceImpl extends BaseServiceImp<Pedido, Long> implements P
         return pedidoRepository.findByEstadoPedidoAndSucursalId(EstadoPedido.EN_CAMINO,idSucursal);
     }
 
+    @Override
+    public List<Pedido> buscarPedidosIngresoCaja(Long idSucursal){
+        return pedidoRepository.buscarPedidosIngresoCaja(idSucursal);
+    }
+
+    @Override
+    public List<Pedido> buscarPedidosPendienteEntrega(Long idSucursal){
+        return pedidoRepository.findByEstadoPedidoAndSucursalId(EstadoPedido.PENDIENTE_ENTREGA,idSucursal);
+    }
     private StockInsumoSucursal obtenerStockInsumoSucursal(ArticuloInsumo insumo, Sucursal sucursal) {
         return sucursal.getStocksSucursal()
                 .stream()

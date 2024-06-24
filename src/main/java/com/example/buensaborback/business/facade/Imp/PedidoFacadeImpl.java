@@ -47,6 +47,12 @@ public class PedidoFacadeImpl extends BaseFacadeImp<Pedido, PedidoDto, PedidoDto
 
     @Override
     @Transactional
+    public List<PedidoDto> buscarPedidosIngresoCaja(Long idSucursal){
+        return pedidoMapper.toDTOsList(pedidoService.buscarPedidosIngresoCaja(idSucursal));
+    }
+
+    @Override
+    @Transactional
     public List<PedidoDto> obtenerPedidosEnCocina(Long idSucursal){
         return pedidoMapper.toDTOsList(pedidoService.obtenerPedidosEnCocina(idSucursal));
     }
@@ -55,5 +61,11 @@ public class PedidoFacadeImpl extends BaseFacadeImp<Pedido, PedidoDto, PedidoDto
     @Transactional
     public List<PedidoDto> obtenerPedidosEnDelivery(Long idSucursal){
         return pedidoMapper.toDTOsList(pedidoService.obtenerPedidosEnDelivery(idSucursal));
+    }
+
+    @Override
+    @Transactional
+    public List<PedidoDto> buscarPedidosPendienteEntrega(Long idSucursal){
+        return pedidoMapper.toDTOsList(pedidoService.buscarPedidosPendienteEntrega(idSucursal));
     }
 }

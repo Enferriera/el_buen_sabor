@@ -14,4 +14,6 @@ public interface PedidoFacade extends BaseFacade <PedidoDto, PedidoDto, Long> {
     public List<PedidoDto> findByEstadoPedido(EstadoPedido estado, Long idSucursal);
     public List<PedidoDto> obtenerPedidosEnCocina(Long idSucursal);
     public List<PedidoDto> obtenerPedidosEnDelivery(Long idSucursal);
+    public List<PedidoDto> buscarPedidosIngresoCaja(Long idSucursal);
+    public List<PedidoDto> buscarPedidosPendienteEntrega(Long idSucursal);
 }

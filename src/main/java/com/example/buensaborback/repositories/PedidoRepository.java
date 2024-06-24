@@ -17,8 +17,9 @@ import java.util.List;
 public interface PedidoRepository extends BaseRepository<Pedido,Long>{
     @Query("SELECT p FROM Pedido p WHERE p.estadoPedido =:estado AND p.sucursal.id =:idSucursal")
     List<Pedido> findByEstadoPedidoAndSucursalId(@Param("estado")EstadoPedido estado, @Param("idSucursal")Long idSucursal);
-    @Query("SELECT p FROM Pedido p WHERE p.estadoPedido = 'PREPARACION' AND p.sucursal.id =:idSucursal")
-    List<Pedido> buscarPedidosEnCocina(@Param("idSucursal")Long idSucursal);
+    @Query("SELECT p FROM Pedido p WHERE ((p.estadoPedido = 'PENDIENTE_PAGO' AND p.formaPago='EFECTIVO') OR(p.estadoPedido = 'PAGADO' AND p.formaPago='MERCADO_PAGO'))AND p.sucursal.id =:idSucursal")
+    List<Pedido> buscarPedidosIngresoCaja(@Param("idSucursal")Long idSucursal);
+
 
     List<Pedido> findByClienteId(Long clienteId);
 

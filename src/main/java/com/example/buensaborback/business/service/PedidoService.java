@@ -22,7 +22,8 @@ public interface PedidoService extends BaseService<Pedido, Long> {
     public  List<Pedido> findByEstadoPedidoAndSucursalId(EstadoPedido estado,Long idSucursal);
 
     List<Pedido> obtenerPedidosEnDelivery(Long idSucursal);
-
+    List<Pedido> buscarPedidosIngresoCaja(Long idSucursal);
+    List<Pedido> buscarPedidosPendienteEntrega(Long idSucursal);
 
 
     Pedido findById(Long id);
