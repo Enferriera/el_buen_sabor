@@ -1,6 +1,7 @@
 package com.example.buensaborback.business.service;
 
 import com.example.buensaborback.domain.dto.Estadisticas.*;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.io.IOException;
@@ -10,10 +11,15 @@ import java.util.List;
 
 public interface EstadisticaService {
     List<RankingProductos> bestProducts(Date initialDate, Date endDate, Long idSucursal);
-    List<IngresosDiarios> ingresosDiarios(Date initialDate, Date endDate);
-    List<IngresosMensuales> ingresosMensuales(Date initialDate, Date endDate);
-    CostoGanancia findCostosGananciasByFecha(LocalDate initialDate, LocalDate endDate);
-    List<PedidosCliente> findCantidadPedidosPorCliente(LocalDate startDate, LocalDate endDate);
-    byte[] generarReporteExcel(Date fechaDesde, Date fechaHasta,Long idSucursal) throws IOException;
+    List<IngresosDiarios> ingresosDiariosPorSucursal(Date initialDate, Date endDate, Long idSucursal);
+    List<IngresosMensuales> ingresosMensualesPorSucursal(Date startDate, Date endDate, Long idSucursal);
+    List<IngresosDiarios> ingresosDiariosPorEmpresa(Date initialDate, Date endDate, Long idEmpresa);
+    List<IngresosMensuales> ingresosMensualesPorEmpresa(Date startDate, Date endDate, Long idEmpresa);
+    List<PedidosCliente> findCantidadPedidosPorClienteYSucursal(LocalDate startDate,LocalDate endDate,Long idSucursal);
+    List<PedidosCliente> findCantidadPedidosPorClienteYEmpresa(LocalDate startDate, LocalDate endDate, Long idEmpresa);
+    CostoGanancia findCostosGananciasByFechaAndSucursal(LocalDate initialDate,LocalDate endDate,Long idSucursal);
+    CostoGanancia findCostosGananciasByFechaAndEmpresa(LocalDate initialDate,LocalDate endDate, Long idEmpresa);
+    byte[] generarReporteExcelPorSucursal(Date fechaDesde, Date fechaHasta,Long idSucursal) throws IOException;
+    byte[] generarReporteExcelPorEmpresa(Date fechaDesde, Date fechaHasta,Long idEmpresa) throws IOException;
     List<RankingProductos> bestProductsByEmpresa(Date initialDate, Date endDate,Long idEmpresa);
 }

@@ -22,28 +22,55 @@ public class EstadisticaFacadeImpl implements EstadisticaFacade {
     }
 
     @Override
-    public List<IngresosDiarios> ingresosDiarios(Date initialDate, Date endDate) {
-        return estadisticasService.ingresosDiarios(initialDate, endDate);
+    public List<IngresosDiarios> ingresosDiariosPorSucursal(Date initialDate, Date endDate, Long idSucursal){
+        return estadisticasService.ingresosDiariosPorSucursal(initialDate, endDate,idSucursal);
     }
 
     @Override
-    public List<IngresosMensuales> ingresosMensuales(Date initialDate, Date endDate) {
-        return estadisticasService.ingresosMensuales(initialDate, endDate);
+    public List<IngresosMensuales> ingresosMensualesPorSucursal(Date startDate, Date endDate, Long idSucursal) {
+        return estadisticasService.ingresosMensualesPorSucursal(startDate, endDate,idSucursal);
     }
 
     @Override
-    public CostoGanancia findCostosGananciasByFecha(LocalDate initialDate, LocalDate endDate) {
-        return estadisticasService.findCostosGananciasByFecha(initialDate, endDate);
+    public List<IngresosDiarios> ingresosDiariosPorEmpresa(Date initialDate, Date endDate, Long idEmpresa){
+        return estadisticasService.ingresosDiariosPorEmpresa(initialDate,endDate,idEmpresa);
     }
 
     @Override
-    public List<PedidosCliente> findCantidadPedidosPorCliente(LocalDate startDate, LocalDate endDate) {
-        return estadisticasService.findCantidadPedidosPorCliente(startDate, endDate);
+    public List<IngresosMensuales> ingresosMensualesPorEmpresa(Date startDate, Date endDate, Long idEmpresa){
+        return estadisticasService.ingresosMensualesPorEmpresa(startDate,endDate,idEmpresa);
     }
 
     @Override
-    public byte[] generarReporteExcel(Date fechaDesde, Date fechaHasta, Long idSucursal) throws IOException {
-        return estadisticasService.generarReporteExcel(fechaDesde,fechaHasta,idSucursal);
+    public List<PedidosCliente> findCantidadPedidosPorClienteYSucursal(LocalDate startDate,LocalDate endDate,Long idSucursal){
+        return estadisticasService.findCantidadPedidosPorClienteYSucursal(startDate,endDate,idSucursal);
+    }
+
+    @Override
+    public List<PedidosCliente> findCantidadPedidosPorClienteYEmpresa(LocalDate startDate, LocalDate endDate, Long idEmpresa){
+        return estadisticasService.findCantidadPedidosPorClienteYEmpresa(startDate,endDate,idEmpresa);
+    }
+
+    @Override
+    public  CostoGanancia findCostosGananciasByFechaAndSucursal(LocalDate initialDate,LocalDate endDate,Long idSucursal) {
+        return estadisticasService.findCostosGananciasByFechaAndSucursal(initialDate, endDate,idSucursal);
+    }
+
+    @Override
+    public CostoGanancia findCostosGananciasByFechaAndEmpresa(LocalDate initialDate,LocalDate endDate, Long idEmpresa){
+        return estadisticasService.findCostosGananciasByFechaAndEmpresa(initialDate,endDate,idEmpresa);
+    }
+
+
+
+    @Override
+    public byte[] generarReporteExcelPorSucursal(Date fechaDesde, Date fechaHasta, Long idSucursal) throws IOException {
+        return estadisticasService.generarReporteExcelPorSucursal(fechaDesde,fechaHasta,idSucursal);
+    }
+
+    @Override
+    public byte[] generarReporteExcelPorEmpresa(Date fechaDesde, Date fechaHasta, Long idEmpresa) throws IOException {
+        return estadisticasService.generarReporteExcelPorEmpresa(fechaDesde,fechaHasta,idEmpresa);
     }
 
     @Override

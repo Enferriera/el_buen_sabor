@@ -33,26 +33,85 @@ public interface PedidoRepository extends BaseRepository<Pedido,Long>{
             "JOIN p.detallePedidos dp " +
             "JOIN dp.articulo a " +
             "LEFT JOIN ArticuloInsumo ai ON a.id = ai.id " +
-            "WHERE p.fechaPedido BETWEEN :initialDate AND :endDate")
-    CostoGanancia findCostosGananciasByFecha(LocalDate initialDate, LocalDate endDate);
+            "WHERE p.fechaPedido BETWEEN :initialDate AND :endDate " +
+            "AND p.sucursal.id = :idSucursal AND p.estadoPedido='COMPLETADO'")
+    CostoGanancia findCostosGananciasByFechaAndSucursal(@Param("initialDate") LocalDate initialDate,
+                                                        @Param("endDate") LocalDate endDate,
+                                                        @Param("idSucursal") Long idSucursal);
 
-    @Query(value = "SELECT TRUNCATE(p.fecha_pedido) AS fecha, SUM(p.total) AS ingresos " +
+    @Query(value = "SELECT " +
+            "SUM(dp.cantidad * ai.precioCompra) AS costos, " +
+            "SUM(p.total) AS ganancias, " +
+            "(SUM(p.total) - SUM(dp.cantidad * ai.precioCompra)) AS resultado " +
+            "FROM Pedido p " +
+            "JOIN p.detallePedidos dp " +
+            "JOIN dp.articulo a " +
+            "LEFT JOIN ArticuloInsumo ai ON a.id = ai.id " +
+            "JOIN p.sucursal s " +
+            "JOIN s.empresa e " +
+            "WHERE p.fechaPedido BETWEEN :initialDate AND :endDate " +
+            "AND e.id = :idEmpresa AND p.estadoPedido='COMPLETADO'")
+    CostoGanancia findCostosGananciasByFechaAndEmpresa(@Param("initialDate") LocalDate initialDate,
+                                                       @Param("endDate") LocalDate endDate,
+                                                       @Param("idEmpresa") Long idEmpresa);
+
+    @Query(value = "SELECT DATE(p.fecha_pedido) AS fecha, SUM(p.total) AS ingresos " +
             "FROM pedido p " +
             "WHERE p.fecha_pedido BETWEEN :initialDate AND :endDate " +
-            "GROUP BY TRUNCATE(p.fecha_pedido)", nativeQuery = true)
-    List<IngresosDiarios> ingresosDiarios(@Param("initialDate") Date initialDate, @Param("endDate") Date endDate);
+            "AND p.sucursal_id = :idSucursal AND p.estado_pedido='COMPLETADO' " +
+            "GROUP BY DATE(p.fecha_pedido)", nativeQuery = true)
+    List<IngresosDiarios> ingresosDiariosPorSucursal(@Param("initialDate") Date initialDate,
+                                                     @Param("endDate") Date endDate,
+                                                     @Param("idSucursal") Long idSucursal);
 
     @Query(value = "SELECT FORMATDATETIME(p.fecha_pedido, 'yyyy-MM') AS mes, SUM(p.total) AS ingresos " +
             "FROM Pedido p " +
             "WHERE p.fecha_pedido BETWEEN :startDate AND :endDate " +
+            "AND p.sucursal_id = :idSucursal AND p.estado_pedido='COMPLETADO'" +
             "GROUP BY FORMATDATETIME(p.fecha_pedido, 'yyyy-MM')", nativeQuery = true)
-    List<IngresosMensuales> ingresosMensuales(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
+    List<IngresosMensuales> ingresosMensualesPorSucursal(@Param("startDate") Date startDate,
+                                                         @Param("endDate") Date endDate,
+                                                         @Param("idSucursal") Long idSucursal);
+
+    @Query(value = "SELECT DATE(p.fecha_pedido) AS fecha, SUM(p.total) AS ingresos " +
+            "FROM pedido p " +
+            "JOIN sucursal s ON p.sucursal_id = s.id " +
+            "WHERE p.fecha_pedido BETWEEN :initialDate AND :endDate " +
+            "AND s.empresa_id = :idEmpresa AND p.estado_pedido = 'COMPLETADO' " +
+            "GROUP BY DATE(p.fecha_pedido)", nativeQuery = true)
+    List<IngresosDiarios> ingresosDiariosPorEmpresa(@Param("initialDate") Date initialDate,
+                                                    @Param("endDate") Date endDate,
+                                                    @Param("idEmpresa") Long idEmpresa);
+
+    @Query(value = "SELECT FORMATDATETIME(p.fecha_pedido, 'yyyy-MM') AS mes, SUM(p.total) AS ingresos " +
+            "FROM Pedido p " +
+            "JOIN sucursal s ON p.sucursal_id = s.id " +
+            "WHERE p.fecha_pedido BETWEEN :startDate AND :endDate " +
+            "AND s.empresa_id = :idEmpresa AND p.estado_pedido = 'COMPLETADO' " +
+            "GROUP BY FORMATDATETIME(p.fecha_pedido, 'yyyy-MM')", nativeQuery = true)
+    List<IngresosMensuales> ingresosMensualesPorEmpresa(@Param("startDate") Date startDate,
+                                                        @Param("endDate") Date endDate,
+                                                        @Param("idEmpresa") Long idEmpresa);
 
 
     @Query("SELECT p.cliente.email AS email, COUNT(p) AS cantidadPedidos " +
             "FROM Pedido p " +
             "WHERE CAST(p.fechaPedido AS DATE) BETWEEN :startDate AND :endDate " +
+            "AND p.sucursal.id = :idSucursal AND p.estadoPedido='COMPLETADO' " +
             "GROUP BY p.cliente.email " +
             "ORDER BY cantidadPedidos DESC")
-    List<PedidosCliente> findCantidadPedidosPorCliente(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+    List<PedidosCliente> findCantidadPedidosPorClienteYSucursal(@Param("startDate") LocalDate startDate,
+                                                                @Param("endDate") LocalDate endDate,
+                                                                @Param("idSucursal") Long idSucursal);
+
+    @Query("SELECT p.cliente.email AS email, COUNT(p) AS cantidadPedidos " +
+            "FROM Pedido p " +
+            "JOIN p.sucursal s " +
+            "WHERE CAST(p.fechaPedido AS DATE) BETWEEN :startDate AND :endDate " +
+            "AND s.empresa.id = :idEmpresa AND p.estadoPedido = 'COMPLETADO' " +
+            "GROUP BY p.cliente.email " +
+            "ORDER BY cantidadPedidos DESC")
+    List<PedidosCliente> findCantidadPedidosPorClienteYEmpresa(@Param("startDate") LocalDate startDate,
+                                                               @Param("endDate") LocalDate endDate,
+                                                               @Param("idEmpresa") Long idEmpresa);
 }

@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.sound.midi.MidiSystem;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Date;
@@ -20,48 +21,92 @@ public class EstadisticaController {
     @Autowired
     private EstadisticaFacade estadisticasFacade;
 
-    @GetMapping("/ranking/{idSucursal}")
-    public ResponseEntity<?> rankin (
+    @GetMapping("/rankingSucursal/{idSucursal}")
+    public ResponseEntity<?> rankinSucursal (
             @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaDesde,
             @RequestParam("fechaHasta") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaHasta,
             @PathVariable Long idSucursal){
         return ResponseEntity.ok(estadisticasFacade.bestProducts(fechaDesde, fechaHasta,idSucursal));
     }
 
-    @GetMapping("/recaudacionesDiarias")
-    public ResponseEntity<?> recaudacionesDiarias (
+    @GetMapping("/rankingEmpresa/{idEmpresa}")
+    public ResponseEntity<?> rankinEmpresa (
             @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaDesde,
-            @RequestParam("fechaHasta") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaHasta){
-        return ResponseEntity.ok(estadisticasFacade.ingresosDiarios(fechaDesde, fechaHasta));
+            @RequestParam("fechaHasta") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaHasta,
+            @PathVariable Long idEmpresa){
+        return ResponseEntity.ok(estadisticasFacade.bestProductsByEmpresa(fechaDesde, fechaHasta,idEmpresa));
     }
 
-    @GetMapping("/recaudacionesMensuales")
-    public ResponseEntity<?> recaudacionesMensuales (
+    @GetMapping("/recaudacionesDiariasSucursal/{idSucursal}")
+    public ResponseEntity<?> recaudacionesDiariasSucursal (
             @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaDesde,
-            @RequestParam("fechaHasta") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaHasta){
-        return ResponseEntity.ok(estadisticasFacade.ingresosMensuales(fechaDesde, fechaHasta));
+            @RequestParam("fechaHasta") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaHasta,
+            @PathVariable Long idSucursal){
+        return ResponseEntity.ok(estadisticasFacade.ingresosDiariosPorSucursal(fechaDesde, fechaHasta,idSucursal));
     }
 
-    @GetMapping("/costosGanancias")
+    @GetMapping("/recaudacionesDiariasEmpresa/{idEmpresa}")
+    public ResponseEntity<?> recaudacionesDiariasEmpresa(
+            @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaDesde,
+            @RequestParam("fechaHasta") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaHasta,
+            @PathVariable Long idEmpresa){
+        return ResponseEntity.ok(estadisticasFacade.ingresosDiariosPorEmpresa(fechaDesde, fechaHasta,idEmpresa));
+    }
+
+    @GetMapping("/recaudacionesMensualesSucursal/{idSucursal}")
+    public ResponseEntity<?> recaudacionesMensualesSucursal (
+            @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaDesde,
+            @RequestParam("fechaHasta") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaHasta,
+            @PathVariable Long idSucursal){
+        return ResponseEntity.ok(estadisticasFacade.ingresosMensualesPorSucursal(fechaDesde, fechaHasta,idSucursal));
+    }
+
+    @GetMapping("/recaudacionesMensualesEmpresa/{idEmpresa}")
+    public ResponseEntity<?> recaudacionesMensualesEmpresa (
+            @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaDesde,
+            @RequestParam("fechaHasta") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaHasta,
+            @PathVariable Long idEmpresa){
+        return ResponseEntity.ok(estadisticasFacade.ingresosMensualesPorEmpresa(fechaDesde, fechaHasta,idEmpresa));
+    }
+
+    @GetMapping("/costosGanancias/{idSucursal}")
     public ResponseEntity<?> costosGanancias (
             @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fechaDesde,
-            @RequestParam("fechaHasta") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fechaHasta){
-        return ResponseEntity.ok(estadisticasFacade.findCostosGananciasByFecha(fechaDesde, fechaHasta));
+            @RequestParam("fechaHasta") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fechaHasta,
+            @PathVariable Long idSucursal){
+        return ResponseEntity.ok(estadisticasFacade.findCostosGananciasByFechaAndSucursal(fechaDesde, fechaHasta,idSucursal));
     }
 
-    @GetMapping("/pedidosCliente")
-    public ResponseEntity<?> pedidosCliente (
+    @GetMapping("/costosGananciasEmpresa/{idEmpresa}")
+    public ResponseEntity<?> costosGananciasEmpresa (
             @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fechaDesde,
-            @RequestParam("fechaHasta") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fechaHasta){
-        return ResponseEntity.ok(estadisticasFacade.findCantidadPedidosPorCliente(fechaDesde, fechaHasta));
+            @RequestParam("fechaHasta") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fechaHasta,
+            @PathVariable Long idEmpresa){
+        return ResponseEntity.ok(estadisticasFacade.findCostosGananciasByFechaAndEmpresa(fechaDesde, fechaHasta,idEmpresa));
     }
 
-    @GetMapping("/excel/{idSucursal}")
-    public ResponseEntity<?> excel (
+    @GetMapping("/pedidosClienteSucursal/{idSucursal}")
+    public ResponseEntity<?> pedidosClienteSucursal (
+            @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fechaDesde,
+            @RequestParam("fechaHasta") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fechaHasta,
+            @PathVariable Long idSucursal){
+        return ResponseEntity.ok(estadisticasFacade.findCantidadPedidosPorClienteYSucursal(fechaDesde, fechaHasta,idSucursal));
+    }
+
+    @GetMapping("/pedidosClienteEmpresa/{idEmpresa}")
+    public ResponseEntity<?> pedidosClienteEmpresa (
+            @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fechaDesde,
+            @RequestParam("fechaHasta") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fechaHasta,
+            @PathVariable Long idEmpresa){
+        return ResponseEntity.ok(estadisticasFacade.findCantidadPedidosPorClienteYEmpresa(fechaDesde, fechaHasta,idEmpresa));
+    }
+
+    @GetMapping("/excelSucursal/{idSucursal}")
+    public ResponseEntity<?> excelSucursal (
             @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaDesde,
             @RequestParam("fechaHasta") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaHasta,
      @PathVariable Long idSucursal) throws IOException {
-        byte[] excelContent = estadisticasFacade.generarReporteExcel(fechaDesde, fechaHasta,idSucursal);
+        byte[] excelContent = estadisticasFacade.generarReporteExcelPorSucursal(fechaDesde, fechaHasta,idSucursal);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
         headers.set(HttpHeaders.CONTENT_DISPOSITION,"attachment;filename=estadisticas.xls");
@@ -72,12 +117,21 @@ public class EstadisticaController {
                 .body(excelContent);
     }
 
-    @GetMapping("/rankingEmpresa/{idEmpresa}")
-    public ResponseEntity<?> rankinEmpresa (
+    @GetMapping("/excelEmpresa/{idEmpresa}")
+    public ResponseEntity<?> excelEmpresa (
             @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaDesde,
             @RequestParam("fechaHasta") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fechaHasta,
-            @PathVariable Long idEmpresa){
-        return ResponseEntity.ok(estadisticasFacade.bestProductsByEmpresa(fechaDesde, fechaHasta,idEmpresa));
+            @PathVariable Long idEmpresa) throws IOException {
+        byte[] excelContent = estadisticasFacade.generarReporteExcelPorEmpresa(fechaDesde, fechaHasta,idEmpresa);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        headers.set(HttpHeaders.CONTENT_DISPOSITION,"attachment;filename=estadisticas.xls");
+        headers.setContentLength(excelContent.length);
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(excelContent);
     }
+
 
 }
