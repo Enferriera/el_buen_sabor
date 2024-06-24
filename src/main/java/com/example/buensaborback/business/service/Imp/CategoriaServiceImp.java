@@ -63,9 +63,7 @@ public class CategoriaServiceImp extends BaseServiceImp<Categoria,Long> implemen
         categoria.setSucursales(sucursales);
 
         // Mapear subcategorías y guardar la categoría
-       /* if (!categoria.getSubCategorias().isEmpty()) {
-            mapearSubcategorias(categoria, sucursales);
-        }*/
+
         if(categoria.getCategoriaPadre()!= null){
             Categoria categoriaPadre = categoriaRepository.getById(categoria.getCategoriaPadre().getId());
 
@@ -206,35 +204,23 @@ public class CategoriaServiceImp extends BaseServiceImp<Categoria,Long> implemen
         return categoriaRepository.findAllCategoriasBySucursalId(idSucursal);
     }
 
-    /*
-    private void actualizarSubcategorias(Categoria categoriaExistente, Categoria newCategoria, Set<Sucursal> sucursales) {
-        // Mapear subcategorías de la nueva categoría
-        if (newCategoria.getSubCategorias() != null && !newCategoria.getSubCategorias().isEmpty()) {
-            for (Categoria subcategoriaNueva : newCategoria.getSubCategorias()) {
-                Optional<Categoria> subcategoriaExistenteOpt = categoriaExistente.getSubCategorias().stream()
-                        .filter(sc -> sc.getId().equals(subcategoriaNueva.getId()))
-                        .findFirst();
-
-                if (subcategoriaExistenteOpt.isPresent()) {
-                    Categoria subcategoriaExistente = subcategoriaExistenteOpt.get();
-                    subcategoriaExistente.setDenominacion(subcategoriaNueva.getDenominacion());
-                    subcategoriaExistente.setEsInsumo(subcategoriaNueva.isEsInsumo());
-                    subcategoriaExistente.setSucursales(sucursales);
-
-                    actualizarSubcategorias(subcategoriaExistente, subcategoriaNueva, sucursales);
-                } else {
-                    subcategoriaNueva.setCategoriaPadre(categoriaExistente);
-                    subcategoriaNueva.setSucursales(sucursales);
-                    categoriaExistente.getSubCategorias().add(subcategoriaNueva);
-
-                    for (Sucursal sucursal : sucursales) {
-                        sucursal.getCategorias().add(subcategoriaNueva);
-                    }
-                }
-            }
+   @Override
+    public void deleteById(Long idCategoria){
+        Categoria categoria= categoriaRepository.getById(idCategoria);
+        if(categoria.getSubCategorias().size()>0){
+            throw new RuntimeException("No se puede borrar la categoria "+categoria.getDenominacion()+" porque tiene asignadas subcategorias");
+        }
+        if(categoria.getArticulos().size()>0){
+            throw new RuntimeException("No se puede borrar la categoria "+categoria.getDenominacion()+" porque tiene Articulos insumos asociados");
         }
 
-    }*/
+       for (Sucursal sucursal : categoria.getSucursales()) {
+           sucursal=sucursalService.getById(sucursal.getId());
+           sucursal.getCategorias().remove(categoria);
+           sucursalService.update(sucursal,sucursal.getId());// Desasociar la sucursal de la categoría
+       }
+       categoriaRepository.deleteById(categoria.getId());
+   }
 
 
 

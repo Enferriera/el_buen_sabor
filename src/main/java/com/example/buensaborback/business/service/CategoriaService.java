@@ -19,4 +19,7 @@ public interface CategoriaService extends BaseService<Categoria,Long> {
     List<Categoria> findCategoriasManufacturadoBySucursalId(Long idSucursal);
 
     List<Categoria> findAllCategoriasBySucursalId(Long idSucursal);
+
+    @Override
+    void deleteById(Long aLong);
 }
