@@ -57,14 +57,12 @@ public class PedidoController extends BaseControllerImp<Pedido, PedidoDto,Pedido
 
     @PutMapping("/cambiaEstado/{id}")
     public ResponseEntity<?> cambiaEstado(@RequestParam String estadoPedido, @PathVariable Long id ) {
-        try {
+
             System.out.println(estadoPedido);
             EstadoPedido estadoPedidoValido = EstadoPedido.valueOf(estadoPedido.toUpperCase());
 
             return ResponseEntity.ok(facade.updateEstado(id, estadoPedidoValido));
-        }catch (ServicioException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+
     }
 
     @GetMapping("/getPorEstadoYSucursal/{idSucursal}")

@@ -32,7 +32,7 @@ public class PedidoFacadeImpl extends BaseFacadeImp<Pedido, PedidoDto, PedidoDto
 
     @Override
     @Transactional
-    public PedidoDto updateEstado(Long id, EstadoPedido estado) throws ServicioException {
+    public PedidoDto updateEstado(Long id, EstadoPedido estado)  {
         return pedidoMapper.toDTO(pedidoService.updateEstado(id,estado));
     }
 

@@ -125,9 +125,9 @@ public class FacturaServiceImpl extends BaseServiceImp<Factura,Long> implements 
     }
 
     @Override
-    public Factura saveFacturaAfterPagoEfectivo(Pedido pedido) throws ServicioException {
+    public Factura saveFacturaAfterPagoEfectivo(Pedido pedido)  {
         if(facturaRepository.existsByPedidoId(pedido.getId())) {
-            throw new ServicioException("Ya existe una factura para el pedido dado.");
+            throw new RuntimeException("Ya existe una factura para el pedido dado.");
         }
 
         Factura factura = new Factura();
@@ -151,10 +151,10 @@ public class FacturaServiceImpl extends BaseServiceImp<Factura,Long> implements 
     }
 
     @Override
-    public Factura crearNotaCredito(Pedido pedido) throws ServicioException {
+    public Factura crearNotaCredito(Pedido pedido)  {
         Optional<Factura> optionalFactura = facturaRepository.findByPedidoId(pedido.getId());
         if(optionalFactura.isEmpty()) {
-            throw new ServicioException("No se encontro factura para el pedido dado.");
+            throw new RuntimeException("No se encontro factura para el pedido dado.");
         }
 
         Factura factura = optionalFactura.get();

@@ -9,6 +9,6 @@ import java.io.IOException;
 
 public interface FacturaService extends BaseService<Factura, Long> {
     byte[] generarFacturaPDF(Pedido pedido) throws IOException;
-    public Factura saveFacturaAfterPagoEfectivo(Pedido pedido) throws ServicioException;
-    public Factura crearNotaCredito(Pedido pedido) throws ServicioException;
+    public Factura saveFacturaAfterPagoEfectivo(Pedido pedido) ;
+    public Factura crearNotaCredito(Pedido pedido) ;
 }

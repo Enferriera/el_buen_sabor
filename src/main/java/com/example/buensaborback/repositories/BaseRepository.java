@@ -37,11 +37,11 @@ public interface BaseRepository <E extends Base, ID extends Serializable> extend
         }
 
         var entity = optionalEntity.get();
-        /*if(entity.isBaja()){
+        if(entity.isEliminado()){
             String errMsg = "La entidad del tipo " + entity.getClass().getSimpleName() + " con el id " + id + " se encuentra borrada logicamente";
             //logger.error(errMsg);
             throw new RuntimeException(errMsg);
-        }*/
+        }
         return entity;
     }
 

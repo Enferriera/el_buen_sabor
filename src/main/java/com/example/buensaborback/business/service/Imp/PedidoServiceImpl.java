@@ -74,7 +74,7 @@ public class PedidoServiceImpl extends BaseServiceImp<Pedido, Long> implements P
     }
 
     @Override
-    public void revertirStock(Pedido pedido) throws RuntimeException {
+    public void revertirStock(Pedido pedido) {
         for (DetallePedido detalle : pedido.getDetallePedidos()) {
             Articulo articulo = detalle.getArticulo();
             int cantidadRequerida = detalle.getCantidad();
@@ -107,13 +107,13 @@ public class PedidoServiceImpl extends BaseServiceImp<Pedido, Long> implements P
 
     @Override
     @Transactional(rollbackOn = ServicioException.class)
-    public Pedido updateEstado(Long id, EstadoPedido estado) throws ServicioException {
+    public Pedido updateEstado(Long id, EstadoPedido estado)  {
         Optional<Pedido> optionalPedido = baseRepository.findById(id);
         if (optionalPedido.isEmpty()) {
-            throw new ServicioException("No se encontro el pedido con el id dado.");
+            throw new RuntimeException("No se encontro el pedido con el id dado.");
         }
         if (estado == null) {
-            throw new ServicioException("El estado nuevo no puede ser nulo.");
+            throw new RuntimeException("El estado nuevo no puede ser nulo.");
         }
 
         Pedido pedido = optionalPedido.get();
@@ -135,18 +135,18 @@ public class PedidoServiceImpl extends BaseServiceImp<Pedido, Long> implements P
         return pedido;
     }
 
-    public Pedido updateEstadoEfectivo(EstadoPedido newEstado, Pedido pedido) throws ServicioException {
+    public Pedido updateEstadoEfectivo(EstadoPedido newEstado, Pedido pedido)  {
         if (!pedido.getEstadoPedido().isValidNextState(newEstado, FormaPago.EFECTIVO)) {
-            throw new ServicioException(pedido.getEstadoPedido() + " -> " + newEstado + " es una transicion de estados invalida en pedidos en EFECTIVO");
+            throw new RuntimeException(pedido.getEstadoPedido() + " -> " + newEstado + " es una transicion de estados invalida en pedidos en EFECTIVO");
         }
 
         //TODO: incluir estas nuevas validaciones en el enum (va a ser necesario pasar como parametro el tipo envio)
         if (pedido.getTipoEnvio().equals(TipoEnvio.TAKE_AWAY) && newEstado.equals(EstadoPedido.EN_CAMINO)) {
-            throw new ServicioException(pedido.getEstadoPedido() + " -> " + newEstado + " es una transicion de estados invalida en pedidos TAKE_AWAY");
+            throw new RuntimeException(pedido.getEstadoPedido() + " -> " + newEstado + " es una transicion de estados invalida en pedidos TAKE_AWAY");
         }
 
         if (pedido.getTipoEnvio().equals(TipoEnvio.DELIVERY) && pedido.getEstadoPedido().equals(EstadoPedido.PENDIENTE_ENTREGA) && (newEstado.equals(EstadoPedido.PAGADO) || newEstado.equals(EstadoPedido.COMPLETADO))) {
-            throw new ServicioException(pedido.getEstadoPedido() + " -> " + newEstado + " es una transicion de estados invalida en pedidos DELIVERY");
+            throw new RuntimeException(pedido.getEstadoPedido() + " -> " + newEstado + " es una transicion de estados invalida en pedidos DELIVERY");
         }
 
         switch (newEstado) {
@@ -203,23 +203,23 @@ public class PedidoServiceImpl extends BaseServiceImp<Pedido, Long> implements P
                 }
 
             }
-            default -> throw new ServicioException("Invalid state");
+            default -> throw new RuntimeException("Invalid state");
         }
         return pedido;
     }
 
-    public Pedido updateEstadoMercadoPago(EstadoPedido newEstado, Pedido pedido) throws ServicioException {
+    public Pedido updateEstadoMercadoPago(EstadoPedido newEstado, Pedido pedido)  {
         if (!pedido.getEstadoPedido().isValidNextState(newEstado, FormaPago.MERCADO_PAGO)) {
-            throw new ServicioException(pedido.getEstadoPedido() + " -> " + newEstado + " es una transicion de estados invalida en pedidos de MERCADO_PAGO");
+            throw new RuntimeException(pedido.getEstadoPedido() + " -> " + newEstado + " es una transicion de estados invalida en pedidos de MERCADO_PAGO");
         }
 
         //TODO: incluir estas nuevas validaciones en el enum (va a ser necesario pasar como parametro el tipo envio)
         if (pedido.getTipoEnvio().equals(TipoEnvio.TAKE_AWAY) && newEstado.equals(EstadoPedido.EN_CAMINO)) {
-            throw new ServicioException(pedido.getEstadoPedido() + " -> " + newEstado + " es una transicion de estados invalida en pedidos TAKE_AWAY");
+            throw new RuntimeException(pedido.getEstadoPedido() + " -> " + newEstado + " es una transicion de estados invalida en pedidos TAKE_AWAY");
         }
 
         if (pedido.getTipoEnvio().equals(TipoEnvio.DELIVERY) && pedido.getEstadoPedido().equals(EstadoPedido.PENDIENTE_ENTREGA) && (newEstado.equals(EstadoPedido.PAGADO) || newEstado.equals(EstadoPedido.COMPLETADO))) {
-            throw new ServicioException(pedido.getEstadoPedido() + " -> " + newEstado + " es una transicion de estados invalida en pedidos DELIVERY");
+            throw new RuntimeException(pedido.getEstadoPedido() + " -> " + newEstado + " es una transicion de estados invalida en pedidos DELIVERY");
         }
 
         switch (newEstado) {
@@ -271,14 +271,14 @@ public class PedidoServiceImpl extends BaseServiceImp<Pedido, Long> implements P
                 }
             }
             case PENDIENTE_PAGO ->
-                    throw new ServicioException("Estado PENDIENTE_PAGO en pedidos de MERCADO_PAGO no implementado a traves de metodo updateEstado.");
+                    throw new RuntimeException("Estado PENDIENTE_PAGO en pedidos de MERCADO_PAGO no implementado a traves de metodo updateEstado.");
             case CANCELADO ->{
                 this.revertirStock(pedido);
                 pedido.setEstadoPedido(newEstado);
                 pedidoRepository.save(pedido);
             }
 
-            default -> throw new ServicioException("Estado seleccionado invalido.");
+            default -> throw new RuntimeException("Estado seleccionado invalido.");
         }
 
         return pedido;

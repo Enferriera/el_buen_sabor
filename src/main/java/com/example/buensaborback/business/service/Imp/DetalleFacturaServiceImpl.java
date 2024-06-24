@@ -15,7 +15,8 @@ public class DetalleFacturaServiceImpl extends BaseServiceImp<DetalleFactura,Lon
     @Autowired
     private DetalleFacturaRepository detalleFacturaRepository;
 
-    public DetalleFactura saveDetalleFromPedido(DetallePedido detallePedido) throws ServicioException {
+    @Override
+    public DetalleFactura saveDetalleFromPedido(DetallePedido detallePedido){
         DetalleFactura detalleFactura = new DetalleFactura();
 
 
@@ -23,6 +24,6 @@ public class DetalleFacturaServiceImpl extends BaseServiceImp<DetalleFactura,Lon
         detalleFactura.setSubtotal(detallePedido.getSubTotal());
         detalleFactura.setArticulo(detallePedido.getArticulo());
         return detalleFactura;
-        //detalleFacturaRepository.save(detalleFactura);
+
     }
 }

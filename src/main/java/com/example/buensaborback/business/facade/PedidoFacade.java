@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface PedidoFacade extends BaseFacade <PedidoDto, PedidoDto, Long> {
 
-    public PedidoDto updateEstado(Long id, EstadoPedido estado) throws ServicioException;
+    public PedidoDto updateEstado(Long id, EstadoPedido estado) ;
     public List<PedidoDto> findByEstadoPedido(EstadoPedido estado, Long idSucursal);
     public List<PedidoDto> obtenerPedidosEnCocina(Long idSucursal);
     public List<PedidoDto> obtenerPedidosEnDelivery(Long idSucursal);

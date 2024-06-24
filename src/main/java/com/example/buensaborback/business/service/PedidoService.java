@@ -17,8 +17,8 @@ public interface PedidoService extends BaseService<Pedido, Long> {
 
     List<Pedido> obtenerPedidosEnCocina(Long idSucursal);
 
-    public void revertirStock(Pedido pedido) throws RuntimeException;
-    public Pedido updateEstado(Long id, EstadoPedido estado) throws ServicioException;
+    public void revertirStock(Pedido pedido);
+    public Pedido updateEstado(Long id, EstadoPedido estado) ;
     public  List<Pedido> findByEstadoPedidoAndSucursalId(EstadoPedido estado,Long idSucursal);
 
     List<Pedido> obtenerPedidosEnDelivery(Long idSucursal);
