@@ -26,6 +26,7 @@ public class Promocion  extends Base{
     private LocalDate fechaHasta;
     private LocalTime horaDesde;
     private LocalTime horaHasta;
+    @Builder.Default
     private boolean habilitado = true;
     private String descripcionDescuento;
     private Double precioPromocional;
