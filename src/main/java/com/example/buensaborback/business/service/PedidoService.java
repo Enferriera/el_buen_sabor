@@ -30,4 +30,5 @@ public interface PedidoService extends BaseService<Pedido, Long> {
 
     Long contarPedidosEnRango(LocalDate initialDate, LocalDate endDate);
 
+    List<Pedido> findPedidoBySucursalId(LocalDate fechaInicio,LocalDate fechaFin,Long idSucursal);
 }

@@ -324,4 +324,9 @@ public class PedidoServiceImpl extends BaseServiceImp<Pedido, Long> implements P
     public Long contarPedidosEnRango(LocalDate initialDate, LocalDate endDate) {
         return pedidoRepository.contarPedidosEnRango(initialDate, endDate);
     }
+
+    @Override
+    public List<Pedido> findPedidoBySucursalId(LocalDate fechaInicio,LocalDate fechaFin,Long idSucursal) {
+        return pedidoRepository.findPedidosBySucursalId(fechaInicio,fechaFin,idSucursal);
+    }
 }

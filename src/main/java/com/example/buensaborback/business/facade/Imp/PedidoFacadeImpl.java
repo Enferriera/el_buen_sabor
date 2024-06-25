@@ -14,6 +14,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -67,5 +68,11 @@ public class PedidoFacadeImpl extends BaseFacadeImp<Pedido, PedidoDto, PedidoDto
     @Transactional
     public List<PedidoDto> buscarPedidosPendienteEntrega(Long idSucursal){
         return pedidoMapper.toDTOsList(pedidoService.buscarPedidosPendienteEntrega(idSucursal));
+    }
+
+    @Override
+    @Transactional
+    public List<PedidoDto> findPedidoBySucursalId(LocalDate fechaInicio, LocalDate fechaFin, Long idSucursal) {
+        return pedidoMapper.toDTOsList(pedidoService.findPedidoBySucursalId(fechaInicio, fechaFin, idSucursal));
     }
 }

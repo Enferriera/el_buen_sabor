@@ -6,6 +6,7 @@ import com.example.buensaborback.domain.dto.pedidoDto.PedidoDto;
 import com.example.buensaborback.domain.entities.Pedido;
 import com.example.buensaborback.domain.enums.EstadoPedido;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface PedidoFacade extends BaseFacade <PedidoDto, PedidoDto, Long> {
@@ -16,4 +17,5 @@ public interface PedidoFacade extends BaseFacade <PedidoDto, PedidoDto, Long> {
     public List<PedidoDto> obtenerPedidosEnDelivery(Long idSucursal);
     public List<PedidoDto> buscarPedidosIngresoCaja(Long idSucursal);
     public List<PedidoDto> buscarPedidosPendienteEntrega(Long idSucursal);
+    public List<PedidoDto> findPedidoBySucursalId(LocalDate fechaInicio, LocalDate fechaFin, Long idSucursal);
 }

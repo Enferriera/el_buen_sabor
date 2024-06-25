@@ -9,9 +9,11 @@ import com.example.buensaborback.domain.enums.EstadoPedido;
 import com.example.buensaborback.domain.enums.FormaPago;
 import com.example.buensaborback.presentation.rest.Base.BaseControllerImp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -72,5 +74,13 @@ public class PedidoController extends BaseControllerImp<Pedido, PedidoDto,Pedido
 
             return ResponseEntity.ok(facade.findByEstadoPedido(estado,idSucursal));
 
+    }
+
+    @GetMapping("/getPedidoSucursal/{idSucursal}")
+    public ResponseEntity<?> getPedidoSucursal(
+            @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fechaDesde,
+            @RequestParam("fechaHasta") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fechaHasta,
+            @PathVariable Long idSucursal) {
+        return ResponseEntity.ok(facade.findPedidoBySucursalId(fechaDesde,fechaHasta,idSucursal));
     }
 }
