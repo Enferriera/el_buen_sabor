@@ -1019,12 +1019,14 @@ public class BuenSaborBackApplication {
 					.email("cliente1@aaa")
 					.build();
 			usuarioCliente1.setClaveEncriptada("contraseña");
+			usuarioClienteRepository.save(usuarioCliente1);
 			Domicilio domicilioCliente1 = Domicilio.builder()
 					.calle("Calle 1")
 					.numero(123)
 					.cp(1111)
 					.localidad(localidad1)
 					.build();
+			domicilioRepository.save(domicilioCliente1);
 			Cliente cliente1 = Cliente.builder()
 					.usuarioCliente(usuarioCliente1)
 					.build();
@@ -1035,12 +1037,14 @@ public class BuenSaborBackApplication {
 					.email("cliente2@aaa")
 					.build();
 			usuarioCliente2.setClaveEncriptada("contraseña2");
+			usuarioClienteRepository.save(usuarioCliente2);
 			Domicilio domicilioCliente2 = Domicilio.builder()
 					.calle("Calle 2")
 					.numero(123)
 					.cp(1111)
 					.localidad(localidad2)
 					.build();
+			domicilioRepository.save(domicilioCliente2);
 			Cliente cliente2 = Cliente.builder()
 					.usuarioCliente(usuarioCliente2)
 					.build();
@@ -1051,12 +1055,14 @@ public class BuenSaborBackApplication {
 					.email("cliente3@aaa")
 					.build();
 			usuarioCliente3.setClaveEncriptada("contraseña3");
+			usuarioClienteRepository.save(usuarioCliente3);
 			Domicilio domicilioCliente3 = Domicilio.builder()
 					.calle("Calle 3")
 					.numero(123)
 					.cp(1111)
 					.localidad(localidad2)
 					.build();
+			domicilioRepository.save(domicilioCliente3);
 			Cliente cliente3 = Cliente.builder()
 					.usuarioCliente(usuarioCliente3)
 					.build();

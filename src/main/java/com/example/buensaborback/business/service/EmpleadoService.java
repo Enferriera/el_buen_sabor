@@ -5,6 +5,7 @@ import com.example.buensaborback.domain.dto.empleadoDto.EmpleadoCreateDto;
 import com.example.buensaborback.domain.entities.Empleado;
 import com.example.buensaborback.domain.enums.Rol;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -14,4 +15,5 @@ public interface EmpleadoService extends BaseService<Empleado,Long> {
     int contarPorRol(Rol rol);
     List<Empleado> findAllBySucursalId(Long idSucursal);
     Empleado createEmpleado(Empleado empleado);
+    void deleteEmpleado(Long id);
 }
