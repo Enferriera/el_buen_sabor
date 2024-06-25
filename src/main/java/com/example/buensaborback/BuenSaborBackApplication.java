@@ -1088,7 +1088,7 @@ public class BuenSaborBackApplication {
 			empleadoRepository.save(admin2);
 
 			UsuarioCliente usuarioCliente1 = UsuarioCliente.builder()
-					.email("cliente1@aaa")
+					.email("enferrelariel@hotmail.com")
 					.build();
 			usuarioCliente1.setClaveEncriptada("contraseña");
 			usuarioClienteRepository.save(usuarioCliente1);
@@ -1106,7 +1106,7 @@ public class BuenSaborBackApplication {
 			clienteRepository.save(cliente1);
 
 			UsuarioCliente usuarioCliente2 = UsuarioCliente.builder()
-					.email("cliente2@aaa")
+					.email("juanvidable123@gmail.com")
 					.build();
 			usuarioCliente2.setClaveEncriptada("contraseña2");
 			usuarioClienteRepository.save(usuarioCliente2);
@@ -1132,7 +1132,7 @@ public class BuenSaborBackApplication {
 			clienteRepository.save(cliente2);
 
 			UsuarioCliente usuarioCliente3 = UsuarioCliente.builder()
-					.email("cliente3@aaa")
+					.email("luanmollo@gmail.com")
 					.build();
 			usuarioCliente3.setClaveEncriptada("contraseña3");
 			usuarioClienteRepository.save(usuarioCliente3);
@@ -1158,7 +1158,7 @@ public class BuenSaborBackApplication {
 					.formaPago(FormaPago.MERCADO_PAGO)
 					.tipoEnvio(TipoEnvio.TAKE_AWAY)
 					.sucursal(mama1)
-					.domicilio(domicilioCliente1)
+					.domicilio(domicilioCliente3)
 					.build();
 
 			DetallePedido detallePedido1 = DetallePedido.builder().articulo(pizzaMuzarella).cantidad(1).build();
@@ -1170,7 +1170,7 @@ public class BuenSaborBackApplication {
 			pedido.getDetallePedidos().add(detallePedido1);
 			pedido.getDetallePedidos().add(detallePedido2);
 			pedido.getDetallePedidos().add(detallePedido3);
-			pedido.setCliente(cliente1);
+			pedido.setCliente(cliente3);
 			pedidoRepository.save(pedido);
 
 			Pedido pedido2 = Pedido.builder().fechaPedido(LocalDate.now())
@@ -1227,7 +1227,7 @@ public class BuenSaborBackApplication {
 					.formaPago(FormaPago.MERCADO_PAGO)
 					.tipoEnvio(TipoEnvio.DELIVERY)
 					.sucursal(mama1)
-					.domicilio(domicilioCliente1)
+					.domicilio(domicilioCliente3)
 					.build();
 
 			DetallePedido detallePedido10 = DetallePedido.builder().articulo(empanadaCarne).cantidad(24).build();
@@ -1236,7 +1236,7 @@ public class BuenSaborBackApplication {
 			detallePedido11.calculaSubtotal();
 			pedido4.getDetallePedidos().add(detallePedido10);
 			pedido4.getDetallePedidos().add(detallePedido11);
-			pedido4.setCliente(cliente1);
+			pedido4.setCliente(cliente3);
 			pedidoRepository.save(pedido4);
 
 			Pedido pedido5 = Pedido.builder().fechaPedido(LocalDate.now())
