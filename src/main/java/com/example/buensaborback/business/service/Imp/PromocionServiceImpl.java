@@ -46,8 +46,8 @@ public class PromocionServiceImpl extends BaseServiceImp<Promocion,Long> impleme
     }
 
     @Transactional
-    public List<Promocion> getHabilitados() {
-        return promocionRepository.getHabilitados();
+    public List<Promocion> getHabilitados(Long idSucursal) {
+        return promocionRepository.getHabilitados(idSucursal);
     }
 
     @Override

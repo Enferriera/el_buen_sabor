@@ -16,7 +16,7 @@ public interface ArticuloManufacturadoService extends BaseService<ArticuloManufa
     public void changeHabilitado(Long id);
 
 
-    public List<ArticuloManufacturado> getHabilitados();
+    public List<ArticuloManufacturado> getHabilitados(Long idSucursal);
 
     public Optional<ArticuloManufacturado> findByCodigo(String codigo);
 

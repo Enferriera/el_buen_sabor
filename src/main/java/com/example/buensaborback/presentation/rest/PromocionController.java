@@ -38,9 +38,9 @@ public class PromocionController extends BaseControllerImp<Promocion, PromocionD
         return ResponseEntity.ok().body("Se cambio el estadoPedido del Promocion");
     }
 
-    @GetMapping("/getHabilitados")
-    public ResponseEntity<?> getHabilitados(){
-        return ResponseEntity.ok().body(facade.getHabilitados());
+    @GetMapping("/getHabilitados/{idSucursal}")
+    public ResponseEntity<?> getHabilitados(@PathVariable Long idSucursal){
+        return ResponseEntity.ok().body(facade.getHabilitados(idSucursal));
     }
 
     @GetMapping("/getPromocionPorSucursal/{idSucursal}")

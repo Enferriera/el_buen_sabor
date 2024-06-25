@@ -14,7 +14,7 @@ public interface ArticuloManufacturadoFacade extends BaseFacade<ArticuloManufact
 public ArticuloManufacturadoDto create(ArticuloManufacturadoCreateDto articuloManufacturadoCreateDto);
     public void changeHabilitado(Long id);
 
-    public List<ArticuloManufacturadoDto> getHabilitados();
+    public List<ArticuloManufacturadoDto> getHabilitados(Long idSucursal);
 
     public List<ArticuloManufacturadoDto> findArticulosManufacturadosBySucursalId(Long id);
 
