@@ -865,6 +865,11 @@ public class BuenSaborBackApplication {
 			Empleado juan = Empleado.builder()
 					.usuario(usuario1)
 					.sucursal(mama1)
+					.nombre("Juan")
+					.apellido("Vidable")
+					.telefono("22222")
+					.fechaNacimiento(LocalDate.of(1990, 1, 1))
+					.imagenPersona(null)
 					.build();
 
 			Usuario usuario2 = Usuario.builder()
@@ -875,6 +880,11 @@ public class BuenSaborBackApplication {
 			Empleado caro = Empleado.builder()
 					.usuario(usuario2)
 					.sucursal(mama1)
+					.nombre("Caro")
+					.apellido("Solsona")
+					.telefono("33333")
+					.fechaNacimiento(LocalDate.of(1998,1,1))
+					.imagenPersona(null)
 					.build();
 
 			Usuario usuario3 = Usuario.builder()
@@ -885,6 +895,11 @@ public class BuenSaborBackApplication {
 			Empleado ariel = Empleado.builder()
 					.usuario(usuario3)
 					.sucursal(mama1)
+					.nombre("Ariel")
+					.apellido("Enferreira")
+					.telefono("44444")
+					.fechaNacimiento(LocalDate.of(1999, 1, 1))
+					.imagenPersona(null)
 					.build();
 
 			Usuario usuario4 = Usuario.builder()
@@ -895,6 +910,11 @@ public class BuenSaborBackApplication {
 			Empleado cortez = Empleado.builder()
 					.usuario(usuario4)
 					.sucursal(mama1)
+					.nombre("Alberto")
+					.apellido("Cortez")
+					.telefono("55555")
+					.fechaNacimiento(LocalDate.of(1999, 1, 1))
+					.imagenPersona(null)
 					.build();
 
 			Usuario usuario5 = Usuario.builder()
@@ -905,6 +925,11 @@ public class BuenSaborBackApplication {
 			Empleado magni = Empleado.builder()
 					.usuario(usuario5)
 					.sucursal(mama2)
+					.nombre("Gerardo")
+					.apellido("Magni")
+					.telefono("66666")
+					.fechaNacimiento(LocalDate.of(1999, 1, 1))
+					.imagenPersona(null)
 					.build();
 
 			Usuario usuario6 = Usuario.builder()
@@ -915,6 +940,11 @@ public class BuenSaborBackApplication {
 			Empleado sanchez = Empleado.builder()
 					.usuario(usuario6)
 					.sucursal(mama2)
+					.nombre("Miguel")
+					.apellido("Sanchez")
+					.telefono("77777")
+					.fechaNacimiento(LocalDate.of(1999, 1, 1))
+					.imagenPersona(null)
 					.build();
 
 			Usuario usuario7 = Usuario.builder()
@@ -925,6 +955,11 @@ public class BuenSaborBackApplication {
 			Empleado jose = Empleado.builder()
 					.usuario(usuario7)
 					.sucursal(mama2)
+					.nombre("Adriana")
+					.apellido("Jose")
+					.telefono("88888")
+					.fechaNacimiento(LocalDate.of(1999, 1, 1))
+					.imagenPersona(null)
 					.build();
 
 			Usuario usuario8 = Usuario.builder()
@@ -935,6 +970,11 @@ public class BuenSaborBackApplication {
 			Empleado yacomo = Empleado.builder()
 					.usuario(usuario8)
 					.sucursal(mama2)
+					.nombre("Carlos")
+					.apellido("Yacomo")
+					.telefono("99999")
+					.fechaNacimiento(LocalDate.of(1999, 1, 1))
+					.imagenPersona(null)
 					.build();
 
 			Usuario usuario9 = Usuario.builder()
@@ -945,6 +985,11 @@ public class BuenSaborBackApplication {
 			Empleado admin1 = Empleado.builder()
 					.usuario(usuario9)
 					.sucursal(mama1)
+					.nombre("Andres")
+					.apellido("Guevara")
+					.telefono("11111")
+					.fechaNacimiento(LocalDate.of(1994, 1, 1))
+					.imagenPersona(null)
 					.build();
 
 			Usuario usuario10 = Usuario.builder()
@@ -955,6 +1000,8 @@ public class BuenSaborBackApplication {
 			Empleado admin2 = Empleado.builder()
 					.usuario(usuario10)
 					.sucursal(mama2)
+					.nombre("Jorge")
+					.apellido("De la Torre")
 					.build();
 
 			empleadoRepository.save(juan);
