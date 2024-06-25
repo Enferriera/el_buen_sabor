@@ -25,7 +25,7 @@ public class BuenSaborBackApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BuenSaborBackApplication.class, args);
-		logger.info("Estoy activo en el main Alberto");
+		logger.info("BACK-DASHBOARD-EL-BUEN-SABOR INICIADO");
 	}
 
 
