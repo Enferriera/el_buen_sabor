@@ -784,7 +784,7 @@ public class BuenSaborBackApplication {
 
 			categoriaRepository.save(categoriaCafe);
 
-			// Crear promocion para sucursal - Dia de los enamorados
+			// Crear promocion para sucursal
 			// Tener en cuenta que esa promocion es exclusivamente para una sucursal determinada d euna empresa determinada
 			Promocion promocionDiaEnamorados = Promocion.builder().denominacion("Dia de los Enamorados")
 					.fechaDesde(LocalDate.of(2024, 2, 13))
@@ -854,6 +854,77 @@ public class BuenSaborBackApplication {
 					.stream()
 					.map(Sucursal::getNombre)
 					.forEach(logger::info);
+
+			logger.info("----------------------------------------------------------------");
+
+			// Crear promoción para una sucursal específica
+			Promocion promocionDiaIndependencia = Promocion.builder().denominacion("Día de la Independencia")
+					.fechaDesde(LocalDate.of(2024, 7, 8))
+					.fechaHasta(LocalDate.of(2024, 7, 10))
+					.horaDesde(LocalTime.of(0, 0))
+					.horaHasta(LocalTime.of(23, 59))
+					.descripcionDescuento("Descuento especial por el Día de la Independencia, un día antes y un día después")
+					.precioPromocional(120.0)
+					.tipoPromocion(TipoPromocion.PROMOCION)
+					.build();
+
+			// Agregamos los Manufacturados y alguna bebida que figura como insumo
+			PromocionDetalle detallePromo5 = PromocionDetalle.builder().cantidad(2).articulo(empanadaCarne).build();
+			PromocionDetalle detallePromo6 = PromocionDetalle.builder().cantidad(1).articulo(cerveza).build();
+
+			promocionDiaIndependencia.getPromocionDetalles().add(detallePromo5);
+			promocionDiaIndependencia.getPromocionDetalles().add(detallePromo6);
+
+			promocionRepository.save(promocionDiaIndependencia);
+
+			Promocion empanadaCerveza = Promocion.builder().denominacion("Empanada + Cerveza")
+					.fechaDesde(LocalDate.of(2024, 7, 8))
+					.fechaHasta(LocalDate.of(2024, 7, 10))
+					.horaDesde(LocalTime.of(0, 0))
+					.horaHasta(LocalTime.of(23, 59))
+					.descripcionDescuento("Hamburguesa + Pepsi 1.5lts")
+					.precioPromocional(120.0)
+					.tipoPromocion(TipoPromocion.PROMOCION)
+					.build();
+
+			// Agregamos los Manufacturados y alguna bebida que figura como insumo
+			PromocionDetalle detallePromo7 = PromocionDetalle.builder().cantidad(1).articulo(empanadaCarne).build();
+			PromocionDetalle detallePromo8 = PromocionDetalle.builder().cantidad(2).articulo(cerveza).build();
+
+			empanadaCerveza.getPromocionDetalles().add(detallePromo7);
+			empanadaCerveza.getPromocionDetalles().add(detallePromo8);
+
+			promocionRepository.save(empanadaCerveza);
+
+			// Revisar para que grabe el detalle de la promoción
+			// Harcodear para traer por ID cada sucursal
+			sucursalId1 = sucursalRepository.findWithPromocionesById(3L);
+			sucursalId2 = sucursalRepository.findWithPromocionesById(4L);
+			Promocion promocionId3 = promocionRepository.findAllWithSucursales(3L);
+			Promocion promocionId4 = promocionRepository.findAllWithSucursales(4L);
+
+			sucursalId1.getPromociones().add(promocionId3);
+			sucursalId1.getPromociones().add(promocionId4);
+			promocionId3.getSucursales().add(sucursalId1);
+			promocionId3.getSucursales().add(sucursalId2);
+
+			sucursalRepository.save(sucursalId1);
+			sucursalRepository.save(sucursalId2);
+			promocionRepository.save(promocionId3);
+			promocionRepository.save(promocionId4);
+
+			logger.info("---------------Promociones en sucursal id = 3---------------");
+			sucursalId1.getPromociones()
+					.stream()
+					.map(Promocion::getDenominacion)
+					.forEach(logger::info);
+
+			logger.info("---------------Sucursales con la promoción id = 3---------------");
+			promocionId3.getSucursales()
+					.stream()
+					.map(Sucursal::getNombre)
+					.forEach(logger::info);
+
 			logger.info("----------------------------------------------------------------");
 
 			//Crea un Empleado
@@ -1046,10 +1117,18 @@ public class BuenSaborBackApplication {
 					.localidad(localidad2)
 					.build();
 			domicilioRepository.save(domicilioCliente2);
+			Domicilio domicilioCliente4 = Domicilio.builder()
+					.calle("Calle 4")
+					.numero(123)
+					.cp(1111)
+					.localidad(localidad4)
+					.build();
+			domicilioRepository.save(domicilioCliente4);
 			Cliente cliente2 = Cliente.builder()
 					.usuarioCliente(usuarioCliente2)
 					.build();
 			cliente2.getDomicilios().add(domicilioCliente2);
+			cliente2.getDomicilios().add(domicilioCliente4);
 			clienteRepository.save(cliente2);
 
 			UsuarioCliente usuarioCliente3 = UsuarioCliente.builder()
@@ -1086,15 +1165,162 @@ public class BuenSaborBackApplication {
 			detallePedido1.calculaSubtotal();
 			DetallePedido detallePedido2 = DetallePedido.builder().articulo(cocaCola).cantidad(2).build();
 			detallePedido2.calculaSubtotal();
-			DetallePedido detallePedido10 = DetallePedido.builder().promocion(promocionDiaEnamorados).cantidad(2).build();
-			detallePedido10.calculaSubtotal();
+			DetallePedido detallePedido3 = DetallePedido.builder().promocion(promocionDiaEnamorados).cantidad(2).build();
+			detallePedido3.calculaSubtotal();
 			pedido.getDetallePedidos().add(detallePedido1);
 			pedido.getDetallePedidos().add(detallePedido2);
-			pedido.getDetallePedidos().add(detallePedido10);
+			pedido.getDetallePedidos().add(detallePedido3);
 			pedido.setCliente(cliente1);
-			pedido.setEmpleado(magni);
 			pedidoRepository.save(pedido);
 
+			Pedido pedido2 = Pedido.builder().fechaPedido(LocalDate.now())
+					.horaEstimadaFinalizacion(LocalTime.now())
+					.total(400.0)
+					.totalCosto(200.6)
+					.estadoPedido(EstadoPedido.EN_CAMINO)
+					.formaPago(FormaPago.MERCADO_PAGO)
+					.tipoEnvio(TipoEnvio.DELIVERY)
+					.sucursal(mama1)
+					.domicilio(domicilioCliente2)
+					.build();
+
+			DetallePedido detallePedido4 = DetallePedido.builder().articulo(pizzaMuzarella).cantidad(2).build();
+			detallePedido4.calculaSubtotal();
+			DetallePedido detallePedido5 = DetallePedido.builder().articulo(cocaCola).cantidad(3).build();
+			detallePedido5.calculaSubtotal();
+			DetallePedido detallePedido6 = DetallePedido.builder().promocion(promocionDiaEnamorados).cantidad(2).build();
+			detallePedido6.calculaSubtotal();
+			pedido2.getDetallePedidos().add(detallePedido4);
+			pedido2.getDetallePedidos().add(detallePedido5);
+			pedido2.getDetallePedidos().add(detallePedido6);
+			pedido2.setCliente(cliente2);
+			pedidoRepository.save(pedido2);
+
+			Pedido pedido3 = Pedido.builder().fechaPedido(LocalDate.now())
+					.horaEstimadaFinalizacion(LocalTime.now())
+					.total(250.0)
+					.totalCosto(80.6)
+					.estadoPedido(EstadoPedido.PAGADO)
+					.formaPago(FormaPago.EFECTIVO)
+					.tipoEnvio(TipoEnvio.TAKE_AWAY)
+					.sucursal(mama1)
+					.domicilio(mama1.getDomicilio())
+					.build();
+
+			DetallePedido detallePedido7 = DetallePedido.builder().articulo(pizzaMuzarella).cantidad(1).build();
+			detallePedido7.calculaSubtotal();
+			DetallePedido detallePedido8 = DetallePedido.builder().articulo(cocaCola).cantidad(2).build();
+			detallePedido8.calculaSubtotal();
+			DetallePedido detallePedido9 = DetallePedido.builder().promocion(promocionDiaEnamorados).cantidad(2).build();
+			detallePedido9.calculaSubtotal();
+			pedido3.getDetallePedidos().add(detallePedido7);
+			pedido3.getDetallePedidos().add(detallePedido8);
+			pedido3.getDetallePedidos().add(detallePedido9);
+			pedido3.setCliente(cliente2);
+			pedidoRepository.save(pedido3);
+
+			Pedido pedido4 = Pedido.builder().fechaPedido(LocalDate.now())
+					.horaEstimadaFinalizacion(LocalTime.now())
+					.total(600.0)
+					.totalCosto(300.6)
+					.estadoPedido(EstadoPedido.PENDIENTE_ENTREGA)
+					.formaPago(FormaPago.MERCADO_PAGO)
+					.tipoEnvio(TipoEnvio.DELIVERY)
+					.sucursal(mama1)
+					.domicilio(domicilioCliente1)
+					.build();
+
+			DetallePedido detallePedido10 = DetallePedido.builder().articulo(empanadaCarne).cantidad(24).build();
+			detallePedido10.calculaSubtotal();
+			DetallePedido detallePedido11 = DetallePedido.builder().articulo(cerveza).cantidad(4).build();
+			detallePedido11.calculaSubtotal();
+			pedido4.getDetallePedidos().add(detallePedido10);
+			pedido4.getDetallePedidos().add(detallePedido11);
+			pedido4.setCliente(cliente1);
+			pedidoRepository.save(pedido4);
+
+			Pedido pedido5 = Pedido.builder().fechaPedido(LocalDate.now())
+					.horaEstimadaFinalizacion(LocalTime.now())
+					.total(200.0)
+					.totalCosto(50.6)
+					.estadoPedido(EstadoPedido.PREPARACION)
+					.formaPago(FormaPago.MERCADO_PAGO)
+					.tipoEnvio(TipoEnvio.DELIVERY)
+					.sucursal(mama1)
+					.domicilio(domicilioCliente4)
+					.build();
+
+			DetallePedido detallePedido12 = DetallePedido.builder().articulo(empanadaCarne).cantidad(1).build();
+			detallePedido12.calculaSubtotal();
+			DetallePedido detallePedido13 = DetallePedido.builder().articulo(cerveza).cantidad(2).build();
+			detallePedido13.calculaSubtotal();
+			DetallePedido detallePedido14 = DetallePedido.builder().promocion(promocionDiaIndependencia).cantidad(1).build();
+			detallePedido14.calculaSubtotal();
+			pedido5.getDetallePedidos().add(detallePedido12);
+			pedido5.getDetallePedidos().add(detallePedido13);
+			pedido5.getDetallePedidos().add(detallePedido14);
+			pedido5.setCliente(cliente2);
+			pedidoRepository.save(pedido5);
+
+			Pedido pedido6 = Pedido.builder().fechaPedido(LocalDate.now())
+					.horaEstimadaFinalizacion(LocalTime.now())
+					.total(200.0)
+					.totalCosto(50.6)
+					.estadoPedido(EstadoPedido.PENDIENTE_PAGO)
+					.formaPago(FormaPago.EFECTIVO)
+					.tipoEnvio(TipoEnvio.TAKE_AWAY)
+					.sucursal(mama1)
+					.domicilio(mama1.getDomicilio())
+					.build();
+
+			DetallePedido detallePedido15 = DetallePedido.builder().articulo(empanadaCarne).cantidad(1).build();
+			detallePedido15.calculaSubtotal();
+			DetallePedido detallePedido16 = DetallePedido.builder().articulo(cerveza).cantidad(2).build();
+			detallePedido16.calculaSubtotal();
+			pedido5.getDetallePedidos().add(detallePedido15);
+			pedido5.getDetallePedidos().add(detallePedido16);
+			pedido5.setCliente(cliente2);
+			pedidoRepository.save(pedido6);
+
+			Pedido pedido7 = Pedido.builder().fechaPedido(LocalDate.now())
+					.horaEstimadaFinalizacion(LocalTime.now())
+					.total(200.0)
+					.totalCosto(50.6)
+					.estadoPedido(EstadoPedido.NOTA_CREDITO)
+					.formaPago(FormaPago.MERCADO_PAGO)
+					.tipoEnvio(TipoEnvio.DELIVERY)
+					.sucursal(mama1)
+					.domicilio(domicilioCliente1)
+					.build();
+
+			DetallePedido detallePedido17 = DetallePedido.builder().articulo(empanadaCarne).cantidad(1).build();
+			detallePedido17.calculaSubtotal();
+			DetallePedido detallePedido18 = DetallePedido.builder().articulo(cerveza).cantidad(2).build();
+			detallePedido18.calculaSubtotal();
+			pedido5.getDetallePedidos().add(detallePedido17);
+			pedido5.getDetallePedidos().add(detallePedido18);
+			pedido5.setCliente(cliente1);
+			pedidoRepository.save(pedido7);
+
+			Pedido pedido8 = Pedido.builder().fechaPedido(LocalDate.now())
+					.horaEstimadaFinalizacion(LocalTime.now())
+					.total(200.0)
+					.totalCosto(50.6)
+					.estadoPedido(EstadoPedido.CANCELADO)
+					.formaPago(FormaPago.MERCADO_PAGO)
+					.tipoEnvio(TipoEnvio.DELIVERY)
+					.sucursal(mama1)
+					.domicilio(domicilioCliente4)
+					.build();
+
+			DetallePedido detallePedido19 = DetallePedido.builder().articulo(cafeSimple).cantidad(2).build();
+			detallePedido17.calculaSubtotal();
+			DetallePedido detallePedido20 = DetallePedido.builder().articulo(cheesecake).cantidad(4).build();
+			detallePedido18.calculaSubtotal();
+			pedido5.getDetallePedidos().add(detallePedido17);
+			pedido5.getDetallePedidos().add(detallePedido18);
+			pedido5.setCliente(cliente2);
+			pedidoRepository.save(pedido8);
 		};
 	}
 }
