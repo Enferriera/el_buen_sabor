@@ -43,4 +43,9 @@ private EmpleadoMapper  empleadoMapper;
     public EmpleadoDto createEmpleado(EmpleadoCreateDto empleadoDto) {
         return empleadoMapper.toDTO(empleadoService.createEmpleado(empleadoMapper.toCreateEntity(empleadoDto)));
     }
+
+    @Override
+    public void deleteEmpleado(Long id) {
+        empleadoService.deleteEmpleado(id);
+    }
 }

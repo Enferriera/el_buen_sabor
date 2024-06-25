@@ -29,6 +29,4 @@ public interface ArticuloManufacturadoService extends BaseService<ArticuloManufa
     ResponseEntity<String> uploadImages(MultipartFile[] files, Long id);
     // Método para eliminar una imagen por su identificador público y Long
     ResponseEntity<String> deleteImage(String publicId, Long id);
-
-
 }
