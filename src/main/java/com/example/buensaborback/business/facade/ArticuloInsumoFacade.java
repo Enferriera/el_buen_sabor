@@ -15,8 +15,8 @@ import java.util.Map;
 
 public interface ArticuloInsumoFacade extends BaseFacade<ArticuloInsumoDto, ArticuloInsumoDto, Long> {
     public void changeHabilitado(Long id);
-    public List<ArticuloInsumoDto> findByEsParaElaborarTrue(Long idSucursal);
-    public List<ArticuloInsumoDto> findByEsParaElaborarFalse(Long idSucursal);
+    public List<ArticuloInsumoDto> findByEsParaElaborarTrue(Long idEmpresa);
+    public List<ArticuloInsumoDto> findByEsParaElaborarFalse(Long idEmpresa);
     public ArticuloInsumoDto create(ArticuloInsumoCreateDto articuloInsumoCreateDto);
     @Override
     public void deleteById(Long id);

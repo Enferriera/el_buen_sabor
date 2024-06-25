@@ -14,9 +14,9 @@ import java.util.Map;
 import java.util.Optional;
 
 public interface ArticuloInsumoService extends BaseService<ArticuloInsumo,Long> {
-    List<ArticuloInsumo> findByEsParaElaborarTrue(Long idSucursal);
+    List<ArticuloInsumo> findByEsParaElaborarTrue(Long idEmpresa);
 
-    List<ArticuloInsumo> findByEsParaElaborarFalse(Long idSucursal);
+    List<ArticuloInsumo> findByEsParaElaborarFalse(Long idEmpresa);
 
     public void changeHabilitado(Long id);
 

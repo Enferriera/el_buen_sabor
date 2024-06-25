@@ -16,11 +16,11 @@ import java.util.Optional;
 public interface ArticuloInsumoRepository extends BaseRepository<ArticuloInsumo,Long> {
 
 
-    @Query("SELECT ai FROM ArticuloInsumo ai JOIN ai.stocksInsumo st JOIN st.sucursal s WHERE s.id=:idSucursal AND ai.esParaElaborar=true AND st.eliminado=false")
-    List<ArticuloInsumo> findByEsParaElaborarTrue(@Param("idSucursal") Long idSucursal);
+    @Query("SELECT ai FROM ArticuloInsumo ai JOIN ai.stocksInsumo st JOIN st.sucursal s JOIN s.empresa e WHERE e.id=:idEmpresa AND ai.esParaElaborar=true AND st.eliminado=false")
+    List<ArticuloInsumo> findByEsParaElaborarTrue(@Param("idEmpresa") Long idEmpresa);
 
-    @Query("SELECT ai FROM ArticuloInsumo ai JOIN ai.stocksInsumo st JOIN st.sucursal s WHERE s.id=:idSucursal AND ai.esParaElaborar=false AND st.eliminado=false")
-    List<ArticuloInsumo> findByEsParaElaborarFalse(@Param("idSucursal") Long idSucursal);
+    @Query("SELECT ai FROM ArticuloInsumo ai JOIN ai.stocksInsumo st JOIN st.sucursal s JOIN s.empresa e WHERE e.id=:idEmpresa AND ai.esParaElaborar=false AND st.eliminado=false")
+    List<ArticuloInsumo> findByEsParaElaborarFalse(@Param("idEmpresa") Long idEmpresa);
 
     @Query(value = "SELECT *\n" +
             "FROM ARTICULO_INSUMO ai\n" +

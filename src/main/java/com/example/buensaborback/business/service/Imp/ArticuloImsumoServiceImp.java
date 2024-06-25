@@ -157,13 +157,13 @@ public class ArticuloImsumoServiceImp extends BaseServiceImp<ArticuloInsumo,Long
     }
 
     @Override
-    public List<ArticuloInsumo> findByEsParaElaborarTrue(Long idSucursal) {
-        return articuloInsumoRepository.findByEsParaElaborarTrue(idSucursal);
+    public List<ArticuloInsumo> findByEsParaElaborarTrue(Long idEmpresa) {
+        return articuloInsumoRepository.findByEsParaElaborarTrue(idEmpresa);
     }
 
     @Override
-    public List<ArticuloInsumo> findByEsParaElaborarFalse(Long idSucursal) {
-        return articuloInsumoRepository.findByEsParaElaborarFalse(idSucursal);
+    public List<ArticuloInsumo> findByEsParaElaborarFalse(Long idEmpresa) {
+        return articuloInsumoRepository.findByEsParaElaborarFalse(idEmpresa);
     }
 
 
