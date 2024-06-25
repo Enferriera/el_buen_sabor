@@ -8,11 +8,10 @@ import com.example.buensaborback.business.mapper.SucursalMapper;
 import com.example.buensaborback.business.service.Base.BaseService;
 import com.example.buensaborback.business.service.Imp.PromocionServiceImpl;
 import com.example.buensaborback.business.service.PromocionService;
-import com.example.buensaborback.domain.dto.SucursalDtos.SucursalShortDto;
-import com.example.buensaborback.domain.dto.articulomanufacturadodto.ArticuloManufacturadoDto;
 import com.example.buensaborback.domain.dto.promocionDto.PromocionCreateDto;
 import com.example.buensaborback.domain.dto.promocionDto.PromocionDto;
 import com.example.buensaborback.domain.entities.Promocion;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -22,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class PromocionFacadeImpl extends BaseFacadeImp<Promocion,PromocionDto,PromocionDto,Long> implements PromocionFacade {
+public class PromocionFacadeImpl extends BaseFacadeImp<Promocion, PromocionDto, PromocionDto, Long> implements PromocionFacade {
     private final PromocionMapper promocionMapper;
     private final PromocionServiceImpl promocionServiceImpl;
     @Autowired
@@ -37,12 +36,14 @@ public class PromocionFacadeImpl extends BaseFacadeImp<Promocion,PromocionDto,Pr
         this.promocionServiceImpl = promocionServiceImpl;
     }
 
-public PromocionDto create(PromocionCreateDto promocionDto) {
+    @Override
+    @Transactional
+    public PromocionDto create(PromocionCreateDto promocionDto) {
         System.out.println("PromocionFacadeImpl: " + promocionDto.getDenominacion());
-    Promocion promocion = promocionMapper.toCreateEntity(promocionDto);
-    System.out.println("PromocionFacadeImpl: " + promocion.getDenominacion());
-    return promocionMapper.toDTO(baseService.create(promocion));
-}
+        Promocion promocion = promocionMapper.toCreateEntity(promocionDto);
+        System.out.println("PromocionFacadeImpl: " + promocion.getDenominacion());
+        return promocionMapper.toDTO(promocionService.create(promocion));
+    }
 
     @Override
     public void changeHabilitado(Long id) {
@@ -55,7 +56,7 @@ public PromocionDto create(PromocionCreateDto promocionDto) {
     }
 
     @Override
-    public List<PromocionDto> findPromocionesBySucursalId(Long idSucursal){
+    public List<PromocionDto> findPromocionesBySucursalId(Long idSucursal) {
         return promocionMapper.toDTOsList(promocionService.findPromocionesBySucursalId(idSucursal));
     }
 
@@ -66,7 +67,7 @@ public PromocionDto create(PromocionCreateDto promocionDto) {
 
     @Override
     public ResponseEntity<String> uploadImages(MultipartFile[] files, Long id) {
-        return promocionService.uploadImages(files,id);
+        return promocionService.uploadImages(files, id);
     }
 
     @Override
@@ -75,7 +76,7 @@ public PromocionDto create(PromocionCreateDto promocionDto) {
     }
 
     @Override
-    public void deletePromocionInSucursales(Long idPromocion, Long idSucursal){
+    public void deletePromocionInSucursales(Long idPromocion, Long idSucursal) {
         promocionService.deletePromocionInSucursales(idPromocion, idSucursal);
     }
 }

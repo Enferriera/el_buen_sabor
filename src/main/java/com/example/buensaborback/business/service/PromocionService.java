@@ -16,6 +16,8 @@ import java.util.Set;
 public interface PromocionService extends BaseService<Promocion,Long> {
     public void changeHabilitado(Long id);
     public List<Promocion> getHabilitados();
+    @Override
+    public Promocion create(Promocion promocion);
 
     List<Promocion> findPromocionesBySucursalId(Long idSucursal);
     void deletePromocionInSucursales(Long idPromocion, Long idSucursal);
