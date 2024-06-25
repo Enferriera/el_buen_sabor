@@ -1,8 +1,8 @@
 package com.example.buensaborback.domain.dto.pedidoDto;
 
 import com.example.buensaborback.domain.dto.BaseDto;
-import com.example.buensaborback.domain.dto.DomicilioDto;
 import com.example.buensaborback.domain.dto.SucursalDtos.SucursalShortDto;
+import com.example.buensaborback.domain.dto.domicilioDto.DomicilioDto;
 import com.example.buensaborback.domain.dto.personaDto.PersonaShortDto;
 import com.example.buensaborback.domain.entities.Factura;
 import com.example.buensaborback.domain.enums.EstadoPedido;

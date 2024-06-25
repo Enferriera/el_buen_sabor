@@ -13,5 +13,12 @@ public class ArticuloServiceImpl extends BaseServiceImp<Articulo, Long> implemen
     @Autowired
     private ArticuloRepository articuloRepository;
 
+    @Override
+    public Articulo mapIdToArticulo(Long idArticulo) {
+        if (idArticulo == null) {
+            return null;
+        }
+        return articuloRepository.getById(idArticulo);
+    }
 
 }

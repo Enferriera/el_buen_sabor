@@ -88,7 +88,7 @@ public class PedidoServiceImpl extends BaseServiceImp<Pedido, Long> implements P
                 stockInsumoSucursalRepository.save(stock);
 
             } else if (articulo instanceof ArticuloManufacturado) {
-                ArticuloManufacturado manufacturado = articuloManufacturadoService.getById(articulo.getId());
+                ArticuloManufacturado manufacturado = (ArticuloManufacturado) articulo;
 
                 for (ArticuloManufacturadoDetalle detalleManufacturado : manufacturado.getArticuloManufacturadoDetalles()) {
                     ArticuloInsumo insumo = detalleManufacturado.getArticuloInsumo();
@@ -99,6 +99,33 @@ public class PedidoServiceImpl extends BaseServiceImp<Pedido, Long> implements P
                     stock.setStockActual(stock.getStockActual() + cantidadNecesaria);
                     stockInsumoSucursalRepository.save(stock);
                 }
+            } else if (detalle.getPromocion() != null) {
+                Promocion promocion = detalle.getPromocion();
+
+                for (PromocionDetalle promocionDetalle : promocion.getPromocionDetalles()) {
+                    Articulo articuloPromocion = promocionDetalle.getArticulo();
+                    if (articuloPromocion instanceof ArticuloInsumo) {
+                        ArticuloInsumo insumo = (ArticuloInsumo) articuloPromocion;
+                        StockInsumoSucursal stock = obtenerStockInsumoSucursal(insumo, pedido.getSucursal());
+
+                        // Incrementar el stock
+                        stock.setStockActual(stock.getStockActual() + detalle.getCantidad() * promocionDetalle.getCantidad());
+                        stockInsumoSucursalRepository.save(stock);
+                    } else if (articuloPromocion instanceof ArticuloManufacturado) {
+                        ArticuloManufacturado manufacturado = (ArticuloManufacturado) articuloPromocion;
+
+                        for (ArticuloManufacturadoDetalle detalleManufacturado : manufacturado.getArticuloManufacturadoDetalles()) {
+                            ArticuloInsumo insumo = detalleManufacturado.getArticuloInsumo();
+                            StockInsumoSucursal stock = obtenerStockInsumoSucursal(insumo, pedido.getSucursal());
+
+                            // Incrementar el stock
+                            stock.setStockActual(stock.getStockActual() + detalle.getCantidad() * promocionDetalle.getCantidad() * detalleManufacturado.getCantidad());
+                            stockInsumoSucursalRepository.save(stock);
+                        }
+                    } else {
+                        throw new RuntimeException("Tipo de artículo desconocido en Promoción: " + articuloPromocion.getClass().getName());
+                    }
+                }
             } else {
                 throw new RuntimeException("Tipo de artículo desconocido: " + articulo.getClass().getName());
             }
@@ -106,7 +133,7 @@ public class PedidoServiceImpl extends BaseServiceImp<Pedido, Long> implements P
     }
 
     @Override
-    @Transactional(rollbackOn = ServicioException.class)
+    @Transactional
     public Pedido updateEstado(Long id, EstadoPedido estado)  {
         Optional<Pedido> optionalPedido = baseRepository.findById(id);
         if (optionalPedido.isEmpty()) {

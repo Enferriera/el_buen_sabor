@@ -160,4 +160,12 @@ public class PromocionServiceImpl extends BaseServiceImp<Promocion,Long> impleme
         promocionRepository.save(promocionExistente);
     }
 
+    @Override
+    public Promocion mapIdToPromocion(Long idPromocion){
+        if (idPromocion == null) {
+            return null;
+        }
+        return promocionRepository.getById(idPromocion);
+    }
+
 }
