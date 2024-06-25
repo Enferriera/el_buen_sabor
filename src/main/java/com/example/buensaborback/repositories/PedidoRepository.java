@@ -127,4 +127,11 @@ public interface PedidoRepository extends BaseRepository<Pedido,Long>{
     List<PedidosCliente> findCantidadPedidosPorClienteYEmpresa(@Param("startDate") LocalDate startDate,
                                                                @Param("endDate") LocalDate endDate,
                                                                @Param("idEmpresa") Long idEmpresa);
+
+    @Query("SELECT p FROM Pedido p JOIN p.sucursal s WHERE CAST(p.fechaPedido AS DATE) " +
+            "BETWEEN :startDate AND :endDate and s.id = :idSucursal")
+    List<Pedido> findPedidosBySucursalId(@Param("startDate") LocalDate startDate,
+                                                @Param("endDate") LocalDate endDate,
+                                                @Param("idSucursal") Long idSucursal);
+
 }
