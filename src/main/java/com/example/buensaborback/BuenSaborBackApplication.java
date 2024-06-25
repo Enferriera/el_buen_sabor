@@ -931,7 +931,7 @@ public class BuenSaborBackApplication {
 			Usuario usuario1 = Usuario.builder()
 					.auth0Id("aaaa2")
 					.username("juanUsuario")
-					.email("juan@aaa")
+					.email("juan@aaa.com")
 					.rol(Rol.COCINERO).build();
 			Empleado juan = Empleado.builder()
 					.usuario(usuario1)
@@ -946,7 +946,7 @@ public class BuenSaborBackApplication {
 			Usuario usuario2 = Usuario.builder()
 					.auth0Id("aaaa3")
 					.username("caroUsuario")
-					.email("carp@aaa")
+					.email("carp@aaa.com")
 					.rol(Rol.CAJERO).build();
 			Empleado caro = Empleado.builder()
 					.usuario(usuario2)
@@ -961,7 +961,7 @@ public class BuenSaborBackApplication {
 			Usuario usuario3 = Usuario.builder()
 					.auth0Id("aaaa4")
 					.username("arielUsuario")
-					.email("ariel@aaa")
+					.email("ariel@aaa.com")
 					.rol(Rol.GERENTE).build();
 			Empleado ariel = Empleado.builder()
 					.usuario(usuario3)
@@ -976,7 +976,7 @@ public class BuenSaborBackApplication {
 			Usuario usuario4 = Usuario.builder()
 					.auth0Id("aaaa5")
 					.username("cortezUsuario")
-					.email("cortez@aaa")
+					.email("cortez@aaa.com")
 					.rol(Rol.DELIVERY).build();
 			Empleado cortez = Empleado.builder()
 					.usuario(usuario4)
@@ -991,7 +991,7 @@ public class BuenSaborBackApplication {
 			Usuario usuario5 = Usuario.builder()
 					.auth0Id("aaaa6")
 					.username("magniUsuario")
-					.email("magni@aaa")
+					.email("magni@aaa.com")
 					.rol(Rol.CAJERO).build();
 			Empleado magni = Empleado.builder()
 					.usuario(usuario5)
@@ -1006,7 +1006,7 @@ public class BuenSaborBackApplication {
 			Usuario usuario6 = Usuario.builder()
 					.auth0Id("aaaa7")
 					.username("sanchezUsuario")
-					.email("sanchez@aaa")
+					.email("sanchez@aaa.com")
 					.rol(Rol.COCINERO).build();
 			Empleado sanchez = Empleado.builder()
 					.usuario(usuario6)
@@ -1021,7 +1021,7 @@ public class BuenSaborBackApplication {
 			Usuario usuario7 = Usuario.builder()
 					.auth0Id("aaaa8")
 					.username("joseUsuario")
-					.email("jose@aaa")
+					.email("jose@aaa.com")
 					.rol(Rol.GERENTE).build();
 			Empleado jose = Empleado.builder()
 					.usuario(usuario7)
@@ -1036,7 +1036,7 @@ public class BuenSaborBackApplication {
 			Usuario usuario8 = Usuario.builder()
 					.auth0Id("aaaa9")
 					.username("yacomoUsuario")
-					.email("yacomo@aaa")
+					.email("yacomo@aaa.com")
 					.rol(Rol.DELIVERY).build();
 			Empleado yacomo = Empleado.builder()
 					.usuario(usuario8)
@@ -1051,7 +1051,7 @@ public class BuenSaborBackApplication {
 			Usuario usuario9 = Usuario.builder()
 					.auth0Id("aaaa10")
 					.username("admin1Usuario")
-					.email("admin1@aaa")
+					.email("admin1@aaa.com")
 					.rol(Rol.ADMIN).build();
 			Empleado admin1 = Empleado.builder()
 					.usuario(usuario9)
@@ -1066,7 +1066,7 @@ public class BuenSaborBackApplication {
 			Usuario usuario10 = Usuario.builder()
 					.auth0Id("aaaa11")
 					.username("admin2Usuario")
-					.email("admin2@aaa")
+					.email("admin2@aaa.com")
 					.rol(Rol.ADMIN).build();
 			Empleado admin2 = Empleado.builder()
 					.usuario(usuario10)
