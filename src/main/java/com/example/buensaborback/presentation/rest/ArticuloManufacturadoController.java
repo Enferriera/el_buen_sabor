@@ -5,6 +5,7 @@ import com.example.buensaborback.domain.dto.articulomanufacturadodto.ArticuloMan
 import com.example.buensaborback.domain.dto.articulomanufacturadodto.ArticuloManufacturadoDto;
 import com.example.buensaborback.domain.entities.ArticuloManufacturado;
 import com.example.buensaborback.presentation.rest.Base.BaseControllerImp;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -54,6 +55,7 @@ public class ArticuloManufacturadoController extends BaseControllerImp<ArticuloM
             return null; // Manejo básico de errores, se puede mejorar para devolver una respuesta más específica
         }
     }
+
 
     // Método POST para eliminar imágenes por su publicId y Long
   //  @PreAuthorize("hasAnyAuthority('COCINERO','ADMIN')")
