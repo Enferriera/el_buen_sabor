@@ -1004,6 +1004,7 @@ public class BuenSaborBackApplication {
 					.apellido("De la Torre")
 					.build();
 
+
 			empleadoRepository.save(juan);
 			empleadoRepository.save(caro);
 			empleadoRepository.save(ariel);
@@ -1068,6 +1069,32 @@ public class BuenSaborBackApplication {
 					.build();
 			cliente3.getDomicilios().add(domicilioCliente3);
 			clienteRepository.save(cliente3);
+
+			//Crea un pedido para el cliente
+			Pedido pedido = Pedido.builder().fechaPedido(LocalDate.now())
+					.horaEstimadaFinalizacion(LocalTime.now())
+					.total(300.0)
+					.totalCosto(170.6)
+					.estadoPedido(EstadoPedido.COMPLETADO)
+					.formaPago(FormaPago.MERCADO_PAGO)
+					.tipoEnvio(TipoEnvio.TAKE_AWAY)
+					.sucursal(mama1)
+					.domicilio(domicilioCliente1)
+					.build();
+
+			DetallePedido detallePedido1 = DetallePedido.builder().articulo(pizzaMuzarella).cantidad(1).build();
+			detallePedido1.calculaSubtotal();
+			DetallePedido detallePedido2 = DetallePedido.builder().articulo(cocaCola).cantidad(2).build();
+			detallePedido2.calculaSubtotal();
+			DetallePedido detallePedido10 = DetallePedido.builder().promocion(promocionDiaEnamorados).cantidad(2).build();
+			detallePedido10.calculaSubtotal();
+			pedido.getDetallePedidos().add(detallePedido1);
+			pedido.getDetallePedidos().add(detallePedido2);
+			pedido.getDetallePedidos().add(detallePedido10);
+			pedido.setCliente(cliente1);
+			pedido.setEmpleado(magni);
+			pedidoRepository.save(pedido);
+
 		};
 	}
 }

@@ -27,37 +27,36 @@ public interface PedidoRepository extends BaseRepository<Pedido,Long>{
     Long contarPedidosEnRango(LocalDate initialDate, LocalDate endDate);
 
     @Query(value = "SELECT " +
-            "SUM(dp.cantidad * ai.precioCompra) AS costos, " +
-            "SUM(p.total) AS ganancias, " +
-            "(SUM(p.total) - SUM(dp.cantidad * ai.precioCompra)) AS resultado " +
+            "   SUM(p.totalCosto) AS costos, " +
+            "   SUM(p.total) AS ganancias, " +
+            "   SUM(p.total - p.totalCosto) AS resultado " +
             "FROM Pedido p " +
-            "JOIN p.detallePedidos dp " +
-            "JOIN dp.articulo a " +
-            "LEFT JOIN ArticuloInsumo ai ON a.id = ai.id " +
             "WHERE p.fechaPedido BETWEEN :initialDate AND :endDate " +
-            "AND p.sucursal.id = :idSucursal AND p.estadoPedido='COMPLETADO'")
+            "AND p.sucursal.id = :idSucursal " +
+            "AND p.estadoPedido = 'COMPLETADO'")
     CostoGanancia findCostosGananciasByFechaAndSucursal(@Param("initialDate") LocalDate initialDate,
                                                         @Param("endDate") LocalDate endDate,
                                                         @Param("idSucursal") Long idSucursal);
 
+
     @Query(value = "SELECT " +
-            "SUM(dp.cantidad * ai.precioCompra) AS costos, " +
-            "SUM(p.total) AS ganancias, " +
-            "(SUM(p.total) - SUM(dp.cantidad * ai.precioCompra)) AS resultado " +
+            "   SUM(p.totalCosto) AS costos, " +
+            "   SUM(p.total) AS ganancias, " +
+            "   SUM(p.total - p.totalCosto) AS resultado " +
             "FROM Pedido p " +
-            "JOIN p.detallePedidos dp " +
-            "JOIN dp.articulo a " +
-            "LEFT JOIN ArticuloInsumo ai ON a.id = ai.id " +
             "JOIN p.sucursal s " +
-            "JOIN s.empresa e " +
             "WHERE p.fechaPedido BETWEEN :initialDate AND :endDate " +
-            "AND e.id = :idEmpresa AND p.estadoPedido='COMPLETADO'")
+            "AND s.empresa.id = :idEmpresa " +
+            "AND p.estadoPedido = 'COMPLETADO'")
     CostoGanancia findCostosGananciasByFechaAndEmpresa(@Param("initialDate") LocalDate initialDate,
                                                        @Param("endDate") LocalDate endDate,
                                                        @Param("idEmpresa") Long idEmpresa);
 
-    @Query("SELECT CAST(p.fechaPedido AS date) AS fecha, SUM(p.total) AS ingresos " +
+    @Query("SELECT CAST(p.fechaPedido AS date) AS fecha, " +
+            "SUM(COALESCE(p.total, 0) + COALESCE(pr.precioPromocional, 0)) AS ingresos " +
             "FROM Pedido p " +
+            "LEFT JOIN p.detallePedidos dp " +
+            "LEFT JOIN dp.promocion pr " +
             "WHERE p.fechaPedido BETWEEN :startDate AND :endDate " +
             "AND p.sucursal.id = :idSucursal " +
             "AND p.estadoPedido = 'COMPLETADO' " +
@@ -66,34 +65,45 @@ public interface PedidoRepository extends BaseRepository<Pedido,Long>{
                                                      @Param("endDate") LocalDate endDate,
                                                      @Param("idSucursal") Long idSucursal);
 
-    @Query(value = "SELECT FORMATDATETIME(p.fecha_pedido, 'yyyy-MM') AS mes, SUM(p.total) AS ingresos " +
+    @Query("SELECT FUNCTION('YEAR', p.fechaPedido) AS anio, FUNCTION('MONTH', p.fechaPedido) AS mes, " +
+            "SUM(COALESCE(p.total, 0) + COALESCE(pr.precioPromocional, 0)) AS ingresos " +
             "FROM Pedido p " +
-            "WHERE p.fecha_pedido BETWEEN :startDate AND :endDate " +
-            "AND p.sucursal_id = :idSucursal AND p.estado_pedido='COMPLETADO'" +
-            "GROUP BY FORMATDATETIME(p.fecha_pedido, 'yyyy-MM')", nativeQuery = true)
-    List<IngresosMensuales> ingresosMensualesPorSucursal(@Param("startDate") LocalDate startDate,
-                                                         @Param("endDate") LocalDate endDate,
-                                                         @Param("idSucursal") Long idSucursal);
+            "LEFT JOIN p.detallePedidos dp " +
+            "LEFT JOIN dp.promocion pr " +
+            "WHERE p.fechaPedido BETWEEN :fechaDesde AND :fechaHasta " +
+            "AND p.sucursal.id = :idSucursal " +
+            "AND p.estadoPedido = 'COMPLETADO' " +
+            "GROUP BY FUNCTION('YEAR', p.fechaPedido), FUNCTION('MONTH', p.fechaPedido)")
+    List<IngresosMensuales> ingresosMensualesPorSucursal(@Param("fechaDesde") LocalDate fechaDesde,
+                                                @Param("fechaHasta") LocalDate fechaHasta,
+                                                @Param("idSucursal") Long idSucursal);
 
-    @Query("SELECT CAST(p.fechaPedido AS date) AS fecha, SUM(p.total) AS ingresos " +
+    @Query("SELECT CAST(p.fechaPedido AS date) AS fecha, " +
+            "SUM(COALESCE(p.total, 0) + COALESCE(pr.precioPromocional, 0)) AS ingresos " +
             "FROM Pedido p " +
-            "JOIN p.sucursal s " +  // Suponiendo que tienes una relación 'sucursal' en Pedido
+            "LEFT JOIN p.detallePedidos dp " +
+            "LEFT JOIN dp.promocion pr " +
+            "JOIN p.sucursal s " +
             "WHERE p.fechaPedido BETWEEN :startDate AND :endDate " +
-            "AND s.empresa.id = :idEmpresa " +  // Filtrar por idEmpresa
+            "AND s.empresa.id = :idEmpresa " +  // Cambia la condición a s.empresa.id
             "AND p.estadoPedido = 'COMPLETADO' " +
             "GROUP BY CAST(p.fechaPedido AS date)")
     List<IngresosDiarios> ingresosDiariosPorEmpresa(@Param("startDate") LocalDate startDate,
                                                     @Param("endDate") LocalDate endDate,
                                                     @Param("idEmpresa") Long idEmpresa);
 
-    @Query(value = "SELECT FORMATDATETIME(p.fecha_pedido, 'yyyy-MM') AS mes, SUM(p.total) AS ingresos " +
+    @Query("SELECT FUNCTION('YEAR', p.fechaPedido) AS anio, FUNCTION('MONTH', p.fechaPedido) AS mes, " +
+            "SUM(COALESCE(p.total, 0) + COALESCE(pr.precioPromocional, 0)) AS ingresos " +
             "FROM Pedido p " +
-            "JOIN sucursal s ON p.sucursal_id = s.id " +
-            "WHERE p.fecha_pedido BETWEEN :startDate AND :endDate " +
-            "AND s.empresa_id = :idEmpresa AND p.estado_pedido = 'COMPLETADO' " +
-            "GROUP BY FORMATDATETIME(p.fecha_pedido, 'yyyy-MM')", nativeQuery = true)
-    List<IngresosMensuales> ingresosMensualesPorEmpresa(@Param("startDate") LocalDate startDate,
-                                                        @Param("endDate") LocalDate endDate,
+            "LEFT JOIN p.detallePedidos dp " +
+            "LEFT JOIN dp.promocion pr " +
+            "JOIN p.sucursal s " +
+            "WHERE p.fechaPedido BETWEEN :fechaDesde AND :fechaHasta " +
+            "AND s.empresa.id = :idEmpresa " +  // Cambia la condición a s.empresa.id
+            "AND p.estadoPedido = 'COMPLETADO' " +
+            "GROUP BY FUNCTION('YEAR', p.fechaPedido), FUNCTION('MONTH', p.fechaPedido)")
+    List<IngresosMensuales> ingresosMensualesPorEmpresa(@Param("fechaDesde") LocalDate fechaDesde,
+                                                        @Param("fechaHasta") LocalDate fechaHasta,
                                                         @Param("idEmpresa") Long idEmpresa);
 
 

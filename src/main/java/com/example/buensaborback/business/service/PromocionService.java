@@ -4,6 +4,7 @@ import com.example.buensaborback.business.service.Base.BaseService;
 import com.example.buensaborback.domain.entities.ArticuloManufacturado;
 import com.example.buensaborback.domain.entities.Promocion;
 import com.example.buensaborback.domain.entities.Sucursal;
+import org.mapstruct.Named;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +19,8 @@ public interface PromocionService extends BaseService<Promocion,Long> {
 
     List<Promocion> findPromocionesBySucursalId(Long idSucursal);
     void deletePromocionInSucursales(Long idPromocion, Long idSucursal);
+    @Named("mapIdToPromocion")
+    public Promocion mapIdToPromocion(Long idPromocion);
     //Imagenes
     // Método para obtener todas las imágenes almacenadas
     ResponseEntity<List<Map<String, Object>>> getAllImagesByPromocionId(Long id);
