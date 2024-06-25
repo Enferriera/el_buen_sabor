@@ -41,10 +41,11 @@ public class ArticuloInsumoFacadeImp extends BaseFacadeImp<ArticuloInsumo, Artic
         super(baseService, baseMapper);
     }
 
+    @Override
     @Transactional
-    public List<ArticuloInsumoDto> findByEsParaElaborarTrue() {
+    public List<ArticuloInsumoDto> findByEsParaElaborarTrue(Long idSucursal) {
         // Trae una página de entidades
-        List<ArticuloInsumo> entities = articuloInsumoService.findByEsParaElaborarTrue();
+        List<ArticuloInsumo> entities = articuloInsumoService.findByEsParaElaborarTrue(idSucursal);
         // Mapea las entidades a DTOs
         List<ArticuloInsumoDto> dtos = entities.stream()
                 .map(articuloInsumoMapper::toDTO)
@@ -53,10 +54,11 @@ public class ArticuloInsumoFacadeImp extends BaseFacadeImp<ArticuloInsumo, Artic
         return dtos;
     }
 
+    @Override
     @Transactional
-    public List<ArticuloInsumoDto> findByEsParaElaborarFalse() {
+    public List<ArticuloInsumoDto> findByEsParaElaborarFalse(Long idSucursal) {
         // Trae una página de entidades
-        List<ArticuloInsumo> entities = articuloInsumoService.findByEsParaElaborarFalse();
+        List<ArticuloInsumo> entities = articuloInsumoService.findByEsParaElaborarFalse(idSucursal);
         // Mapea las entidades a DTOs
         List<ArticuloInsumoDto> dtos = entities.stream()
                 .map(articuloInsumoMapper::toDTO)

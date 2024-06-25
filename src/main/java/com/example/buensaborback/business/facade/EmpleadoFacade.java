@@ -12,4 +12,5 @@ public interface EmpleadoFacade extends BaseFacade<EmpleadoDto,EmpleadoDto, Long
     int contarPorRol(Rol rol);
     List<EmpleadoDto> findAllBySucursalId(Long id);
     EmpleadoDto createEmpleado(EmpleadoCreateDto empleadoCreateDto);
+    void deleteEmpleado(Long id);
 }

@@ -16,7 +16,7 @@ public interface ArticuloManufacturadoService extends BaseService<ArticuloManufa
     public void changeHabilitado(Long id);
 
 
-    public List<ArticuloManufacturado> getHabilitados();
+    public List<ArticuloManufacturado> getHabilitados(Long idSucursal);
 
     public Optional<ArticuloManufacturado> findByCodigo(String codigo);
 
@@ -29,6 +29,4 @@ public interface ArticuloManufacturadoService extends BaseService<ArticuloManufa
     ResponseEntity<String> uploadImages(MultipartFile[] files, Long id);
     // Método para eliminar una imagen por su identificador público y Long
     ResponseEntity<String> deleteImage(String publicId, Long id);
-
-
 }

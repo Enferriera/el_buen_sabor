@@ -27,4 +27,9 @@ public class EmpleadoController extends BaseControllerImp<Empleado, EmpleadoDto,
     public ResponseEntity<EmpleadoDto> createEmpleado(@RequestBody EmpleadoCreateDto empleadoDto) {
         return ResponseEntity.ok().body(facade.createEmpleado(empleadoDto));
     }
+
+    @DeleteMapping("/bajaEmpleado/{id}")
+    public void deleteEmpleado(@PathVariable Long id) {
+        facade.deleteEmpleado(id);
+    }
 }

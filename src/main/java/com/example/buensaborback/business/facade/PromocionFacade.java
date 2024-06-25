@@ -19,7 +19,7 @@ public interface PromocionFacade extends BaseFacade<PromocionDto,PromocionDto, L
 
     public void changeHabilitado(Long id);
 
-    public List<PromocionDto> getHabilitados();
+    public List<PromocionDto> getHabilitados(Long idSucursal);
 
     public List<PromocionDto> findPromocionesBySucursalId(Long idSucursal);
     public void deletePromocionInSucursales(Long idPromocion, Long idSucursal);

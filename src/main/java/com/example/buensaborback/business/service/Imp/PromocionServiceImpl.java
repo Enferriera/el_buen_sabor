@@ -7,6 +7,7 @@ import com.example.buensaborback.business.service.SucursalService;
 import com.example.buensaborback.domain.entities.*;
 import com.example.buensaborback.repositories.ImagenPromocionRepository;
 import com.example.buensaborback.repositories.PromocionRepository;
+import com.example.buensaborback.repositories.SucursalRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,6 +29,8 @@ public class PromocionServiceImpl extends BaseServiceImp<Promocion,Long> impleme
     private SucursalService sucursalService;
     @Autowired
     private ImagenPromocionRepository imagenPromocionRepository;
+    @Autowired
+    private SucursalRepository sucursalRepository;
 
     public PromocionServiceImpl(PromocionRepository promocionRepository) {
         super();
@@ -43,8 +46,8 @@ public class PromocionServiceImpl extends BaseServiceImp<Promocion,Long> impleme
     }
 
     @Transactional
-    public List<Promocion> getHabilitados() {
-        return promocionRepository.getHabilitados();
+    public List<Promocion> getHabilitados(Long idSucursal) {
+        return promocionRepository.getHabilitados(idSucursal);
     }
 
     @Override
@@ -160,4 +163,24 @@ public class PromocionServiceImpl extends BaseServiceImp<Promocion,Long> impleme
         promocionRepository.save(promocionExistente);
     }
 
+    @Override
+    public Promocion mapIdToPromocion(Long idPromocion){
+        if (idPromocion == null) {
+            return null;
+        }
+        return promocionRepository.getById(idPromocion);
+    }
+
+    @Override
+    @Transactional
+    public Promocion create(Promocion promocion){
+        promocion=promocionRepository.save(promocion);
+        for(Sucursal sucursal:promocion.getSucursales()){
+            sucursal=sucursalRepository.getById(sucursal.getId());
+            sucursal.getPromociones().add(promocion);
+            sucursalRepository.save(sucursal);
+        }
+
+        return promocion;
+    }
 }

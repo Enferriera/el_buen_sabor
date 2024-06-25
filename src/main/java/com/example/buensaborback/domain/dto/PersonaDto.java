@@ -1,12 +1,12 @@
-package com.example.buensaborback.domain.dto.personaDto;
+package com.example.buensaborback.domain.dto;
 
-import com.example.buensaborback.domain.dto.BaseDto;
-import com.example.buensaborback.domain.dto.ImagenPersonaDto;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 
@@ -21,6 +21,5 @@ public class PersonaDto extends BaseDto {
     private ImagenPersonaDto imagenPersona;
     @Schema(type = "string", format = "date", pattern = "yyyy-MM-dd")
     private LocalDate fechaNacimiento;
-
-
+    private UsuarioDto usuario;
 }

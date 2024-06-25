@@ -13,10 +13,8 @@ public interface PromocionRepository extends BaseRepository<Promocion,Long>{
     @Query("SELECT p FROM Promocion p LEFT JOIN FETCH p.sucursales WHERE p.id = :id")
     Promocion findAllWithSucursales(@Param("id") Long id);
 
-    @Query(value = "SELECT *\n" +
-            "FROM Promocion\n" +
-            "WHERE HABILITADO = TRUE", nativeQuery = true)
-    List<Promocion> getHabilitados();
+    @Query("SELECT p FROM Promocion p JOIN p.sucursales s WHERE s.id=:sucursalId AND s.eliminado=false AND p.habilitado=true ")
+    List<Promocion> getHabilitados(@Param("sucursalId") Long sucursalId);
     @Query("SELECT p FROM Promocion p JOIN p.sucursales s WHERE s.id = :idSucursal AND p.eliminado=false")
     List<Promocion> findPromocionesBySucursalId(@Param("idSucursal") Long idSucursal);
 }

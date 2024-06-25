@@ -32,9 +32,9 @@ public class ArticuloManufacturadoController extends BaseControllerImp<ArticuloM
         return ResponseEntity.ok().body("Se cambio el estadoPedido del Articulo Manufacturado");
     }
 
-    @GetMapping("/getHabilitados")
-    public ResponseEntity<?> getHabilitados(){
-        return ResponseEntity.ok().body(facade.getHabilitados());
+    @GetMapping("/getHabilitados/{idSucursal}")
+    public ResponseEntity<?> getHabilitados(@PathVariable Long idSucursal){
+        return ResponseEntity.ok().body(facade.getHabilitados(idSucursal));
     }
 
     @GetMapping("/getManufacturadosPorSucursal/{idSucursal}")

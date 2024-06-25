@@ -25,16 +25,16 @@ public class ArticuloInsumoController extends BaseControllerImp<ArticuloInsumo, 
         super(facade);
     }
 
-    @GetMapping("/buscar/elaborados")
-    public ResponseEntity<List<ArticuloInsumoDto>> findByEsParaElaborarTrue() {
+    @GetMapping("/buscar/elaborados/{idSucursal}")
+    public ResponseEntity<List<ArticuloInsumoDto>> findByEsParaElaborarTrue(@PathVariable Long idSucursal) {
         //logger.info("INICIO GET ALL insumos PARA ELABORAR");
-        return ResponseEntity.ok().body(facade.findByEsParaElaborarTrue());
+        return ResponseEntity.ok().body(facade.findByEsParaElaborarTrue(idSucursal));
     }
 
-    @GetMapping("/buscar/noElaborados")
-    public ResponseEntity<List<ArticuloInsumoDto>> findByEsParaElaborarFalse() {
+    @GetMapping("/buscar/noElaborados/{idSucursal}")
+    public ResponseEntity<List<ArticuloInsumoDto>> findByEsParaElaborarFalse(@PathVariable Long idSucursal) {
         //logger.info("INICIO GET ALL insumos (gaseosas)");
-        return ResponseEntity.ok().body(facade.findByEsParaElaborarFalse());
+        return ResponseEntity.ok().body(facade.findByEsParaElaborarFalse(idSucursal));
     }
 
     @PostMapping("/create")

@@ -132,8 +132,8 @@ public class ArticuloManufacturadoServiceImp extends BaseServiceImp<ArticuloManu
 
     @Override
 
-    public List<ArticuloManufacturado> getHabilitados() {
-        return articuloManufacturadoRepository.getHabilitados();
+    public List<ArticuloManufacturado> getHabilitados(Long idSucursal) {
+        return articuloManufacturadoRepository.getHabilitados(idSucursal);
     }
 
     public Optional<ArticuloManufacturado> findByCodigo(String codigo) {
