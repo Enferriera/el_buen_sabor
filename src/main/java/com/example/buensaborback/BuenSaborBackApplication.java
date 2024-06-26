@@ -1277,9 +1277,9 @@ public class BuenSaborBackApplication {
 			detallePedido15.calculaSubtotal();
 			DetallePedido detallePedido16 = DetallePedido.builder().articulo(cerveza).cantidad(2).build();
 			detallePedido16.calculaSubtotal();
-			pedido5.getDetallePedidos().add(detallePedido15);
-			pedido5.getDetallePedidos().add(detallePedido16);
-			pedido5.setCliente(cliente2);
+			pedido6.getDetallePedidos().add(detallePedido15);
+			pedido6.getDetallePedidos().add(detallePedido16);
+			pedido6.setCliente(cliente2);
 			pedidoRepository.save(pedido6);
 
 			Pedido pedido7 = Pedido.builder().fechaPedido(LocalDate.now())
@@ -1297,9 +1297,9 @@ public class BuenSaborBackApplication {
 			detallePedido17.calculaSubtotal();
 			DetallePedido detallePedido18 = DetallePedido.builder().articulo(cerveza).cantidad(2).build();
 			detallePedido18.calculaSubtotal();
-			pedido5.getDetallePedidos().add(detallePedido17);
-			pedido5.getDetallePedidos().add(detallePedido18);
-			pedido5.setCliente(cliente1);
+			pedido7.getDetallePedidos().add(detallePedido17);
+			pedido7.getDetallePedidos().add(detallePedido18);
+			pedido7.setCliente(cliente1);
 			pedidoRepository.save(pedido7);
 
 			Pedido pedido8 = Pedido.builder().fechaPedido(LocalDate.now())
@@ -1314,13 +1314,361 @@ public class BuenSaborBackApplication {
 					.build();
 
 			DetallePedido detallePedido19 = DetallePedido.builder().articulo(cafeSimple).cantidad(2).build();
-			detallePedido17.calculaSubtotal();
+			detallePedido19.calculaSubtotal();
 			DetallePedido detallePedido20 = DetallePedido.builder().articulo(cheesecake).cantidad(4).build();
-			detallePedido18.calculaSubtotal();
-			pedido5.getDetallePedidos().add(detallePedido17);
-			pedido5.getDetallePedidos().add(detallePedido18);
-			pedido5.setCliente(cliente2);
+			detallePedido20.calculaSubtotal();
+			pedido8.getDetallePedidos().add(detallePedido19);
+			pedido8.getDetallePedidos().add(detallePedido20);
+			pedido8.setCliente(cliente2);
 			pedidoRepository.save(pedido8);
+
+
+
+
+			Pedido pedido9 = Pedido.builder().fechaPedido(LocalDate.now())
+					.horaEstimadaFinalizacion(LocalTime.now())
+					.total(300.0)
+					.totalCosto(170.6)
+					.estadoPedido(EstadoPedido.COMPLETADO)
+					.formaPago(FormaPago.MERCADO_PAGO)
+					.tipoEnvio(TipoEnvio.TAKE_AWAY)
+					.sucursal(mama1)
+					.domicilio(domicilioCliente3)
+					.build();
+
+			DetallePedido detallePedido21 = DetallePedido.builder().articulo(pizzaMuzarella).cantidad(1).build();
+			detallePedido21.calculaSubtotal();
+			DetallePedido detallePedido22 = DetallePedido.builder().articulo(cocaCola).cantidad(2).build();
+			detallePedido22.calculaSubtotal();
+			DetallePedido detallePedido23 = DetallePedido.builder().promocion(promocionDiaEnamorados).cantidad(2).build();
+			detallePedido23.calculaSubtotal();
+			pedido9.getDetallePedidos().add(detallePedido21);
+			pedido9.getDetallePedidos().add(detallePedido22);
+			pedido9.getDetallePedidos().add(detallePedido23);
+			pedido9.setCliente(cliente3);
+			pedidoRepository.save(pedido9);
+
+			Pedido pedido10 = Pedido.builder().fechaPedido(LocalDate.now())
+					.horaEstimadaFinalizacion(LocalTime.now())
+					.total(400.0)
+					.totalCosto(200.6)
+					.estadoPedido(EstadoPedido.EN_CAMINO)
+					.formaPago(FormaPago.MERCADO_PAGO)
+					.tipoEnvio(TipoEnvio.DELIVERY)
+					.sucursal(mama1)
+					.domicilio(domicilioCliente2)
+					.build();
+
+			DetallePedido detallePedido24 = DetallePedido.builder().articulo(pizzaMuzarella).cantidad(2).build();
+			detallePedido24.calculaSubtotal();
+			DetallePedido detallePedido25 = DetallePedido.builder().articulo(cocaCola).cantidad(3).build();
+			detallePedido25.calculaSubtotal();
+			DetallePedido detallePedido26 = DetallePedido.builder().promocion(promocionDiaEnamorados).cantidad(2).build();
+			detallePedido6.calculaSubtotal();
+			pedido10.getDetallePedidos().add(detallePedido24);
+			pedido10.getDetallePedidos().add(detallePedido25);
+			pedido10.getDetallePedidos().add(detallePedido26);
+			pedido10.setCliente(cliente2);
+			pedidoRepository.save(pedido10);
+
+			Pedido pedido11 = Pedido.builder().fechaPedido(LocalDate.now())
+					.horaEstimadaFinalizacion(LocalTime.now())
+					.total(250.0)
+					.totalCosto(80.6)
+					.estadoPedido(EstadoPedido.PAGADO)
+					.formaPago(FormaPago.EFECTIVO)
+					.tipoEnvio(TipoEnvio.TAKE_AWAY)
+					.sucursal(mama1)
+					.domicilio(mama1.getDomicilio())
+					.build();
+
+			DetallePedido detallePedido27 = DetallePedido.builder().articulo(pizzaMuzarella).cantidad(1).build();
+			detallePedido27.calculaSubtotal();
+			DetallePedido detallePedido28 = DetallePedido.builder().articulo(cocaCola).cantidad(2).build();
+			detallePedido28.calculaSubtotal();
+			DetallePedido detallePedido29 = DetallePedido.builder().promocion(promocionDiaEnamorados).cantidad(2).build();
+			detallePedido29.calculaSubtotal();
+			pedido11.getDetallePedidos().add(detallePedido27);
+			pedido11.getDetallePedidos().add(detallePedido28);
+			pedido11.getDetallePedidos().add(detallePedido29);
+			pedido11.setCliente(cliente2);
+			pedidoRepository.save(pedido11);
+
+			Pedido pedido12 = Pedido.builder().fechaPedido(LocalDate.now())
+					.horaEstimadaFinalizacion(LocalTime.now())
+					.total(600.0)
+					.totalCosto(300.6)
+					.estadoPedido(EstadoPedido.PENDIENTE_ENTREGA)
+					.formaPago(FormaPago.MERCADO_PAGO)
+					.tipoEnvio(TipoEnvio.DELIVERY)
+					.sucursal(mama1)
+					.domicilio(domicilioCliente3)
+					.build();
+
+			DetallePedido detallePedido30 = DetallePedido.builder().articulo(empanadaCarne).cantidad(24).build();
+			detallePedido30.calculaSubtotal();
+			DetallePedido detallePedido31 = DetallePedido.builder().articulo(cerveza).cantidad(4).build();
+			detallePedido31.calculaSubtotal();
+			pedido12.getDetallePedidos().add(detallePedido30);
+			pedido12.getDetallePedidos().add(detallePedido31);
+			pedido12.setCliente(cliente3);
+			pedidoRepository.save(pedido12);
+
+			Pedido pedido13 = Pedido.builder().fechaPedido(LocalDate.now())
+					.horaEstimadaFinalizacion(LocalTime.now())
+					.total(200.0)
+					.totalCosto(50.6)
+					.estadoPedido(EstadoPedido.PREPARACION)
+					.formaPago(FormaPago.MERCADO_PAGO)
+					.tipoEnvio(TipoEnvio.DELIVERY)
+					.sucursal(mama1)
+					.domicilio(domicilioCliente4)
+					.build();
+
+			DetallePedido detallePedido32 = DetallePedido.builder().articulo(empanadaCarne).cantidad(1).build();
+			detallePedido32.calculaSubtotal();
+			DetallePedido detallePedido33 = DetallePedido.builder().articulo(cerveza).cantidad(2).build();
+			detallePedido33.calculaSubtotal();
+			DetallePedido detallePedido34 = DetallePedido.builder().promocion(promocionDiaIndependencia).cantidad(1).build();
+			detallePedido34.calculaSubtotal();
+			pedido13.getDetallePedidos().add(detallePedido32);
+			pedido13.getDetallePedidos().add(detallePedido33);
+			pedido13.getDetallePedidos().add(detallePedido34);
+			pedido13.setCliente(cliente2);
+			pedidoRepository.save(pedido13);
+
+			Pedido pedido14 = Pedido.builder().fechaPedido(LocalDate.now())
+					.horaEstimadaFinalizacion(LocalTime.now())
+					.total(200.0)
+					.totalCosto(50.6)
+					.estadoPedido(EstadoPedido.PENDIENTE_PAGO)
+					.formaPago(FormaPago.EFECTIVO)
+					.tipoEnvio(TipoEnvio.TAKE_AWAY)
+					.sucursal(mama1)
+					.domicilio(mama1.getDomicilio())
+					.build();
+
+			DetallePedido detallePedido35 = DetallePedido.builder().articulo(empanadaCarne).cantidad(1).build();
+			detallePedido35.calculaSubtotal();
+			DetallePedido detallePedido36 = DetallePedido.builder().articulo(cerveza).cantidad(2).build();
+			detallePedido36.calculaSubtotal();
+			pedido14.getDetallePedidos().add(detallePedido35);
+			pedido14.getDetallePedidos().add(detallePedido36);
+			pedido14.setCliente(cliente2);
+			pedidoRepository.save(pedido14);
+
+			Pedido pedido15 = Pedido.builder().fechaPedido(LocalDate.now())
+					.horaEstimadaFinalizacion(LocalTime.now())
+					.total(200.0)
+					.totalCosto(50.6)
+					.estadoPedido(EstadoPedido.PENDIENTE_ENTREGA)
+					.formaPago(FormaPago.MERCADO_PAGO)
+					.tipoEnvio(TipoEnvio.DELIVERY)
+					.sucursal(mama1)
+					.domicilio(domicilioCliente1)
+					.build();
+
+			DetallePedido detallePedido37 = DetallePedido.builder().articulo(empanadaCarne).cantidad(1).build();
+			detallePedido37.calculaSubtotal();
+			DetallePedido detallePedido38 = DetallePedido.builder().articulo(cerveza).cantidad(2).build();
+			detallePedido38.calculaSubtotal();
+			pedido15.getDetallePedidos().add(detallePedido37);
+			pedido15.getDetallePedidos().add(detallePedido38);
+			pedido15.setCliente(cliente1);
+			pedidoRepository.save(pedido15);
+
+			Pedido pedido16 = Pedido.builder().fechaPedido(LocalDate.now())
+					.horaEstimadaFinalizacion(LocalTime.now())
+					.total(200.0)
+					.totalCosto(50.6)
+					.estadoPedido(EstadoPedido.CANCELADO)
+					.formaPago(FormaPago.MERCADO_PAGO)
+					.tipoEnvio(TipoEnvio.DELIVERY)
+					.sucursal(mama1)
+					.domicilio(domicilioCliente4)
+					.build();
+
+			DetallePedido detallePedido39 = DetallePedido.builder().articulo(cafeSimple).cantidad(2).build();
+			detallePedido39.calculaSubtotal();
+			DetallePedido detallePedido40 = DetallePedido.builder().articulo(cheesecake).cantidad(4).build();
+			detallePedido40.calculaSubtotal();
+			pedido16.getDetallePedidos().add(detallePedido39);
+			pedido16.getDetallePedidos().add(detallePedido40);
+			pedido16.setCliente(cliente2);
+			pedidoRepository.save(pedido16);
+
+
+			Pedido pedido17 = Pedido.builder().fechaPedido(LocalDate.now())
+					.horaEstimadaFinalizacion(LocalTime.now())
+					.total(300.0)
+					.totalCosto(170.6)
+					.estadoPedido(EstadoPedido.COMPLETADO)
+					.formaPago(FormaPago.MERCADO_PAGO)
+					.tipoEnvio(TipoEnvio.TAKE_AWAY)
+					.sucursal(mama1)
+					.domicilio(domicilioCliente3)
+					.build();
+
+			DetallePedido detallePedido41 = DetallePedido.builder().articulo(pizzaMuzarella).cantidad(1).build();
+			detallePedido41.calculaSubtotal();
+			DetallePedido detallePedido42 = DetallePedido.builder().articulo(cocaCola).cantidad(2).build();
+			detallePedido42.calculaSubtotal();
+			DetallePedido detallePedido43 = DetallePedido.builder().promocion(promocionDiaEnamorados).cantidad(2).build();
+			detallePedido43.calculaSubtotal();
+			pedido17.getDetallePedidos().add(detallePedido41);
+			pedido17.getDetallePedidos().add(detallePedido42);
+			pedido17.getDetallePedidos().add(detallePedido43);
+			pedido17.setCliente(cliente3);
+			pedidoRepository.save(pedido17);
+
+			Pedido pedido18 = Pedido.builder().fechaPedido(LocalDate.now())
+					.horaEstimadaFinalizacion(LocalTime.now())
+					.total(400.0)
+					.totalCosto(200.6)
+					.estadoPedido(EstadoPedido.EN_CAMINO)
+					.formaPago(FormaPago.MERCADO_PAGO)
+					.tipoEnvio(TipoEnvio.DELIVERY)
+					.sucursal(mama1)
+					.domicilio(domicilioCliente2)
+					.build();
+
+			DetallePedido detallePedido44 = DetallePedido.builder().articulo(pizzaMuzarella).cantidad(2).build();
+			detallePedido44.calculaSubtotal();
+			DetallePedido detallePedido45 = DetallePedido.builder().articulo(cocaCola).cantidad(3).build();
+			detallePedido45.calculaSubtotal();
+			DetallePedido detallePedido46 = DetallePedido.builder().promocion(promocionDiaEnamorados).cantidad(2).build();
+			detallePedido46.calculaSubtotal();
+			pedido18.getDetallePedidos().add(detallePedido44);
+			pedido18.getDetallePedidos().add(detallePedido45);
+			pedido18.getDetallePedidos().add(detallePedido46);
+			pedido18.setCliente(cliente2);
+			pedidoRepository.save(pedido18);
+
+			Pedido pedido19 = Pedido.builder().fechaPedido(LocalDate.now())
+					.horaEstimadaFinalizacion(LocalTime.now())
+					.total(250.0)
+					.totalCosto(80.6)
+					.estadoPedido(EstadoPedido.PAGADO)
+					.formaPago(FormaPago.EFECTIVO)
+					.tipoEnvio(TipoEnvio.TAKE_AWAY)
+					.sucursal(mama1)
+					.domicilio(mama1.getDomicilio())
+					.build();
+
+			DetallePedido detallePedido47 = DetallePedido.builder().articulo(pizzaMuzarella).cantidad(1).build();
+			detallePedido47.calculaSubtotal();
+			DetallePedido detallePedido48 = DetallePedido.builder().articulo(cocaCola).cantidad(2).build();
+			detallePedido48.calculaSubtotal();
+			DetallePedido detallePedido49 = DetallePedido.builder().promocion(promocionDiaEnamorados).cantidad(2).build();
+			detallePedido49.calculaSubtotal();
+			pedido19.getDetallePedidos().add(detallePedido47);
+			pedido19.getDetallePedidos().add(detallePedido48);
+			pedido19.getDetallePedidos().add(detallePedido49);
+			pedido19.setCliente(cliente2);
+			pedidoRepository.save(pedido19);
+
+			Pedido pedido20 = Pedido.builder().fechaPedido(LocalDate.now())
+					.horaEstimadaFinalizacion(LocalTime.now())
+					.total(600.0)
+					.totalCosto(300.6)
+					.estadoPedido(EstadoPedido.PENDIENTE_ENTREGA)
+					.formaPago(FormaPago.MERCADO_PAGO)
+					.tipoEnvio(TipoEnvio.DELIVERY)
+					.sucursal(mama1)
+					.domicilio(domicilioCliente3)
+					.build();
+
+			DetallePedido detallePedido50 = DetallePedido.builder().articulo(empanadaCarne).cantidad(24).build();
+			detallePedido50.calculaSubtotal();
+			DetallePedido detallePedido51 = DetallePedido.builder().articulo(cerveza).cantidad(4).build();
+			detallePedido51.calculaSubtotal();
+			pedido20.getDetallePedidos().add(detallePedido50);
+			pedido20.getDetallePedidos().add(detallePedido51);
+			pedido20.setCliente(cliente3);
+			pedidoRepository.save(pedido20);
+
+			Pedido pedido21 = Pedido.builder().fechaPedido(LocalDate.now())
+					.horaEstimadaFinalizacion(LocalTime.now())
+					.total(200.0)
+					.totalCosto(50.6)
+					.estadoPedido(EstadoPedido.PREPARACION)
+					.formaPago(FormaPago.MERCADO_PAGO)
+					.tipoEnvio(TipoEnvio.DELIVERY)
+					.sucursal(mama1)
+					.domicilio(domicilioCliente4)
+					.build();
+
+			DetallePedido detallePedido52 = DetallePedido.builder().articulo(empanadaCarne).cantidad(1).build();
+			detallePedido52.calculaSubtotal();
+			DetallePedido detallePedido53 = DetallePedido.builder().articulo(cerveza).cantidad(2).build();
+			detallePedido53.calculaSubtotal();
+			DetallePedido detallePedido54 = DetallePedido.builder().promocion(promocionDiaIndependencia).cantidad(1).build();
+			detallePedido54.calculaSubtotal();
+			pedido21.getDetallePedidos().add(detallePedido52);
+			pedido21.getDetallePedidos().add(detallePedido53);
+			pedido21.getDetallePedidos().add(detallePedido54);
+			pedido21.setCliente(cliente2);
+			pedidoRepository.save(pedido21);
+
+			Pedido pedido22 = Pedido.builder().fechaPedido(LocalDate.now())
+					.horaEstimadaFinalizacion(LocalTime.now())
+					.total(200.0)
+					.totalCosto(50.6)
+					.estadoPedido(EstadoPedido.PENDIENTE_PAGO)
+					.formaPago(FormaPago.EFECTIVO)
+					.tipoEnvio(TipoEnvio.TAKE_AWAY)
+					.sucursal(mama1)
+					.domicilio(mama1.getDomicilio())
+					.build();
+
+			DetallePedido detallePedido55 = DetallePedido.builder().articulo(empanadaCarne).cantidad(1).build();
+			detallePedido55.calculaSubtotal();
+			DetallePedido detallePedido56 = DetallePedido.builder().articulo(cerveza).cantidad(2).build();
+			detallePedido56.calculaSubtotal();
+			pedido22.getDetallePedidos().add(detallePedido55);
+			pedido22.getDetallePedidos().add(detallePedido56);
+			pedido22.setCliente(cliente2);
+			pedidoRepository.save(pedido22);
+
+			Pedido pedido23 = Pedido.builder().fechaPedido(LocalDate.now())
+					.horaEstimadaFinalizacion(LocalTime.now())
+					.total(200.0)
+					.totalCosto(50.6)
+					.estadoPedido(EstadoPedido.NOTA_CREDITO)
+					.formaPago(FormaPago.MERCADO_PAGO)
+					.tipoEnvio(TipoEnvio.DELIVERY)
+					.sucursal(mama1)
+					.domicilio(domicilioCliente1)
+					.build();
+
+			DetallePedido detallePedido57 = DetallePedido.builder().articulo(empanadaCarne).cantidad(1).build();
+			detallePedido57.calculaSubtotal();
+			DetallePedido detallePedido58 = DetallePedido.builder().articulo(cerveza).cantidad(2).build();
+			detallePedido58.calculaSubtotal();
+			pedido23.getDetallePedidos().add(detallePedido57);
+			pedido23.getDetallePedidos().add(detallePedido58);
+			pedido23.setCliente(cliente1);
+			pedidoRepository.save(pedido23);
+
+			Pedido pedido24 = Pedido.builder().fechaPedido(LocalDate.now())
+					.horaEstimadaFinalizacion(LocalTime.now())
+					.total(200.0)
+					.totalCosto(50.6)
+					.estadoPedido(EstadoPedido.CANCELADO)
+					.formaPago(FormaPago.MERCADO_PAGO)
+					.tipoEnvio(TipoEnvio.DELIVERY)
+					.sucursal(mama1)
+					.domicilio(domicilioCliente4)
+					.build();
+
+			DetallePedido detallePedido59 = DetallePedido.builder().articulo(cafeSimple).cantidad(2).build();
+			detallePedido59.calculaSubtotal();
+			DetallePedido detallePedido60 = DetallePedido.builder().articulo(cheesecake).cantidad(4).build();
+			detallePedido60.calculaSubtotal();
+			pedido24.getDetallePedidos().add(detallePedido59);
+			pedido24.getDetallePedidos().add(detallePedido60);
+			pedido24.setCliente(cliente2);
+			pedidoRepository.save(pedido24);
 		};
 	}
 }
