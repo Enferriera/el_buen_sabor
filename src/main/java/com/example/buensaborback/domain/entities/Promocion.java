@@ -30,6 +30,7 @@ public class Promocion  extends Base{
     private boolean habilitado = true;
     private String descripcionDescuento;
     private Double precioPromocional;
+    @Enumerated(EnumType.STRING)
     private TipoPromocion tipoPromocion;
 
 

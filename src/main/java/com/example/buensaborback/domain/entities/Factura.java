@@ -2,10 +2,8 @@ package com.example.buensaborback.domain.entities;
 
 
 import com.example.buensaborback.domain.enums.FormaPago;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.envers.Audited;
@@ -25,11 +23,14 @@ import java.util.Set;
 public class Factura extends Base{
     private LocalDate fechaFacturacion;
     private int montoDescuento;
+    @Enumerated(EnumType.STRING)
     private FormaPago formaPago;
     private Double totalVenta;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="factura_id")
     @Builder.Default
+    @JsonIgnore
     private Set<DetalleFactura> detalleFacturas= new HashSet<>();
 
 

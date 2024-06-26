@@ -180,11 +180,10 @@ public class PedidoServiceImpl extends BaseServiceImp<Pedido, Long> implements P
             case PAGADO, COMPLETADO -> {
                 pedido.setEstadoPedido(EstadoPedido.COMPLETADO);
                 if(pedido.getFactura() == null) {
-                  //  Factura factura=facturaService.saveFacturaAfterPagoEfectivo(pedido);
-                   // pedido.setFactura(factura);
-                    pedidoRepository.save(pedido);
+                   facturaService.saveFacturaAfterPagoEfectivo(pedido);
 
-                    try {
+
+                   try {
                         // creamos la factura  la factura PDF
                         byte[] facturaPdf = facturaService.generarFacturaPDF(pedido);
 
@@ -254,9 +253,7 @@ public class PedidoServiceImpl extends BaseServiceImp<Pedido, Long> implements P
                 pedido.setEstadoPedido(newEstado);
 
                 if(pedido.getFactura() == null) {
-                    Factura factura=facturaService.saveFacturaAfterPagoEfectivo(pedido);
-                    pedido.setFactura(factura);
-                    pedidoRepository.save(pedido);
+                    facturaService.saveFacturaAfterPagoEfectivo(pedido);
 
                     try {
                         // creamos la factura  la factura PDF
