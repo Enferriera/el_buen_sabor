@@ -204,7 +204,7 @@ public class ArticuloManufacturadoServiceImp extends BaseServiceImp<ArticuloManu
                 //Se asignan las imagenes al articuloManufacturado
                 articuloManufacturado.getImagenes().add(image);
                 //Se guarda la imagen en la base de datos
-                imagenArticuloRepository.save(image);
+              //  imagenArticuloRepository.save(image);
                 // Agregar la URL de la imagen a la lista de URLs subidas
                 urls.add(image.getUrl());
             }
