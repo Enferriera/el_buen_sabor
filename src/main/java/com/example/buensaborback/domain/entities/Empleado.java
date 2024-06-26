@@ -17,6 +17,7 @@ import java.util.Set;
 @SuperBuilder
 @Audited
 public class Empleado extends Persona {
+    @Enumerated(EnumType.STRING)
     private Rol rol;
     @OneToMany(mappedBy = "empleado", cascade = CascadeType.REFRESH, orphanRemoval = true)
     @ToString.Exclude
