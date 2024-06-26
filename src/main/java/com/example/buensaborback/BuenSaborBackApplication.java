@@ -1100,6 +1100,9 @@ public class BuenSaborBackApplication {
 					.build();
 			domicilioRepository.save(domicilioCliente1);
 			Cliente cliente1 = Cliente.builder()
+					.nombre("Ariel")
+					.apellido("Enferrel")
+					.telefono("2615546754")
 					.usuarioCliente(usuarioCliente1)
 					.build();
 			cliente1.getDomicilios().add(domicilioCliente1);
@@ -1125,8 +1128,12 @@ public class BuenSaborBackApplication {
 					.build();
 			domicilioRepository.save(domicilioCliente4);
 			Cliente cliente2 = Cliente.builder()
+					.nombre("Juan")
+					.apellido("Vidable")
+					.telefono("2613313061")
 					.usuarioCliente(usuarioCliente2)
 					.build();
+
 			cliente2.getDomicilios().add(domicilioCliente2);
 			cliente2.getDomicilios().add(domicilioCliente4);
 			clienteRepository.save(cliente2);
@@ -1144,6 +1151,9 @@ public class BuenSaborBackApplication {
 					.build();
 			domicilioRepository.save(domicilioCliente3);
 			Cliente cliente3 = Cliente.builder()
+					.nombre("Luan")
+					.apellido("Mollo")
+					.telefono("261025532")
 					.usuarioCliente(usuarioCliente3)
 					.build();
 			cliente3.getDomicilios().add(domicilioCliente3);
