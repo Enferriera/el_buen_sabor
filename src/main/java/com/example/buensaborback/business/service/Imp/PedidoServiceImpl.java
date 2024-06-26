@@ -150,7 +150,7 @@ public class PedidoServiceImpl extends BaseServiceImp<Pedido, Long> implements P
             case MERCADO_PAGO -> pedido=updateEstadoMercadoPago(estado, pedido);
         }
 
-        try {
+   /*     try {
             emailServiceImpl.sendEmail(
                     pedido.getCliente().getUsuarioCliente().getEmail(),
                     "Actualizacion pedido Buen Sabor",
@@ -158,7 +158,7 @@ public class PedidoServiceImpl extends BaseServiceImp<Pedido, Long> implements P
             );
         } catch (Exception e) {
             log.error(e);
-        }
+        }*/
         return pedido;
     }
 
@@ -180,8 +180,8 @@ public class PedidoServiceImpl extends BaseServiceImp<Pedido, Long> implements P
             case PAGADO, COMPLETADO -> {
                 pedido.setEstadoPedido(EstadoPedido.COMPLETADO);
                 if(pedido.getFactura() == null) {
-                    Factura factura=facturaService.saveFacturaAfterPagoEfectivo(pedido);
-                    pedido.setFactura(factura);
+                  //  Factura factura=facturaService.saveFacturaAfterPagoEfectivo(pedido);
+                   // pedido.setFactura(factura);
                     pedidoRepository.save(pedido);
 
                     try {
