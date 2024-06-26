@@ -7,6 +7,7 @@ import com.example.buensaborback.presentation.rest.Base.BaseControllerImp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class ProvinciaController extends BaseControllerImp<Provincia, ProvinciaD
 
     private static final Logger logger = LoggerFactory.getLogger(ProvinciaController.class);
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE')")
     @GetMapping("findByPais/{idPais}")
     public ResponseEntity<List<ProvinciaDto>> getByProvincia(@PathVariable Long idPais) {
         logger.info("INICIO GET BY PROVINCIA");

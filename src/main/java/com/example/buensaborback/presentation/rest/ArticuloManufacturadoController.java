@@ -7,6 +7,7 @@ import com.example.buensaborback.domain.entities.ArticuloManufacturado;
 import com.example.buensaborback.presentation.rest.Base.BaseControllerImp;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,22 +22,26 @@ public class ArticuloManufacturadoController extends BaseControllerImp<ArticuloM
         super(facade);
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE','COCINERO')")
     @PostMapping("/create")
     public ResponseEntity<ArticuloManufacturadoDto> create(@RequestBody ArticuloManufacturadoCreateDto dto) {
         return ResponseEntity.ok().body(facade.create(dto));
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE')")
     @PutMapping("/changeHabilitado/{id}")
     public ResponseEntity<?> changeHabilitado(@PathVariable Long id){
         facade.changeHabilitado(id);
         return ResponseEntity.ok().body("Se cambio el estadoPedido del Articulo Manufacturado");
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE','COCINERO')")
     @GetMapping("/getHabilitados/{idSucursal}")
     public ResponseEntity<?> getHabilitados(@PathVariable Long idSucursal){
         return ResponseEntity.ok().body(facade.getHabilitados(idSucursal));
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE','COCINERO')")
     @GetMapping("/getManufacturadosPorSucursal/{idSucursal}")
     public ResponseEntity<List<ArticuloManufacturadoDto>> getManufacturadosPorSucursal(@PathVariable Long idSucursal){
         return ResponseEntity.ok().body(facade.findArticulosManufacturadosBySucursalId(idSucursal));
@@ -44,6 +49,7 @@ public class ArticuloManufacturadoController extends BaseControllerImp<ArticuloM
 
     // Método POST para subir imágenes
    // @PreAuthorize("hasAnyAuthority('COCINERO','ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','COCINERO')")
     @PostMapping("/uploads")
     public ResponseEntity<String> uploadImages(
             @RequestParam(value = "uploads", required = true) MultipartFile[] files,
@@ -59,6 +65,7 @@ public class ArticuloManufacturadoController extends BaseControllerImp<ArticuloM
 
     // Método POST para eliminar imágenes por su publicId y Long
   //  @PreAuthorize("hasAnyAuthority('COCINERO','ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','COCINERO')")
     @PostMapping("/deleteImg")
     public ResponseEntity<String> deleteById(
             @RequestParam(value = "publicId", required = true) String publicId,

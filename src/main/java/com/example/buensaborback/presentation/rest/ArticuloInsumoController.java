@@ -11,6 +11,7 @@ import com.example.buensaborback.presentation.rest.Base.BaseControllerImp;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,29 +26,34 @@ public class ArticuloInsumoController extends BaseControllerImp<ArticuloInsumo, 
         super(facade);
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE','COCINERO')")
     @GetMapping("/buscar/elaborados/{idEmpresa}")
     public ResponseEntity<List<ArticuloInsumoDto>> findByEsParaElaborarTrue(@PathVariable Long idEmpresa) {
         //logger.info("INICIO GET ALL insumos PARA ELABORAR");
         return ResponseEntity.ok().body(facade.findByEsParaElaborarTrue(idEmpresa));
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE','COCINERO')")
     @GetMapping("/buscar/noElaborados/{idEmpresa}")
     public ResponseEntity<List<ArticuloInsumoDto>> findByEsParaElaborarFalse(@PathVariable Long idEmpresa) {
         //logger.info("INICIO GET ALL insumos (gaseosas)");
         return ResponseEntity.ok().body(facade.findByEsParaElaborarFalse(idEmpresa));
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE')")
     @PostMapping("/create")
     public ResponseEntity<ArticuloInsumoDto> create(@RequestBody ArticuloInsumoCreateDto dto) {
         return ResponseEntity.ok().body(facade.create(dto));
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE')")
     @PutMapping("/changeHabilitado/{id}")
     public ResponseEntity<?> changeHabilitado(@PathVariable Long id){
         facade.changeHabilitado(id);
         return ResponseEntity.ok().body("Se cambio el estadoPedido del Insuomo");
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE','COCINERO')")
     @GetMapping("/getInsumosPorSucursal/{idSucursal}")
     public ResponseEntity<List<ArticuloInsumoDto>> getInsumosPorSUcursal(@PathVariable Long idSucursal){
         return ResponseEntity.ok().body(facade.findArticulosInsumosBySucursalId(idSucursal));
@@ -55,6 +61,7 @@ public class ArticuloInsumoController extends BaseControllerImp<ArticuloInsumo, 
 
     // Método POST para subir imágenes
    // @PreAuthorize("hasAnyAuthority('EMPLEADO','ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE')")
     @PostMapping("/uploads")
     public ResponseEntity<String> uploadImages(
             @RequestParam(value = "uploads", required = true) MultipartFile[] files,
@@ -69,6 +76,7 @@ public class ArticuloInsumoController extends BaseControllerImp<ArticuloInsumo, 
 
     // Método POST para eliminar imágenes por su publicId y Long
   //  @PreAuthorize("hasAnyAuthority('EMPLEADO','ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE')")
     @PostMapping("/deleteImg")
     public ResponseEntity<String> deleteById(
             @RequestParam(value = "publicId", required = true) String publicId,
@@ -85,6 +93,7 @@ public class ArticuloInsumoController extends BaseControllerImp<ArticuloInsumo, 
     }
 
     // Método GET para obtener todas las imágenes almacenadas
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE','COCINERO')")
     @GetMapping("/getImagesByArticuloId/{id}")
     public ResponseEntity<?> getAll(@PathVariable Long id) {
         try {
@@ -96,6 +105,7 @@ public class ArticuloInsumoController extends BaseControllerImp<ArticuloInsumo, 
     }
 
     @Override
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE')")
     @DeleteMapping("/baja/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Long id){
         facade.deleteById(id);
