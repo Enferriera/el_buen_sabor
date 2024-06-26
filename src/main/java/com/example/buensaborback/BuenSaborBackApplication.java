@@ -27,8 +27,8 @@ public class BuenSaborBackApplication {
 		SpringApplication.run(BuenSaborBackApplication.class, args);
 		logger.info("BACK-DASHBOARD-EL-BUEN-SABOR INICIADO");
 	}
-/*
 
+/*
 	@Autowired
 	private ClienteRepository clienteRepository;
 	@Autowired
@@ -1681,7 +1681,7 @@ public class BuenSaborBackApplication {
 			pedidoRepository.save(pedido24);
 		};
 	}
-	*/
 
+*/
 }
 

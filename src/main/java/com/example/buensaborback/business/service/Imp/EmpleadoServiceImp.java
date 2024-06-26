@@ -29,7 +29,7 @@ public class EmpleadoServiceImp extends BaseServiceImp<Empleado,Long> implements
 
     @Override
     public int contarPorRol(Rol rol) {
-        return empleadoRepository.countByRol(rol);
+        return empleadoRepository.countByUsuarioRol(rol);
     }
 
     @Override

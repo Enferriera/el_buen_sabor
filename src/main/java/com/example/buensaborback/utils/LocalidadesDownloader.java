@@ -68,5 +68,4 @@ class LocalidadesDownloader implements CommandLineRunner {
         });
     }
 }
-
- */
+*/
