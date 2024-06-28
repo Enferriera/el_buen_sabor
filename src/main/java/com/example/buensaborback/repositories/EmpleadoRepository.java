@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
     public interface EmpleadoRepository extends BaseRepository<Empleado, Long>{
 
-        Empleado findByEmail(String email);
+       // Empleado findByEmail(String email);
 
         @Query("SELECT COUNT(e) FROM Empleado e WHERE e.usuario.rol = :rol")
         int countByUsuarioRol(@Param("rol") Rol rol);

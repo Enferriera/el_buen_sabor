@@ -22,7 +22,7 @@ public class Persona extends Base {
     private String apellido;
     private String telefono;
     private LocalDate fechaNacimiento;
-    private String email;
+
 
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)

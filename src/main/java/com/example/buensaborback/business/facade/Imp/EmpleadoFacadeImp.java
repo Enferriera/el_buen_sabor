@@ -8,6 +8,7 @@ import com.example.buensaborback.business.service.Base.BaseService;
 import com.example.buensaborback.business.service.EmpleadoService;
 import com.example.buensaborback.domain.dto.empleadoDto.EmpleadoCreateDto;
 import com.example.buensaborback.domain.dto.empleadoDto.EmpleadoDto;
+import com.example.buensaborback.domain.dto.empleadoDto.EmpleadoUpdateDto;
 import com.example.buensaborback.domain.entities.Empleado;
 import com.example.buensaborback.domain.enums.Rol;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +25,10 @@ public class EmpleadoFacadeImp extends BaseFacadeImp<Empleado, EmpleadoDto,Emple
 private EmpleadoMapper  empleadoMapper;
     @Autowired
     private EmpleadoService empleadoService;
-    @Override
+   /* @Override
     public EmpleadoDto findByEmail(String email) {
         return empleadoMapper.toDTO(empleadoService.findByEmail(email));
-    }
+    }*/
 
     @Override
     public int contarPorRol(Rol rol) {
@@ -47,5 +48,10 @@ private EmpleadoMapper  empleadoMapper;
     @Override
     public void deleteEmpleado(Long id) {
         empleadoService.deleteEmpleado(id);
+    }
+
+    @Override
+    public EmpleadoDto update(EmpleadoUpdateDto empleadoDto, Long id) {
+        return empleadoMapper.toDTO(empleadoService.update(empleadoMapper.toUpdateEntity(empleadoDto), id));
     }
 }

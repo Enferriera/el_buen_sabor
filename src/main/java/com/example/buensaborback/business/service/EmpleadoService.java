@@ -11,9 +11,11 @@ import java.util.List;
 
 public interface EmpleadoService extends BaseService<Empleado,Long> {
 
-    Empleado findByEmail(String email);
+   // Empleado findByEmail(String email);
     int contarPorRol(Rol rol);
     List<Empleado> findAllBySucursalId(Long idSucursal);
     Empleado createEmpleado(Empleado empleado);
     void deleteEmpleado(Long id);
+    @Override
+    Empleado update(Empleado empleado, Long id);
 }

@@ -21,5 +21,5 @@ public class PersonaDto extends BaseDto {
     private ImagenPersonaDto imagenPersona;
     @Schema(type = "string", format = "date", pattern = "yyyy-MM-dd")
     private LocalDate fechaNacimiento;
-    private UsuarioDto usuario;
+
 }

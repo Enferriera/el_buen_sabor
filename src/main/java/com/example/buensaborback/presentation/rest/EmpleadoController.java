@@ -3,6 +3,7 @@ package com.example.buensaborback.presentation.rest;
 import com.example.buensaborback.business.facade.Imp.EmpleadoFacadeImp;
 import com.example.buensaborback.domain.dto.empleadoDto.EmpleadoCreateDto;
 import com.example.buensaborback.domain.dto.empleadoDto.EmpleadoDto;
+import com.example.buensaborback.domain.dto.empleadoDto.EmpleadoUpdateDto;
 import com.example.buensaborback.domain.entities.Empleado;
 import com.example.buensaborback.presentation.rest.Base.BaseControllerImp;
 import org.springframework.http.ResponseEntity;
@@ -31,5 +32,10 @@ public class EmpleadoController extends BaseControllerImp<Empleado, EmpleadoDto,
     @DeleteMapping("/bajaEmpleado/{id}")
     public void deleteEmpleado(@PathVariable Long id) {
         facade.deleteEmpleado(id);
+    }
+
+    @PutMapping("/updateEmpleado/{id}")
+    public ResponseEntity<EmpleadoDto> updateEmpleado(@PathVariable Long id, @RequestBody EmpleadoUpdateDto empleadoDto) {
+        return ResponseEntity.ok().body(facade.update(empleadoDto, id));
     }
 }

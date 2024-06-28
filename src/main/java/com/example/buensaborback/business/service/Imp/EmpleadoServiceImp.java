@@ -21,10 +21,19 @@ public class EmpleadoServiceImp extends BaseServiceImp<Empleado,Long> implements
     private EmpleadoRepository empleadoRepository;
     @Autowired
     private UsuarioRepository usuarioRepository;
-
+/*
     @Override
     public Empleado findByEmail(String email) {
         return empleadoRepository.findByEmail(email);
+    }
+
+ */
+
+    @Override
+    public Empleado update(Empleado empleado, Long id) {
+        Empleado empleadoBase= empleadoRepository.getById(id);
+        empleado.setId(empleadoBase.getId());
+        return empleadoRepository.save(empleado);
     }
 
     @Override
