@@ -4,6 +4,7 @@ package com.example.buensaborback.business.mapper;
 import com.example.buensaborback.business.service.SucursalService;
 import com.example.buensaborback.domain.dto.empleadoDto.EmpleadoCreateDto;
 import com.example.buensaborback.domain.dto.empleadoDto.EmpleadoDto;
+import com.example.buensaborback.domain.dto.empleadoDto.EmpleadoSinUsuarioDto;
 import com.example.buensaborback.domain.dto.empleadoDto.EmpleadoUpdateDto;
 import com.example.buensaborback.domain.entities.Empleado;
 import com.example.buensaborback.domain.enums.FormaPago;
@@ -26,6 +27,8 @@ public interface EmpleadoMapper extends BaseMapper<Empleado, EmpleadoDto, Emplea
             @Mapping(source = "usuario.rol",target = "usuario.rol", qualifiedByName = "stringToRol")
     })
     Empleado toUpdateEntity(EmpleadoUpdateDto dto);
+
+    EmpleadoSinUsuarioDto toEmpleadoSinUsuarioDto(Empleado empleado);
 
     @Named("stringToRol")
     default Rol stringToRol(String rol) {

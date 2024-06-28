@@ -30,6 +30,11 @@ public class EmpleadoServiceImp extends BaseServiceImp<Empleado,Long> implements
  */
 
     @Override
+    public Empleado findByAuth0Id(String auth0Id) {
+        return usuarioRepository.findByAuth0Id(auth0Id);
+    }
+
+    @Override
     public Empleado update(Empleado empleado, Long id) {
         Empleado empleadoBase= empleadoRepository.getById(id);
         empleado.setId(empleadoBase.getId());

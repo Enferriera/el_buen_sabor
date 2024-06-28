@@ -8,6 +8,7 @@ import com.example.buensaborback.business.service.Base.BaseService;
 import com.example.buensaborback.business.service.EmpleadoService;
 import com.example.buensaborback.domain.dto.empleadoDto.EmpleadoCreateDto;
 import com.example.buensaborback.domain.dto.empleadoDto.EmpleadoDto;
+import com.example.buensaborback.domain.dto.empleadoDto.EmpleadoSinUsuarioDto;
 import com.example.buensaborback.domain.dto.empleadoDto.EmpleadoUpdateDto;
 import com.example.buensaborback.domain.entities.Empleado;
 import com.example.buensaborback.domain.enums.Rol;
@@ -53,5 +54,10 @@ private EmpleadoMapper  empleadoMapper;
     @Override
     public EmpleadoDto update(EmpleadoUpdateDto empleadoDto, Long id) {
         return empleadoMapper.toDTO(empleadoService.update(empleadoMapper.toUpdateEntity(empleadoDto), id));
+    }
+
+    @Override
+    public EmpleadoSinUsuarioDto findByAuth0Id(String auth0Id) {
+        return empleadoMapper.toEmpleadoSinUsuarioDto(empleadoService.findByAuth0Id(auth0Id));
     }
 }

@@ -18,4 +18,5 @@ public interface EmpleadoService extends BaseService<Empleado,Long> {
     void deleteEmpleado(Long id);
     @Override
     Empleado update(Empleado empleado, Long id);
+    Empleado findByAuth0Id(String auth0Id);
 }

@@ -8,4 +8,5 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring", uses = {UsuarioMapper.class})
 public interface PersonaMapper extends BaseMapper<Persona, PersonaDto, PersonaDto>{
     PersonaShortDto toShortDto(Persona persona);
+
 }
