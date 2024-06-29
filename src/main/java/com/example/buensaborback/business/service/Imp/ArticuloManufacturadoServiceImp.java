@@ -44,6 +44,7 @@ public class ArticuloManufacturadoServiceImp extends BaseServiceImp<ArticuloManu
     @Transactional
     public ArticuloManufacturado create(ArticuloManufacturado request) {
 
+        String codigo = request.getCodigo();
         Set<ArticuloManufacturadoDetalle> detalles = request.getArticuloManufacturadoDetalles();
         Set<ArticuloManufacturadoDetalle> detallesPersistidos = new HashSet<>();
 
@@ -238,6 +239,7 @@ public class ArticuloManufacturadoServiceImp extends BaseServiceImp<ArticuloManu
             return new ResponseEntity<>("{\"status\":\"ERROR\", \"message\":\"" + e.getMessage() + "\"}", HttpStatus.BAD_REQUEST);
         }
     }
+
 
 
 

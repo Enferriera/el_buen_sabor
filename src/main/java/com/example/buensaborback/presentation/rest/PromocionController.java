@@ -11,6 +11,7 @@ import com.example.buensaborback.domain.entities.Promocion;
 import com.example.buensaborback.presentation.rest.Base.BaseControllerImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,27 +28,32 @@ public class PromocionController extends BaseControllerImp<Promocion, PromocionD
     @Autowired
     private PromocionFacadeImpl promocionFacade;
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE')")
     @PostMapping("/create")
     public ResponseEntity<PromocionDto> create(@RequestBody PromocionCreateDto dto) {
         return ResponseEntity.ok().body(promocionFacade.create(dto));
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE')")
     @PutMapping("/changeHabilitado/{id}")
     public ResponseEntity<?> changeHabilitado(@PathVariable Long id){
         facade.changeHabilitado(id);
         return ResponseEntity.ok().body("Se cambio el estadoPedido del Promocion");
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE')")
     @GetMapping("/getHabilitados/{idSucursal}")
     public ResponseEntity<?> getHabilitados(@PathVariable Long idSucursal){
         return ResponseEntity.ok().body(facade.getHabilitados(idSucursal));
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE')")
     @GetMapping("/getPromocionPorSucursal/{idSucursal}")
     public ResponseEntity<List<PromocionDto>> getPromocionPorSucursal(@PathVariable Long idSucursal ){
         return ResponseEntity.ok().body(promocionFacade.findPromocionesBySucursalId(idSucursal));
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE')")
     @DeleteMapping("/baja/{idPromocion}/{idSucursal}")
     public void deleteById(@PathVariable Long idPromocion, @PathVariable Long idSucursal) {
         facade.deletePromocionInSucursales(idPromocion, idSucursal);
@@ -55,6 +61,7 @@ public class PromocionController extends BaseControllerImp<Promocion, PromocionD
 
     // Método POST para subir imágenes
   //  @PreAuthorize("hasAnyAuthority('EMPLEADO','ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE')")
     @PostMapping("/uploads")
     public ResponseEntity<String> uploadImages(
             @RequestParam(value = "uploads", required = true) MultipartFile[] files,
@@ -69,6 +76,7 @@ public class PromocionController extends BaseControllerImp<Promocion, PromocionD
 
     // Método POST para eliminar imágenes por su publicId y Long
    // @PreAuthorize("hasAnyAuthority('EMPLEADO','ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE')")
     @PostMapping("/deleteImg")
     public ResponseEntity<String> deleteById(
             @RequestParam(value = "publicId", required = true) String publicId,
@@ -85,6 +93,7 @@ public class PromocionController extends BaseControllerImp<Promocion, PromocionD
     }
 
     // Método GET para obtener todas las imágenes almacenadas
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE')")
     @GetMapping("/getImagesByArticuloId/{id}")
     public ResponseEntity<?> getAll(@PathVariable Long id) {
         try {

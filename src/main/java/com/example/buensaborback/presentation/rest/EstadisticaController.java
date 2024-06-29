@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.sound.midi.MidiSystem;
@@ -20,6 +21,7 @@ public class EstadisticaController {
     @Autowired
     private EstadisticaFacade estadisticasFacade;
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE')")
     @GetMapping("/rankingSucursal/{idSucursal}")
     public ResponseEntity<?> rankinSucursal (
             @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fechaDesde,
@@ -28,6 +30,7 @@ public class EstadisticaController {
         return ResponseEntity.ok(estadisticasFacade.bestProducts(fechaDesde, fechaHasta,idSucursal));
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE')")
     @GetMapping("/rankingEmpresa/{idEmpresa}")
     public ResponseEntity<?> rankinEmpresa (
             @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fechaDesde,
@@ -36,6 +39,7 @@ public class EstadisticaController {
         return ResponseEntity.ok(estadisticasFacade.bestProductsByEmpresa(fechaDesde, fechaHasta,idEmpresa));
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE')")
     @GetMapping("/recaudacionesDiariasSucursal/{idSucursal}")
     public ResponseEntity<?> recaudacionesDiariasSucursal (
             @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fechaDesde,
@@ -44,6 +48,7 @@ public class EstadisticaController {
         return ResponseEntity.ok(estadisticasFacade.ingresosDiariosPorSucursal(fechaDesde, fechaHasta,idSucursal));
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE')")
     @GetMapping("/recaudacionesDiariasEmpresa/{idEmpresa}")
     public ResponseEntity<?> recaudacionesDiariasEmpresa(
             @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fechaDesde,
@@ -52,6 +57,7 @@ public class EstadisticaController {
         return ResponseEntity.ok(estadisticasFacade.ingresosDiariosPorEmpresa(fechaDesde, fechaHasta,idEmpresa));
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE')")
     @GetMapping("/recaudacionesMensualesSucursal/{idSucursal}")
     public ResponseEntity<?> recaudacionesMensualesSucursal (
             @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fechaDesde,
@@ -60,6 +66,7 @@ public class EstadisticaController {
         return ResponseEntity.ok(estadisticasFacade.ingresosMensualesPorSucursal(fechaDesde, fechaHasta,idSucursal));
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE')")
     @GetMapping("/recaudacionesMensualesEmpresa/{idEmpresa}")
     public ResponseEntity<?> recaudacionesMensualesEmpresa (
             @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fechaDesde,
@@ -68,6 +75,7 @@ public class EstadisticaController {
         return ResponseEntity.ok(estadisticasFacade.ingresosMensualesPorEmpresa(fechaDesde, fechaHasta,idEmpresa));
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE')")
     @GetMapping("/costosGanancias/{idSucursal}")
     public ResponseEntity<?> costosGanancias (
             @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fechaDesde,
@@ -76,6 +84,7 @@ public class EstadisticaController {
         return ResponseEntity.ok(estadisticasFacade.findCostosGananciasByFechaAndSucursal(fechaDesde, fechaHasta,idSucursal));
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE')")
     @GetMapping("/costosGananciasEmpresa/{idEmpresa}")
     public ResponseEntity<?> costosGananciasEmpresa (
             @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fechaDesde,
@@ -92,6 +101,7 @@ public class EstadisticaController {
         return ResponseEntity.ok(estadisticasFacade.findCantidadPedidosPorClienteYSucursal(fechaDesde, fechaHasta,idSucursal));
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE')")
     @GetMapping("/pedidosClienteEmpresa/{idEmpresa}")
     public ResponseEntity<?> pedidosClienteEmpresa (
             @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fechaDesde,
@@ -100,6 +110,7 @@ public class EstadisticaController {
         return ResponseEntity.ok(estadisticasFacade.findCantidadPedidosPorClienteYEmpresa(fechaDesde, fechaHasta,idEmpresa));
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE')")
     @GetMapping("/excelSucursal/{idSucursal}")
     public ResponseEntity<?> excelSucursal (
             @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fechaDesde,
@@ -116,6 +127,7 @@ public class EstadisticaController {
                 .body(excelContent);
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE')")
     @GetMapping("/excelEmpresa/{idEmpresa}")
     public ResponseEntity<?> excelEmpresa (
             @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fechaDesde,

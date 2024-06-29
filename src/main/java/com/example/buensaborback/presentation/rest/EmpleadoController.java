@@ -8,6 +8,7 @@ import com.example.buensaborback.domain.dto.empleadoDto.EmpleadoUpdateDto;
 import com.example.buensaborback.domain.entities.Empleado;
 import com.example.buensaborback.presentation.rest.Base.BaseControllerImp;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,16 +21,19 @@ public class EmpleadoController extends BaseControllerImp<Empleado, EmpleadoDto,
         super(facade);
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE')")
     @GetMapping("/empleadosPorSucursal/{idSucursal}")
     public ResponseEntity<List<EmpleadoDto>> getEMpleadosPorSucursal(@PathVariable Long idSucursal){
         return ResponseEntity.ok().body(facade.findAllBySucursalId(idSucursal));
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE')")
     @PostMapping("/createEmpleado")
     public ResponseEntity<EmpleadoDto> createEmpleado(@RequestBody EmpleadoCreateDto empleadoDto) {
         return ResponseEntity.ok().body(facade.createEmpleado(empleadoDto));
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE')")
     @DeleteMapping("/bajaEmpleado/{id}")
     public void deleteEmpleado(@PathVariable Long id) {
         facade.deleteEmpleado(id);

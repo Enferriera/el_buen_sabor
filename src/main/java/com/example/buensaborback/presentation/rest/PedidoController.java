@@ -11,6 +11,7 @@ import com.example.buensaborback.presentation.rest.Base.BaseControllerImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -29,6 +30,7 @@ public class PedidoController extends BaseControllerImp<Pedido, PedidoDto,Pedido
     @Autowired
     private PedidoService pedidoService;
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','COCINERO', 'CAJERO', 'DELIVERY')")
     @GetMapping("/{id}/nextState")
     public Set<EstadoPedido> getEstadosPosibles(@PathVariable Long id) {
         Pedido pedido = pedidoService.getById(id);
@@ -37,26 +39,32 @@ public class PedidoController extends BaseControllerImp<Pedido, PedidoDto,Pedido
         return estadoActual.getValidNextStates(formaPago);
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','COCINERO')")
     @GetMapping("/pedidosEnCocinaPorSucursal/{idSucursal}")
     public ResponseEntity<List<PedidoDto>> pedidosEnCocinaSucursal(@PathVariable Long idSucursal){
         return ResponseEntity.ok().body(facade.obtenerPedidosEnCocina(idSucursal));
     }
 
+
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'DELIVERY')")
     @GetMapping("/pedidosEnDeliveryPorSucursal/{idSucursal}")
     public ResponseEntity<List<PedidoDto>> pedidosEnDeliverySucursal(@PathVariable Long idSucursal){
         return ResponseEntity.ok().body(facade.obtenerPedidosEnDelivery(idSucursal));
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','CAJERO')")
     @GetMapping("/pedidosIngresoCajaPorSucursal/{idSucursal}")
     public ResponseEntity<List<PedidoDto>> pedidosIngresoCajaSucursal(@PathVariable Long idSucursal){
         return ResponseEntity.ok().body(facade.buscarPedidosIngresoCaja(idSucursal));
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'CAJERO')")
     @GetMapping("/pedidosPendienteEntregaCaja/{idSucursal}")
     public ResponseEntity<List<PedidoDto>> pedidosPendienteEntregaCaja(@PathVariable Long idSucursal){
         return ResponseEntity.ok().body(facade.buscarPedidosPendienteEntrega(idSucursal));
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','COCINERO', 'CAJERO', 'DELIVERY')")
     @PutMapping("/cambiaEstado/{id}")
     public ResponseEntity<?> cambiaEstado(@RequestParam String estadoPedido, @PathVariable Long id ) {
 
@@ -67,6 +75,7 @@ public class PedidoController extends BaseControllerImp<Pedido, PedidoDto,Pedido
 
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','COCINERO', 'CAJERO', 'DELIVERY')")
     @GetMapping("/getPorEstadoYSucursal/{idSucursal}")
     public ResponseEntity<?> getByEstadoAndSucursal(@RequestParam String estadoPedido, @PathVariable Long idSucursal){
 
@@ -76,6 +85,7 @@ public class PedidoController extends BaseControllerImp<Pedido, PedidoDto,Pedido
 
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE')")
     @GetMapping("/getPedidoSucursal/{idSucursal}")
     public ResponseEntity<?> getPedidoSucursal(
             @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fechaDesde,
