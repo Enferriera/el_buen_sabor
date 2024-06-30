@@ -60,7 +60,6 @@ public class ArticuloInsumoController extends BaseControllerImp<ArticuloInsumo, 
     }
 
     // Método POST para subir imágenes
-   // @PreAuthorize("hasAnyAuthority('EMPLEADO','ADMIN')")
     @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE')")
     @PostMapping("/uploads")
     public ResponseEntity<String> uploadImages(
@@ -75,7 +74,6 @@ public class ArticuloInsumoController extends BaseControllerImp<ArticuloInsumo, 
     }
 
     // Método POST para eliminar imágenes por su publicId y Long
-  //  @PreAuthorize("hasAnyAuthority('EMPLEADO','ADMIN')")
     @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE')")
     @PostMapping("/deleteImg")
     public ResponseEntity<String> deleteById(

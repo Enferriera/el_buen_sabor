@@ -64,7 +64,6 @@ public class ArticuloManufacturadoController extends BaseControllerImp<ArticuloM
 
 
     // Método POST para eliminar imágenes por su publicId y Long
-  //  @PreAuthorize("hasAnyAuthority('COCINERO','ADMIN')")
     @PreAuthorize("hasAnyAuthority('ADMIN','COCINERO')")
     @PostMapping("/deleteImg")
     public ResponseEntity<String> deleteById(

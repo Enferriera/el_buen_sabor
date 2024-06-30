@@ -39,11 +39,13 @@ public class EmpleadoController extends BaseControllerImp<Empleado, EmpleadoDto,
         facade.deleteEmpleado(id);
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE')")
     @PutMapping("/updateEmpleado/{id}")
     public ResponseEntity<EmpleadoDto> updateEmpleado(@PathVariable Long id, @RequestBody EmpleadoUpdateDto empleadoDto) {
         return ResponseEntity.ok().body(facade.update(empleadoDto, id));
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE','COCINERO','CAJERO','DELIVERY')")
     @GetMapping("/getByAuth0ID/{auth0Id}")
     public ResponseEntity<EmpleadoSinUsuarioDto> getByAuth0ID(@PathVariable String auth0Id) {
         return ResponseEntity.ok().body(facade.findByAuth0Id(auth0Id));

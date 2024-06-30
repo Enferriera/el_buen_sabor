@@ -93,6 +93,7 @@ public class EstadisticaController {
         return ResponseEntity.ok(estadisticasFacade.findCostosGananciasByFechaAndEmpresa(fechaDesde, fechaHasta,idEmpresa));
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE')")
     @GetMapping("/pedidosClienteSucursal/{idSucursal}")
     public ResponseEntity<?> pedidosClienteSucursal (
             @RequestParam("fechaDesde") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fechaDesde,
