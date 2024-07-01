@@ -366,6 +366,7 @@ public class BuenSaborBackApplication {
 			mama1.getCategorias().add(categoriaGaseosas);
 			mama1.getCategorias().add(categoriaBebidas);
 			mama1.getCategorias().add(categoriaEmpanadas);
+			mama1.getCategorias().add(categoriaInsumos);
 
 
 //			mama2.getCategorias().add(categoriaGaseosas);
@@ -415,6 +416,7 @@ public class BuenSaborBackApplication {
 			//aromas2.getCategorias().add(categoriaPasteleria);
 			sucursalRepository.save(aromas2);
 
+			sucursalRepository.save(mama1);
 			// Crear Unidades de medida
 			UnidadMedida unidadMedidaLitros = UnidadMedida.builder().denominacion("Litros").build();
 			UnidadMedida unidadMedidaGramos = UnidadMedida.builder().denominacion("Gramos").build();
@@ -425,7 +427,7 @@ public class BuenSaborBackApplication {
 			unidadMedidaRepository.save(unidadMedidaCantidad);
 			unidadMedidaRepository.save(unidadMedidaPorciones);
 
-			sucursalRepository.save(mama1);
+
 			// Crear Insumos , coca cola , harina , etc
 
 			ArticuloInsumo cerveza = ArticuloInsumo.builder().
@@ -930,7 +932,7 @@ public class BuenSaborBackApplication {
 
 			//Crea un Empleado
 			Usuario usuario1 = Usuario.builder()
-					.auth0Id("aaaa2")
+					.auth0Id("auth0|667b55e1bf00228ffd3339d8")
 					.username("juanUsuario")
 					.email("juan@aaa.com")
 					.rol(Rol.COCINERO).build();
@@ -945,7 +947,7 @@ public class BuenSaborBackApplication {
 					.build();
 
 			Usuario usuario2 = Usuario.builder()
-					.auth0Id("aaaa3")
+					.auth0Id("auth0|667b5631cedfe31b7d424565")
 					.username("caroUsuario")
 					.email("carp@aaa.com")
 					.rol(Rol.CAJERO).build();
@@ -960,7 +962,7 @@ public class BuenSaborBackApplication {
 					.build();
 
 			Usuario usuario3 = Usuario.builder()
-					.auth0Id("aaaa4")
+					.auth0Id("auth0|667b566a389bcd997059cf6f")
 					.username("arielUsuario")
 					.email("ariel@aaa.com")
 					.rol(Rol.GERENTE).build();
@@ -975,7 +977,7 @@ public class BuenSaborBackApplication {
 					.build();
 
 			Usuario usuario4 = Usuario.builder()
-					.auth0Id("aaaa5")
+					.auth0Id("auth0|667b569abf00228ffd333a7b")
 					.username("cortezUsuario")
 					.email("cortez@aaa.com")
 					.rol(Rol.DELIVERY).build();
@@ -990,7 +992,7 @@ public class BuenSaborBackApplication {
 					.build();
 
 			Usuario usuario5 = Usuario.builder()
-					.auth0Id("aaaa6")
+					.auth0Id("auth0|667b57935b7b2edf7f883f05")
 					.username("magniUsuario")
 					.email("magni@aaa.com")
 					.rol(Rol.CAJERO).build();
@@ -1005,7 +1007,7 @@ public class BuenSaborBackApplication {
 					.build();
 
 			Usuario usuario6 = Usuario.builder()
-					.auth0Id("aaaa7")
+					.auth0Id("auth0|667b56fdbf00228ffd333ad7")
 					.username("sanchezUsuario")
 					.email("sanchez@aaa.com")
 					.rol(Rol.COCINERO).build();
@@ -1020,7 +1022,7 @@ public class BuenSaborBackApplication {
 					.build();
 
 			Usuario usuario7 = Usuario.builder()
-					.auth0Id("aaaa8")
+					.auth0Id("auth0|667b57ba389bcd997059d089")
 					.username("joseUsuario")
 					.email("jose@aaa.com")
 					.rol(Rol.GERENTE).build();
@@ -1035,7 +1037,7 @@ public class BuenSaborBackApplication {
 					.build();
 
 			Usuario usuario8 = Usuario.builder()
-					.auth0Id("aaaa9")
+					.auth0Id("auth0|667b57e55b7b2edf7f883f51")
 					.username("yacomoUsuario")
 					.email("yacomo@aaa.com")
 					.rol(Rol.DELIVERY).build();
@@ -1050,7 +1052,7 @@ public class BuenSaborBackApplication {
 					.build();
 
 			Usuario usuario9 = Usuario.builder()
-					.auth0Id("aaaa10")
+					.auth0Id("auth0|667b58345b7b2edf7f883f96")
 					.username("admin1Usuario")
 					.email("admin1@aaa.com")
 					.rol(Rol.ADMIN).build();
@@ -1065,7 +1067,7 @@ public class BuenSaborBackApplication {
 					.build();
 
 			Usuario usuario10 = Usuario.builder()
-					.auth0Id("aaaa11")
+					.auth0Id("auth0|667b56c7aefe511b879e0b71")
 					.username("admin2Usuario")
 					.email("admin2@aaa.com")
 					.rol(Rol.ADMIN).build();
@@ -1681,8 +1683,8 @@ public class BuenSaborBackApplication {
 			pedido24.setCliente(cliente2);
 			pedidoRepository.save(pedido24);
 		};
-	}
-*/
+	}*/
+
 
 }
 
