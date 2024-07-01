@@ -42,7 +42,7 @@ public interface DetallePedidoRepository extends BaseRepository<DetallePedido,Lo
                                         @Param("idSucursal") Long idSucursal);
 
 
-    @Query("SELECT d FROM Pedido p JOIN p.detallePedidos d WHERE p.id = :idPedido")
+    @Query("SELECT d FROM Pedido p JOIN p.detallePedidos d WHERE p.id = :idPedido AND p.eliminado=false")
     List<DetallePedido> findAllByPedidoId(@Param("idPedido")Long idPedido);
 
 

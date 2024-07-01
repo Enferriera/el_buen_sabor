@@ -96,7 +96,7 @@ public class ArticuloImsumoServiceImp extends BaseServiceImp<ArticuloInsumo,Long
     }
     @Override
     public ArticuloInsumo update(ArticuloInsumo request, Long id) {
-        Optional<ArticuloInsumo> articuloEditar = articuloInsumoRepository.findByCodigoAndId(request.getCodigo(), id);
+        Optional<ArticuloInsumo> articuloEditar  = articuloInsumoRepository.findByCodigoAndId(request.getCodigo(), id);
         if(articuloEditar.isEmpty()) {
             Optional<ArticuloInsumo> existingArticulo = articuloInsumoRepository.findByCodigo(request.getCodigo(),request.getCategoria().getId());
             if (existingArticulo.isPresent()) {

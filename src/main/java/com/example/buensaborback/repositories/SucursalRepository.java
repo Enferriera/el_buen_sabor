@@ -14,10 +14,10 @@ public interface SucursalRepository extends BaseRepository<Sucursal,Long> {
     @Query("SELECT s FROM Sucursal s LEFT JOIN FETCH s.promociones WHERE s.id = :id")
     Sucursal findWithPromocionesById(@Param("id") Long id);
 
-    @Query("SELECT s.categorias FROM Sucursal s WHERE s.id = :sucursalId")
+    @Query("SELECT s.categorias FROM Sucursal s JOIN s.categorias c WHERE s.id = :sucursalId AND c.eliminado=false  ")
     List<Categoria> findCategoriasBySucursalId(@Param("sucursalId") Long sucursalId);
 
-    @Query("SELECT CASE WHEN COUNT(s.id) > 0 THEN TRUE ELSE FALSE END FROM Sucursal s WHERE s.empresa.id = :empresaId AND s.esCasaMatriz = TRUE")
+    @Query("SELECT CASE WHEN COUNT(s.id) > 0 THEN TRUE ELSE FALSE END FROM Sucursal s WHERE s.empresa.id = :empresaId AND s.esCasaMatriz = TRUE AND s.eliminado=false")
     boolean existsSucursalByEsCasaMatriz(@Param("empresaId") Long empresaId);
 
 

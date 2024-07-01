@@ -14,7 +14,7 @@ import java.util.List;
 
 @Repository
 public interface ArticuloManufacturadoDetalleRepository extends BaseRepository<ArticuloManufacturadoDetalle,Long> {
-    @Query("SELECT amd FROM ArticuloManufacturadoDetalle amd WHERE  amd.articuloInsumo.id=:idInsumo")
+    @Query("SELECT amd FROM ArticuloManufacturadoDetalle amd WHERE  amd.articuloInsumo.id=:idInsumo AND amd.eliminado=false")
     List<ArticuloManufacturadoDetalle> getByArticuloInsumo(@Param("idInsumo") Long idInsumo);
 
 

@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UsuarioRepository extends BaseRepository<Usuario ,Long> {
 
-    @Query("SELECT e FROM Empleado e JOIN e.usuario u WHERE u.auth0Id=:auth0Id ")
+    @Query("SELECT e FROM Empleado e JOIN e.usuario u WHERE u.auth0Id=:auth0Id AND u.eliminado=false")
     Empleado findByAuth0Id(@Param("auth0Id")String auth0Id);
 }
