@@ -63,6 +63,8 @@ dependencies {
 	implementation 'com.itextpdf:kernel:7.1.15'
 	implementation 'com.itextpdf:layout:7.1.15'
 
+	implementation 'com.fasterxml.jackson.core:jackson-databind'
+
 	// EXCEL
 	// https://mvnrepository.com/artifact/org.apache.poi/poi
 	implementation group: 'org.apache.poi', name: 'poi', version: '5.2.5'

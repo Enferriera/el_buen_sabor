@@ -28,8 +28,8 @@ public interface ArticuloManufacturadoRepository extends BaseRepository<Articulo
     @Query("SELECT am FROM ArticuloManufacturado am JOIN am.categoria c JOIN c.sucursales s WHERE s.id=:idSucursal AND am.habilitado=true AND am.eliminado=false")
     List<ArticuloManufacturado> getHabilitados(@Param("idSucursal") Long idSucursal);
 
-    @Query("SELECT am FROM ArticuloManufacturado am WHERE am.codigo = :codigo AND am.eliminado=false")
-    Optional<ArticuloManufacturado> findByCodigo(@Param("codigo") String codigo);
+    @Query("SELECT am FROM ArticuloManufacturado am JOIN am.categoria c JOIN c.sucursales s JOIN s.empresa WHERE am.codigo = :codigo AND am.eliminado=false AND c.id = :idCategoria")
+    Optional<ArticuloManufacturado> findByCodigo(@Param("codigo") String codigo,@Param("idCategoria") Long idCategoria);
 
     @Query("SELECT am FROM ArticuloManufacturado am WHERE am.id = :id AND am.eliminado=false AND am.codigo = :codigo")
     Optional<ArticuloManufacturado> findByCodigoAndId(@Param("codigo") String codigo,@Param("id") Long id);

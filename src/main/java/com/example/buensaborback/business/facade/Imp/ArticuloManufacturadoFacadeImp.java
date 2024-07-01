@@ -36,7 +36,7 @@ public class ArticuloManufacturadoFacadeImp extends BaseFacadeImp<ArticuloManufa
     @Override
     @Transactional
     public ArticuloManufacturadoDto create(ArticuloManufacturadoCreateDto articuloManufacturadoCreateDto) {
-        Optional<ArticuloManufacturado> existingArticulo = articuloManufacturadoService.findByCodigo(articuloManufacturadoCreateDto.getCodigo());
+        Optional<ArticuloManufacturado> existingArticulo = articuloManufacturadoService.findByCodigo(articuloManufacturadoCreateDto.getCodigo(), articuloManufacturadoCreateDto.getIdCategoria());
         if(existingArticulo.isPresent()){
             throw new RuntimeException("Articulo manufacturado con el codigo "+articuloManufacturadoCreateDto.getCodigo()+ " ya existe.");
         }

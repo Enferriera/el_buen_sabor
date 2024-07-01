@@ -96,6 +96,13 @@ public class ArticuloImsumoServiceImp extends BaseServiceImp<ArticuloInsumo,Long
     }
     @Override
     public ArticuloInsumo update(ArticuloInsumo request, Long id) {
+        Optional<ArticuloInsumo> articuloEditar = articuloInsumoRepository.findByCodigoAndId(request.getCodigo(), id);
+        if(articuloEditar.isEmpty()) {
+            Optional<ArticuloInsumo> existingArticulo = articuloInsumoRepository.findByCodigo(request.getCodigo(),request.getCategoria().getId());
+            if (existingArticulo.isPresent()) {
+                throw new RuntimeException("Articulo manufacturado con el codigo " + request.getCodigo() + " ya existe.");
+            }
+        }
         ArticuloInsumo articulo = articuloInsumoRepository.getById(id);
         if (articulo == null) {
             throw new RuntimeException("Insumo no encontrado: { id: " + id + " }");
@@ -175,8 +182,8 @@ public class ArticuloImsumoServiceImp extends BaseServiceImp<ArticuloInsumo,Long
     }
 
     @Override
-    public Optional<ArticuloInsumo> findByCodigo(String codigo) {
-        return articuloInsumoRepository.findByCodigo(codigo);
+    public Optional<ArticuloInsumo> findByCodigo(String codigo,Long idCategoria) {
+        return articuloInsumoRepository.findByCodigo(codigo, idCategoria);
     }
 
     @Override

@@ -23,7 +23,9 @@ public interface ArticuloInsumoService extends BaseService<ArticuloInsumo,Long> 
     @Override
     public void deleteById(Long id);
 
-    public Optional<ArticuloInsumo> findByCodigo(String codigo);
+
+
+    public Optional<ArticuloInsumo> findByCodigo(String codigo,Long idCategoria);
 
     List<ArticuloInsumo> findArticulosInsumosBySucursalId(Long idSucursal);
 

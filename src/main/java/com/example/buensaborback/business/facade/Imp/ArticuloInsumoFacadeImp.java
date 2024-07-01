@@ -75,7 +75,7 @@ public class ArticuloInsumoFacadeImp extends BaseFacadeImp<ArticuloInsumo, Artic
     @Override
     @Transactional
     public ArticuloInsumoDto create(ArticuloInsumoCreateDto articuloInsumoCreateDto) {
-        Optional<ArticuloInsumo> existingArticulo = articuloInsumoService.findByCodigo(articuloInsumoCreateDto.getCodigo());
+        Optional<ArticuloInsumo> existingArticulo = articuloInsumoService.findByCodigo(articuloInsumoCreateDto.getCodigo(),articuloInsumoCreateDto.getIdCategoria());
         if (existingArticulo.isPresent()) {
             throw new RuntimeException("ArticuloInsumo con el codigo " + articuloInsumoCreateDto.getCodigo() + " ya existe.");
         }

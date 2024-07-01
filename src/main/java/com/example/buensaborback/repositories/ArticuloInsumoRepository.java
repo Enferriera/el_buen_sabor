@@ -28,7 +28,13 @@ public interface ArticuloInsumoRepository extends BaseRepository<ArticuloInsumo,
             "WHERE a.CATEGORIA_ID = ?1", nativeQuery = true)
     List<ArticuloInsumo> getArticulosByCategoria(Long idCategoria);
 
-    Optional<ArticuloInsumo> findByCodigo(String codigo);
+
+    @Query("SELECT ai FROM ArticuloInsumo ai WHERE ai.id = :id AND ai.eliminado=false AND ai.codigo = :codigo")
+    Optional<ArticuloInsumo> findByCodigoAndId(@Param("codigo") String codigo,@Param("id") Long id);
+
+
+    @Query("SELECT ai FROM ArticuloInsumo ai JOIN ai.categoria c JOIN c.sucursales s JOIN s.empresa WHERE ai.codigo = :codigo AND ai.eliminado=false AND c.id = :idCategoria")
+    Optional<ArticuloInsumo> findByCodigo(String codigo,@Param("idCategoria") Long idCategoria);
 
     @Query("SELECT ai FROM ArticuloInsumo ai JOIN ai.categoria c JOIN c.sucursales s WHERE s.id = :idSucursal AND ai.eliminado=false")
     List<ArticuloInsumo> findArticulosInsumosBySucursalId(@Param("idSucursal") Long idSucursal);

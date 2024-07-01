@@ -83,7 +83,7 @@ public class ArticuloManufacturadoServiceImp extends BaseServiceImp<ArticuloManu
     public ArticuloManufacturado update(ArticuloManufacturado request, Long id) {
         Optional<ArticuloManufacturado> articuloEditar = articuloManufacturadoRepository.findByCodigoAndId(request.getCodigo(), id);
         if(articuloEditar.isEmpty()) {
-            Optional<ArticuloManufacturado> existingArticulo = articuloManufacturadoRepository.findByCodigo(request.getCodigo());
+            Optional<ArticuloManufacturado> existingArticulo = articuloManufacturadoRepository.findByCodigo(request.getCodigo(),request.getCategoria().getId());
             if (existingArticulo.isPresent()) {
                 throw new RuntimeException("Articulo manufacturado con el codigo " + request.getCodigo() + " ya existe.");
             }
@@ -144,8 +144,8 @@ public class ArticuloManufacturadoServiceImp extends BaseServiceImp<ArticuloManu
         return articuloManufacturadoRepository.getHabilitados(idSucursal);
     }
 
-    public Optional<ArticuloManufacturado> findByCodigo(String codigo) {
-        return articuloManufacturadoRepository.findByCodigo(codigo);
+    public Optional<ArticuloManufacturado> findByCodigo(String codigo, Long idCategoria) {
+        return articuloManufacturadoRepository.findByCodigo(codigo, idCategoria);
     }
 
     @Override
