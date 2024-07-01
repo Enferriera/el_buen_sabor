@@ -81,6 +81,7 @@ public class ArticuloManufacturadoServiceImp extends BaseServiceImp<ArticuloManu
     @Override
     @Transactional
     public ArticuloManufacturado update(ArticuloManufacturado request, Long id) {
+
         ArticuloManufacturado articulo = articuloManufacturadoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("El articulo manufacturado con id " + id + " no se ha encontrado"));
 
