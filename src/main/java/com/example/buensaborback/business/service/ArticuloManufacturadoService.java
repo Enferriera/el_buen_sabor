@@ -3,6 +3,7 @@ package com.example.buensaborback.business.service;
 import com.example.buensaborback.business.service.Base.BaseService;
 import com.example.buensaborback.domain.dto.SucursalDtos.SucursalShortDto;
 import com.example.buensaborback.domain.entities.ArticuloManufacturado;
+import jakarta.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,4 +30,7 @@ public interface ArticuloManufacturadoService extends BaseService<ArticuloManufa
     ResponseEntity<String> uploadImages(MultipartFile[] files, Long id);
     // Método para eliminar una imagen por su identificador público y Long
     ResponseEntity<String> deleteImage(String publicId, Long id);
+
+    @Override
+    public ArticuloManufacturado update(ArticuloManufacturado request, Long id);
 }
