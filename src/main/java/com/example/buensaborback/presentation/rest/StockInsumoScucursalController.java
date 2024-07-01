@@ -20,7 +20,7 @@ public class StockInsumoScucursalController extends BaseControllerImp<StockInsum
     }
 
 
-    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE','COCINERO')")
     @GetMapping("/getBySucursalId/{idSucursal}")
     public ResponseEntity<Set<StockInsumoShortDto>> getBySucursalId(@PathVariable Long idSucursal){
         return ResponseEntity.ok().body(facade.findAllBySucursalId(idSucursal));

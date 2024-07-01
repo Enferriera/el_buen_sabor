@@ -21,6 +21,6 @@ public interface SucursalRepository extends BaseRepository<Sucursal,Long> {
     boolean existsSucursalByEsCasaMatriz(@Param("empresaId") Long empresaId);
 
 
-    @Query("SELECT s FROM Sucursal s  WHERE s.empresa.id = :id")
+    @Query("SELECT s FROM Sucursal s  WHERE s.empresa.id = :id AND s.eliminado=false")
     List<Sucursal> findAllByEmpresaId(@Param("id") Long id);
 }
