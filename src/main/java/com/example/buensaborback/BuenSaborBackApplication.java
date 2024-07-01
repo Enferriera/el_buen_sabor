@@ -366,53 +366,53 @@ public class BuenSaborBackApplication {
 			mama1.getCategorias().add(categoriaGaseosas);
 			mama1.getCategorias().add(categoriaBebidas);
 			mama1.getCategorias().add(categoriaEmpanadas);
-			sucursalRepository.save(mama1);
 
-			mama2.getCategorias().add(categoriaGaseosas);
-			mama2.getCategorias().add(categoriaBebidas);
-			mama2.getCategorias().add(categoriaEmpanadas);
-			sucursalRepository.save(mama2);
 
-			massa1.getCategorias().add(categoriaPizzas);
-			massa1.getCategorias().add(categoriaTragos);
-			massa1.getCategorias().add(categoriaGaseosas);
-			massa1.getCategorias().add(categoriaBebidas);
+//			mama2.getCategorias().add(categoriaGaseosas);
+//			mama2.getCategorias().add(categoriaBebidas);
+//			mama2.getCategorias().add(categoriaEmpanadas);
+//			sucursalRepository.save(mama2);
+
+			mama1.getCategorias().add(categoriaPizzas);
+			mama1.getCategorias().add(categoriaTragos);
+			//massa1.getCategorias().add(categoriaGaseosas);
+			//massa1.getCategorias().add(categoriaBebidas);
 			sucursalRepository.save(massa1);
 
-			massa2.getCategorias().add(categoriaPizzas);
-			massa2.getCategorias().add(categoriaTragos);
-			massa2.getCategorias().add(categoriaGaseosas);
-			massa2.getCategorias().add(categoriaBebidas);
+			//massa2.getCategorias().add(categoriaPizzas);
+			//massa2.getCategorias().add(categoriaTragos);
+			//massa2.getCategorias().add(categoriaGaseosas);
+			//massa2.getCategorias().add(categoriaBebidas);
 			sucursalRepository.save(massa2);
 
-			mansa1.getCategorias().add(categoriaHamburguesas);
-			mansa1.getCategorias().add(categoriaTragos);
-			mansa1.getCategorias().add(categoriaGaseosas);
-			massa1.getCategorias().add(categoriaBebidas);
+			mama1.getCategorias().add(categoriaHamburguesas);
+			//mansa1.getCategorias().add(categoriaTragos);
+			//mansa1.getCategorias().add(categoriaGaseosas);
+			//massa1.getCategorias().add(categoriaBebidas);
 			sucursalRepository.save(mansa1);
 
-			mansa2.getCategorias().add(categoriaHamburguesas);
-			mansa2.getCategorias().add(categoriaTragos);
-			mansa2.getCategorias().add(categoriaGaseosas);
-			massa2.getCategorias().add(categoriaBebidas);
+			//mansa2.getCategorias().add(categoriaHamburguesas);
+			//mansa2.getCategorias().add(categoriaTragos);
+			//mansa2.getCategorias().add(categoriaGaseosas);
+			//assa2.getCategorias().add(categoriaBebidas);
 			sucursalRepository.save(mansa2);
 
-			cacerito1.getCategorias().add(categoriaGaseosas);
-			cacerito1.getCategorias().add(categoriaBebidas);
-			cacerito1.getCategorias().add(categoriaEmpanadas);
+			//cacerito1.getCategorias().add(categoriaGaseosas);
+			//cacerito1.getCategorias().add(categoriaBebidas);
+			//cacerito1.getCategorias().add(categoriaEmpanadas);
 			sucursalRepository.save(cacerito1);
 
-			cacerito2.getCategorias().add(categoriaGaseosas);
-			cacerito2.getCategorias().add(categoriaBebidas);
-			cacerito2.getCategorias().add(categoriaEmpanadas);
+			//cacerito2.getCategorias().add(categoriaGaseosas);
+			//cacerito2.getCategorias().add(categoriaBebidas);
+			//cacerito2.getCategorias().add(categoriaEmpanadas);
 			sucursalRepository.save(cacerito2);
 
-			aromas1.getCategorias().add(categoriaCafe);
-			aromas1.getCategorias().add(categoriaPasteleria);
+			mama1.getCategorias().add(categoriaCafe);
+			mama1.getCategorias().add(categoriaPasteleria);
 			sucursalRepository.save(aromas1);
 
-			aromas2.getCategorias().add(categoriaCafe);
-			aromas2.getCategorias().add(categoriaPasteleria);
+			//aromas2.getCategorias().add(categoriaCafe);
+			//aromas2.getCategorias().add(categoriaPasteleria);
 			sucursalRepository.save(aromas2);
 
 			// Crear Unidades de medida
@@ -425,6 +425,7 @@ public class BuenSaborBackApplication {
 			unidadMedidaRepository.save(unidadMedidaCantidad);
 			unidadMedidaRepository.save(unidadMedidaPorciones);
 
+			sucursalRepository.save(mama1);
 			// Crear Insumos , coca cola , harina , etc
 
 			ArticuloInsumo cerveza = ArticuloInsumo.builder().
@@ -477,10 +478,10 @@ public class BuenSaborBackApplication {
 					stockMinimo(10).
 					stockMaximo(50).
 					articuloInsumo(cocaCola).sucursal(mama1).build();
-			StockInsumoSucursal stockHarinaSuc1=StockInsumoSucursal.builder().stockActual(4000).stockMinimo(500).stockMaximo(4000).articuloInsumo(harina).sucursal(massa1).build();
-			StockInsumoSucursal stockQuesoSuc1=StockInsumoSucursal.builder().stockActual(3000).stockMinimo(1000).stockMaximo(4000).articuloInsumo(queso).sucursal(massa1).build();
-			StockInsumoSucursal stockTomateSuc1=StockInsumoSucursal.builder().stockActual(30).stockMinimo(10).stockMaximo(40).articuloInsumo(tomate).sucursal(massa1).build();
-			StockInsumoSucursal stockCervezaSuc1=StockInsumoSucursal.builder().stockActual(30).stockMinimo(10).stockMaximo(70).articuloInsumo(cerveza).sucursal(massa1).build();
+			StockInsumoSucursal stockHarinaSuc1=StockInsumoSucursal.builder().stockActual(4000).stockMinimo(500).stockMaximo(4000).articuloInsumo(harina).sucursal(mama1).build();
+			StockInsumoSucursal stockQuesoSuc1=StockInsumoSucursal.builder().stockActual(3000).stockMinimo(1000).stockMaximo(4000).articuloInsumo(queso).sucursal(mama1).build();
+			StockInsumoSucursal stockTomateSuc1=StockInsumoSucursal.builder().stockActual(30).stockMinimo(10).stockMaximo(40).articuloInsumo(tomate).sucursal(mama1).build();
+			StockInsumoSucursal stockCervezaSuc1=StockInsumoSucursal.builder().stockActual(30).stockMinimo(10).stockMaximo(70).articuloInsumo(cerveza).sucursal(mama1).build();
 
 			harina.getStocksInsumo().add(stockHarinaSuc1);
 			cocaCola.getStocksInsumo().add(stockCocacolaSuc1);
@@ -1681,7 +1682,7 @@ public class BuenSaborBackApplication {
 			pedidoRepository.save(pedido24);
 		};
 	}
-
 */
+
 }
 
