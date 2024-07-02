@@ -28,7 +28,7 @@ public class BuenSaborBackApplication {
 		logger.info("BACK-DASHBOARD-EL-BUEN-SABOR INICIADO");
 	}
 
-
+/*
 	@Autowired
 	private ClienteRepository clienteRepository;
 	@Autowired
@@ -1682,8 +1682,10 @@ public class BuenSaborBackApplication {
 			pedido24.getDetallePedidos().add(detallePedido60);
 			pedido24.setCliente(cliente2);
 			pedidoRepository.save(pedido24);
+
+
 		};
-	}
+	}*/
 
 
 }
