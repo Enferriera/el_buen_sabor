@@ -60,7 +60,7 @@ public class ArticuloInsumoController extends BaseControllerImp<ArticuloInsumo, 
     }
 
     // Método POST para subir imágenes
-    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE','COCINERO')")
     @PostMapping("/uploads")
     public ResponseEntity<String> uploadImages(
             @RequestParam(value = "uploads", required = true) MultipartFile[] files,

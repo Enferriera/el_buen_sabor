@@ -22,6 +22,7 @@ public class ArticuloManufacturadoController extends BaseControllerImp<ArticuloM
         super(facade);
     }
 
+
     @PreAuthorize("hasAnyAuthority('ADMIN','GERENTE','COCINERO')")
     @PostMapping("/create")
     public ResponseEntity<ArticuloManufacturadoDto> create(@RequestBody ArticuloManufacturadoCreateDto dto) {
@@ -49,7 +50,7 @@ public class ArticuloManufacturadoController extends BaseControllerImp<ArticuloM
 
     // Método POST para subir imágenes
    // @PreAuthorize("hasAnyAuthority('COCINERO','ADMIN')")
-    @PreAuthorize("hasAnyAuthority('ADMIN','COCINERO')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','COCINERO','GERENTE')")
     @PostMapping("/uploads")
     public ResponseEntity<String> uploadImages(
             @RequestParam(value = "uploads", required = true) MultipartFile[] files,
