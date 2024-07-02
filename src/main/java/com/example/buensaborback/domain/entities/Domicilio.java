@@ -1,13 +1,13 @@
 package com.example.buensaborback.domain.entities;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
+
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -30,5 +30,7 @@ public class Domicilio extends Base{
     @NotAudited
     private Localidad localidad;
 
-
+    @ManyToMany(mappedBy = "domicilios")
+    @Builder.Default
+    private Set<Cliente> clientes = new HashSet<>();
 }
